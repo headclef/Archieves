@@ -1,0 +1,216 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <title>Kütüphane Uygulaması</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="PC, android ve akıllı cihazlarda çalışabilecek bir kütüphane template 'i." />
+
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link href="~/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="~/css/single.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/contact.css" rel='stylesheet' type='text/css' />
+    <link href="~/css/fontawesome-all.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/jquery.desoslide.css" rel="stylesheet" type="text/css" />
+    <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
+          rel="stylesheet" />
+</head>
+
+<body>
+    <!--Header-->
+    <header>
+        <div class="top-bar_sub_w3layouts container-fluid">
+            <div class="row">
+                <div class="col-md-4 logo text-left">
+                    <a class="navbar-brand" href="~/Home/Index">
+                        <img src="~/images/book.svg" height="50px" /> Kütüphane
+                    </a>
+                </div>
+                <div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
+                    <span class="mx-lg-4 mx-md-2  mx-1">
+                        <a href="~/LogIn/Index">Giriş Yap</a>
+                    </span>
+                    <span>
+                        <a href="~/Register/Index">Kayıt Ol</a>
+                    </span>
+                </div>
+                <div class="col-md-4 log-icons text-right">
+                    <ul class="social_list1 mt-3">
+                        <li>
+                            <a href="https://www.facebook.com/headcleFT" class="facebook1 mx-2">
+                                <img src="~/images/facebook.svg" height="15px"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/headclef" class="twitter2">
+                                <img src="~/images/twitter.svg" height="15px" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="dribble3 mx-2">
+                                <img src="~/images/basketball.svg" height="15px" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="pin">
+                                <img src="~/images/pinterest.svg" height="15px" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header_top" id="home">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler navbar-toggler-right mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Home/Index">
+                                Anasayfa
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Book/Index">Kitaplık</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/About/Index">Hakkımızda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Contact/Index">İletişim</a>
+                        </li>
+
+                    </ul>
+                    <form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Kitap Ara..." name="Search" required="">
+                        <button class="btn btn1 my-2 my-sm-0" type="submit">
+                            <img src="~/images/glass.svg" height="15px" />
+                        </button>
+                    </form>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+    <!--//header-->
+    <!--/banner-->
+    <div class="banner-inner">
+        <img src="~/images/banner.jpg" width="100%" />
+    </div>
+    <!--//banner-->
+    <!--/main-->
+    @RenderBody()
+    <!--//main-->
+
+    <!--footer-->
+    <footer>
+        <div class="container">
+            <!-- footer -->
+            <div class="footer-cpy text-center">
+                <div class="footer-social">
+                    <div class="copyrighttop">
+                        <ul>
+                            <li class="mx-3">
+                                <a class="facebook" href="https://www.facebook.com/headcleFT">
+                                    <img alt="Facebook" src="https://img.shields.io/badge/-Facebook-0E0F10?style=flat-square&logo=facebook&logoColor=white" height="30">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="facebook" href="https://twitter.com/headclef">
+                                    <img alt="Twitter" src="https://img.shields.io/badge/-Twitter-0E0F10?style=flat-square&logo=twitter&logoColor=white" height="30">
+                                </a>
+                            </li>
+                            <li class="mx-3">
+                                <a class="facebook" href="https://www.instagram.com/headclef">
+                                    <img alt="Instagram" src="https://img.shields.io/badge/-Instagram-0E0F10?style=flat-square&logo=instagram&logoColor=white" height="30">
+                                </a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="mx-3">
+                                <a class="facebook" href="https://github.com/headclef">
+                                    <img alt="Github" src="https://img.shields.io/badge/-Github-0E0F10?style=flat-square&logo=github&logoColor=white" height="30">
+                                </a>
+                            </li>
+                            <li class="mx-3">
+                                <a class="facebook" href="#">
+                                    <img alt="Youtube" src="https://img.shields.io/badge/-Youtube-0E0F10?style=flat-square&logo=youtube&logoColor=white" height="30">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w3layouts-agile-copyrightbottom">
+                    <p>
+                        © 2023 Kütüphane Uygulaması. Bütün Hakları Saklıdır. | headclef tarafından tasarlandı ve düzenlendi.
+                    </p>
+                </div>
+            </div>
+            <!-- //footer -->
+        </div>
+    </footer>
+    <!---->
+    <!-- js -->
+    <script src="~/js/jquery-2.2.3.min.js"></script>
+    <!-- //js -->
+    <!--/ start-smoth-scrolling -->
+    <script src="~/js/move-top.js"></script>
+    <script src="~/js/easing.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
+    </script>
+    <!--// end-smoth-scrolling -->
+
+    <script>
+        $(document).ready(function () {
+            /*
+            var defaults = {
+                    containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
+
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+    <a href="#home" class="scroll" id="toTop" style="display: block;">
+        <span id="toTopHover" style="opacity: 1;"> </span>
+    </a>
+
+    <!-- //Custom-JavaScript-File-Links -->
+    <script src="~/js/bootstrap.js"></script>
+
+</body>
+
+</html>

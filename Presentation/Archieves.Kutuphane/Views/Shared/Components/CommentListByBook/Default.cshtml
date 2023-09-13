@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Entity.Concrete.Comment>
+<div class="comment-top">
+    <h4>Yorumlar</h4>
+    @if (Model.Count() == 0)
+    {
+        <p style="text-align:justify;">Henüz yorum yapılmamış. İlk yorumu yapan sen olmak istemez misin?</p>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="media">
+                <img src="~/images/circleUser.svg" height="50px" />
+                <div class="media-body">
+                    <h5 class="mt-0">@item.CommentUser</h5>
+                    <p style="text-align:justify;">@item.CommentContent</p>
+                </div>
+            </div>
+        }
+    }
+</div>
