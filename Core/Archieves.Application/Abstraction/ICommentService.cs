@@ -10,6 +10,6 @@ namespace Archieves.Application.Abstraction
 {
     public interface ICommentService : IGenericService<Comment>
     {
-        List<Comment> GetAll(int id);
+        ICollection<Comment> GetAll(int id);
     }
 }

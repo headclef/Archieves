@@ -10,6 +10,6 @@ namespace Archieves.Application.Abstraction
 {
     public interface IBookService : IGenericService<Book>
     {
-        List<Book> GetAll(int id);
+        ICollection<Book> GetAll(int id);
     }
 }

@@ -10,6 +10,6 @@ namespace Archieves.Application.Abstraction
 {
     public interface IUserService : IGenericService<User>
     {
-        List<User> GetAll(int id);
+        ICollection<User> GetAll(int id);
     }
 }

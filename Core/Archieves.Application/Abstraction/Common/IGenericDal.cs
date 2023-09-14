@@ -12,8 +12,8 @@ namespace Archieves.Application.Abstraction.Common
         void Add(T entity);
         void Delete(T entity);
         void Update(T entity);
-        List<T> GetAll();
-        List<T> GetAll(Expression<Func<T, bool>> filter);
+        ICollection<T> GetAll();
+        ICollection<T> GetAll(Expression<Func<T, bool>> filter);
         T GetById(int id);
     }
 }
