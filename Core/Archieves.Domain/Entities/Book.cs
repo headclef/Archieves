@@ -14,7 +14,6 @@ namespace KütüphaneOtomasyonu.Domain.Entities
         public string Author { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }
-        public bool Status { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
     }

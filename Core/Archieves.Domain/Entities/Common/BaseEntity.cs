@@ -13,5 +13,6 @@ namespace KütüphaneOtomasyonu.Domain.Entities.Common
         public int Id { get; set; }
 
         public DateTime Date { get; set; }
+        public bool Status { get; set; }
     }
 }
