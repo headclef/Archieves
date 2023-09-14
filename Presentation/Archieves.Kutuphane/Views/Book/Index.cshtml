@@ -1,5 +1,4 @@
-﻿@using Entity.Concrete
-@model List<Book>
+﻿@*model List<Book>*@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +11,7 @@
             <!--left-->
             <div class="left-blog-info-w3layouts-agileits text-left">
                 <div class="row">
-                    @foreach (var item in Model)
+                    @*foreach (var item in Model)
                     {
                         <div class="col-lg-4 card" name="mizite">
                             <a href="~/Book/BookDetails/@item.BookId">
@@ -27,13 +26,13 @@
                                     </li>
                                 </ul>
                                 <h5 class="card-title">
-                                    <a href="~/Book/BookDetails/@item.BookId">@item.BookName</a>
+                                    <a href="~/Book/BookDetails/@*item.BookId">@item.BookName</a>
                                 </h5>
                                 <p class="card-text mb-3" style="text-align:justify;">@item.BookDescription.Substring(0, item.BookDescription.Substring(0, 105).LastIndexOf(" "))...</p>
                                 <a href="~/Book/BookDetails/@item.BookId" class="btn btn-primary read-m">Daha Fazla Oku...</a>
                             </div>
                         </div>
-                    }
+                    }*@
                 </div>
                 <!--//left-->
             </div>

@@ -2,7 +2,7 @@
     ViewData["Title"] = "BookDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IEnumerable<Entity.Concrete.Book>
+@*model IEnumerable<Entity.Concrete.Book>*@
 
 <!--/main-->
 <section class="banner-bottom">
@@ -10,27 +10,27 @@
         <div class="row">
             <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
                 <!--/details-->
-                @foreach (var item in Model)
+                @*foreach (var item in Model)
                 {
                     <div class="blog-grid-top">
                         <div class="b-grid-top">
                             <div class="blog_info_left_grid">
-                                <img src="@item.BookImage" class="img-fluid" alt="Book Image" height="50px" style="display: block; margin-left: auto; margin-right: auto;" />
+                                <img src="@*item.BookImage" class="img-fluid" alt="Book Image" height="50px" style="display: block; margin-left: auto; margin-right: auto;" />
                             </div>
                             <div class="blog-info-middle">
                                 <ul>
                                     <li>
-                                        <a href="~/Book/BookDetails/@item.BookId">
-                                            <img src="~/images/calendar.svg" height="15px"> @item.BookPublishDate.ToString("dd/MM/yyyy")
+                                        <a href="~/Book/BookDetails/@*item.BookId">
+                                            <img src="~/images/calendar.svg" height="15px"> @*item.BookPublishDate.ToString("dd/MM/yyyy")
                                         </a>
                                     </li>
                                     <li class="mx-2">
-                                        <a href="~/Book/BookDetails/@item.BookId">
+                                        <a href="~/Book/BookDetails/@*item.BookId@">
                                             <img src="~/images/thumbsUpRegular.svg" height="15px" /> ... Beğeni
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="~/Book/BookDetails/@item.BookId">
+                                        <a href="~/Book/BookDetails/@*item.BookId">
                                             <img src="~/images/comment.svg" height="15px" /> ... Yorum
                                         </a>
                                     </li>
@@ -42,13 +42,13 @@
                         </h3>
                         <p style="text-align:justify;">@item.BookDescription</p>
                     </div>
-                }
+                }*@
                 <!--//details-->
                 <!--/view comments-->
-                @foreach (var item in Model)
+                @*foreach (var item in Model)
                 {
-                    @await Component.InvokeAsync("CommentListByBook", new { id = item.BookId })
-                }
+                    @*await Component.InvokeAsync("CommentListByBook", new { id = @*item.BookId })
+                }*@
                 
                 <!--//view comments-->
                 <!--/add comments-->

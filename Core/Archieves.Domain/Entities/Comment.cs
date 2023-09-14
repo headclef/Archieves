@@ -10,7 +10,7 @@ namespace KütüphaneOtomasyonu.Domain.Entities
     public class Comment : BaseEntity
     {
         public string Content { get; set; }
-        public string User { get; set; }
+        public string Username { get; set; }
 
         public int BookId { get; set; }
         public Book Book { get; set; }
