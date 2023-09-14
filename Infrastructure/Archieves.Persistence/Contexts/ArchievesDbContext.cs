@@ -12,7 +12,7 @@ namespace Archieves.Persistence.Contexts
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server = FURKANTURAL; Database = ArchievesDb; Integrated Security = True");
+            optionsBuilder.UseSqlServer(@"Server = FURKANTURAL; Database = ArchievesDb; Integrated Security = True; TrustServerCertificate = True");
         }
 
         public DbSet<Book> Books { get; set; }
