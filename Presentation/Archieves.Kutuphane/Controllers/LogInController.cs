@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-//using Newtonsoft.Json;
-//using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace KütüphaneOtomasyonu.Controllers
 {
@@ -11,8 +11,8 @@ namespace KütüphaneOtomasyonu.Controllers
             return View();
         }
 
-		//[HttpPost]
-		/*public async Task<IActionResult> Post()
+		[HttpPost]
+		public async Task<IActionResult> Post()
 		{
             var captchaImage = HttpContext.Request.Form["g-recaptcha-response"];
             if (string.IsNullOrEmpty(captchaImage))
@@ -42,6 +42,6 @@ namespace KütüphaneOtomasyonu.Controllers
             var response = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(postData));
             var json = (JObject)JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
             return json.Value<bool>("success");
-        }*/
+        }
     }
 }

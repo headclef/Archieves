@@ -42,6 +42,7 @@
     <li>v1.5  Repository, Service and Interface (Application) katmanına güncelleme.</li>
     <li>v1.6  Persistance katmanına context eklenmesi.</li>
     <li>v1.7  Persistance katmanına güncelleme.</li>
+    <li>v1.8  Persistance katmanına concrete, repository ve efrepository eklenmesi.</li>
   </ul>
 </div>
 <!--//Güncellemeler-->
