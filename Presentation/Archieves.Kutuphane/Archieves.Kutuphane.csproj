@@ -30,4 +30,8 @@
     <ProjectReference Include="..\..\Infrastructure\Archieves.Persistence\Archieves.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿@*model List<Book>*@
+﻿@model IEnumerable<KütüphaneOtomasyonu.Domain.Entities.Book>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,28 +11,28 @@
             <!--left-->
             <div class="left-blog-info-w3layouts-agileits text-left">
                 <div class="row">
-                    @*foreach (var item in Model)
+                    @foreach (var item in Model)
                     {
                         <div class="col-lg-4 card" name="mizite">
-                            <a href="~/Book/BookDetails/@item.BookId">
-                                <img src=@item.BookImage class="card-img-top img-fluid fixed-size-image" alt="" style="width:350px; height:400px; object-fit:cover">
+                            <a href="~/Book/BookDetails/@item.Id">
+                                <img src=@item.Image class="card-img-top img-fluid fixed-size-image" alt="" style="width:350px; height:400px; object-fit:cover">
                             </a>
                             <div class="card-body">
                                 <ul class="blog-icons my-4">
                                     <li>
                                         <p>
-                                            <img src="~/images/calendar.svg" height="12px" /> @item.BookPublishDate.ToString("dd/MM/yyyy")
+                                            <img src="~/images/calendar.svg" height="12px" /> @item.Date.ToString("dd/MM/yyyy")
                                         </p>
                                     </li>
                                 </ul>
                                 <h5 class="card-title">
-                                    <a href="~/Book/BookDetails/@*item.BookId">@item.BookName</a>
+                                    <a href="~/Book/BookDetails/@item.Id">@item.Name</a>
                                 </h5>
-                                <p class="card-text mb-3" style="text-align:justify;">@item.BookDescription.Substring(0, item.BookDescription.Substring(0, 105).LastIndexOf(" "))...</p>
-                                <a href="~/Book/BookDetails/@item.BookId" class="btn btn-primary read-m">Daha Fazla Oku...</a>
+                                <p class="card-text mb-3" style="text-align:justify;">@item.Description.Substring(0, item.Description.Substring(0, 105).LastIndexOf(" "))...</p>
+                                <a href="~/Book/BookDetails/@item.Id" class="btn btn-primary read-m">Daha Fazla Oku...</a>
                             </div>
                         </div>
-                    }*@
+                    }
                 </div>
                 <!--//left-->
             </div>

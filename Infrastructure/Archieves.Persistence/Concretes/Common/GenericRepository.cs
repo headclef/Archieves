@@ -45,6 +45,7 @@ namespace Archieves.Persistence.Concretes.Common
                 return c.Set<T>().ToList();
             }
         }
+
         public ICollection<T> GetAll(Expression<Func<T, bool>> filter)
         {
             using (var c = new ArchievesDbContext())
