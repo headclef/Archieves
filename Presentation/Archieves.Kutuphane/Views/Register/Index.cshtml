@@ -1,77 +1,105 @@
-﻿@{
+﻿@model KütüphaneOtomasyonu.Domain.Entities.User
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
 <!--/main-->
 <section class="main-content-w3layouts-agileits">
     <div class="container">
         <h3 class="tittle">Hemen Kayıt Ol</h3>
         <div class="inner-sec">
             <div class="login p-5 bg-light mx-auto mw-100">
-                <form action="#" method="post">
+                @using (Html.BeginForm("Index", "Register", FormMethod.Post))
+                {
                     <div class="form-row">
                         <!--/İsim-->
                         <div class="col-md-6 mb-3">
                             <label for="Name">İsim</label>
-                            <input type="text" class="form-control" id="name" placeholder="Buraya giriniz." required="">
+                            <input type="text" class="form-control" id="name" name="Name" placeholder="Buraya giriniz.">
+                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Name)</p>
                         </div>
                         <!--//İsim-->
                         <!--/Soyisim-->
                         <div class="col-md-6 mb-3">
                             <label for="Surname">Soyisim</label>
-                            <input type="text" class="form-control" id="surname" placeholder="Buraya giriniz." required="">
+                            <input type="text" class="form-control" id="surname" name="Surname" placeholder="Buraya giriniz.">
+                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Surname)</p>
                         </div>
                         <!--//Soyisim-->
                     </div>
-                    <div class="form-row">
+                    <div class="form-row" align>
                         <!--/Şifre-->
                         <div class="form-group col-md-6">
-                            <label for="Password">Şifre</label>
-                            <input type="password" class="form-control" id="password1" placeholder="Buraya giriniz." required="">
+                            <label for="Password1">Şifre</label>
+                            <input type="password" class="form-control" id="password1" name="Password" placeholder="Buraya giriniz.">
+                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Password)</p>
                         </div>
                         <!--//Şifre-->
-                        <!--/Telefon Numarası-->
-                        <div class="form-group col-md-6">
-                            <label for="Phone">Telefon Numarası</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="234 567 89 01" required="" pattern="[0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}">
-                        </div>
-                        <!--//Telefon Numarası-->
-                    </div>
-                    <div class="form-row">
                         <!--/Doğum Tarihi-->
                         <div class="form-group col-md-6">
                             <label for="Date">Doğum Tarihi</label>
-                            <input type="date" class="form-control" id="birthDate" placeholder="Buraya giriniz." required="">
+                            <input type="date" class="form-control" id="birthDate" name="Date" placeholder="Buraya giriniz.">
+                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Date)</p>
                         </div>
                         <!--//Doğum Tarihi-->
-                        <!--/Kullanıcı Fotoğrafı-->
-                        <div class="form-group col-md-6">
-                            <label for="Image">Kullanıcı Fotoğrafı</label>
-                            <input type="file" class="form-control" id="image" placeholder="" required="">
-                        </div>
-                        <!--//Kullanıcı Fotoğrafı-->
                     </div>
                     <div class="form-row">
+                        <!--/Telefon Numarası-->
+                        <div class="form-group col-md-6">
+                            <label for="Phone">Telefon Numarası</label>
+                            <input type="tel" class="form-control" id="phone" name="Phone" placeholder="Buraya giriniz.">
+                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Phone)</p>
+                        </div>
+                        <!--//Telefon Numarası-->
                         <!--/Email-->
                         <div class="form-group col-md-6">
                             <label for="Email">E - Posta Adresi</label>
-                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Buraya giriniz." required="">
+                            <input type="email" class="form-control" id="email" name="Email" aria-describedby="emailHelp" placeholder="Buraya giriniz.">
+                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Email)</p>
                         </div>
                         <!--//Email-->
+                    </div>
+                    <div class="form-row">
                         <!--/Adres-->
                         <div class="form-group col-md-6">
                             <label for="Address">Adres</label>
-                            <input type="text" class="form-control" id="adres" placeholder="Buraya giriniz." required="">
+                            <input type="text" class="form-control" id="adres" name="Address" placeholder="Buraya giriniz.">
+                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Address)</p>
                         </div>
                         <!--//Adres-->
                     </div>
-                    <button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
-                    <p>
-                        <a href="#">Kayıt ol butonuna tıklayarak e - kütüphane koşullarını kabul etmiş olursunuz.</a>
-                    </p>
-                </form>
+                    @*
+                <div class="form-row">
+                <!--/Kullanıcı Fotoğrafı-->
+                <div class="form-group col-md-6">
+                <label for="Image">Kullanıcı Fotoğrafı</label>
+                <input type="file" class="form-control" id="image" name="Image" accept="image/png, image/jpg, image/jpeg" placeholder="Buraya giriniz." required="">
+                </div>
+                @Html.ValidationMessageFor(x => x.Image)
+                <!--//Kullanıcı Fotoğrafı-->
+                </div>
+                *@
+                    <div align="center">
+                        <button type="submit" onclick="warning" class="btn btn-primary submit mb-4">Kayıt Ol</button>
+                        <p style="text-align:justify;">
+                            <a href="#">Kayıt ol butonuna tıklayarak ya da öncesinde ilgili belgeyi inceleyip, onay vererek e - kütüphane kullanım koşullarını kabul etmiş olursunuz.</a>
+                        </p>
+                    </div>
+                }
             </div>
         </div>
     </div>
+    <script>
+        function warning() {
+            swal({
+                title: "DİKKAT",
+                text: "Kayıt olarak e - kütüphane kullanım koşullarını kabul ediyorsunuz. Bilgilerinizi kimse ile paylaşmayacağımızı bilmenizi ister ve iyi okumalar dileriz.",
+                confirmButtonText: "Onayla",
+                confirmButtonColor: "#DD6B55",
+                type: "warning"
+            });
+        }
+    </script>
 </section>
 <!--//main-->
