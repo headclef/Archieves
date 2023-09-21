@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace KütüphaneOtomasyonu.Controllers
+namespace Archieves.Kutuphane.Controllers
 {
     public class HomeController : Controller
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KütüphaneOtomasyonu.Domain.Entities.Common
+namespace Archieves.Domain.Entities.Common
 {
     public class BaseEntity
     {

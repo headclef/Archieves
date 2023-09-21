@@ -3,7 +3,7 @@ using Archieves.Persistence.Contexts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace KütüphaneOtomasyonu.ViewComponents.Comment
+namespace Archieves.Kutuphane.ViewComponents.Comment
 {
     public class CommentListByBook : ViewComponent
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
-namespace KütüphaneOtomasyonu.Controllers
+namespace Archieves.Kutuphane.Controllers
 {
     public class BookController : Controller
     {

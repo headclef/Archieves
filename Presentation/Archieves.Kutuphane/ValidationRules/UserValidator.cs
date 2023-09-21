@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using KütüphaneOtomasyonu.Domain.Entities;
+﻿using Archieves.Domain.Entities;
+using FluentValidation;
 using System.Text.RegularExpressions;
 
 namespace Archieves.Kutuphane.ValidationRules

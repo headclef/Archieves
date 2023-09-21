@@ -1,6 +1,5 @@
 ﻿using Archieves.Application.Abstraction.Common;
 using Archieves.Domain.Entities;
-using KütüphaneOtomasyonu.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

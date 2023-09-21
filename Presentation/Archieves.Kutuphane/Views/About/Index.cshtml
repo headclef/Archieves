@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Archieves.Domain.Entities.Subscriber>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -35,7 +35,7 @@
                         @using (Html.BeginForm("Subscribe", "About", FormMethod.Post))
                         {
                             <input type="email" placeholder="Email" required="">
-                            <p style="text-align:justify; color:red;">@*Html.ValidationMessageFor(x => x.Email)*@</p>
+                            <p style="text-align:justify; color:red;">Html.ValidationMessageFor(x => x.Email)</p>
                             <button type="submit" value="Abone Ol">Abone Ol</button>
                         }
                     </div>

@@ -1,4 +1,4 @@
-﻿using KütüphaneOtomasyonu.Domain.Entities.Common;
+﻿using Archieves.Domain.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace KütüphaneOtomasyonu.Domain.Entities
+namespace Archieves.Domain.Entities
 {
     public class Book : BaseEntity
     {

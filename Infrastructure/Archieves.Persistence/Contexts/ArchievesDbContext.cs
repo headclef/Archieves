@@ -1,5 +1,4 @@
 ﻿using Archieves.Domain.Entities;
-using KütüphaneOtomasyonu.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

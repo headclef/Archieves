@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace KütüphaneOtomasyonu.Controllers
+namespace Archieves.Kutuphane.Controllers
 {
     public class LogInController : Controller
     {
@@ -11,9 +11,9 @@ namespace KütüphaneOtomasyonu.Controllers
             return View();
         }
 
-		[HttpPost]
-		public async Task<IActionResult> Post()
-		{
+        [HttpPost]
+        public async Task<IActionResult> Post()
+        {
             var captchaImage = HttpContext.Request.Form["g-recaptcha-response"];
             if (string.IsNullOrEmpty(captchaImage))
             {
@@ -23,15 +23,15 @@ namespace KütüphaneOtomasyonu.Controllers
             var verified = await CheckCaptcha();
             if (!verified)
             {
-				return Content("Lütfen güvenlik doğrulamasını yapınız.");
-			}
+                return Content("Lütfen güvenlik doğrulamasını yapınız.");
+            }
             if (verified)
             {
                 return Content("Güvenlik doğrulaması başarılı.");
             }
-			return View();
-		}
-		public async Task<bool> CheckCaptcha()
+            return View();
+        }
+        public async Task<bool> CheckCaptcha()
         {
             var postData = new List<KeyValuePair<string, string>>()
             {
