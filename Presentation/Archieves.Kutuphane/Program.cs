@@ -12,7 +12,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseStatusCodePagesWithReExecute("~/Error/Error1", "?statusCode={0}");
+app.UseStatusCodePagesWithReExecute("/Error/Error1", "?code={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
