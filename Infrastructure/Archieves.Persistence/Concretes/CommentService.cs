@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Archieves.Persistence.Concretes
 {
-    public class CommentManager : ICommentService
+    public class CommentService : ICommentService
     {
         ICommentDal CommentDal;
-        public CommentManager(ICommentDal commentDal)
+        public CommentService(ICommentDal commentDal)
         {
             CommentDal = commentDal;
         }

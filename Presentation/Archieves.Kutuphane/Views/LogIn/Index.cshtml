@@ -11,13 +11,13 @@
             <div class="login p-5 bg-light mx-auto mw-100">
                 <form action="LogIn" method="post">
                     <div class="form-group">
-                        <label for="exampleInputEmail1 mb-2">E - Posta Adresi</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" required="">
-                        <small id="emailHelp" class="form-text text-muted">Bilgilerinizi kimseyle paylaşmayacağız.</small>
+                        <label for="Email">E - Posta Adresi</label>
+                        <input type="email" class="form-control" id="Email" aria-describedby="EmailHelp" placeholder="Buraya giriniz." required="">
+                        <small id="EmailHelp" class="form-text text-muted">Bilgilerinizi kimseyle paylaşmayacağız.</small>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1 mb-2">Şifre</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" required="">
+                        <label for="Password">Şifre</label>
+                        <input type="password" class="form-control" id="Password" placeholder="Buraya giriniz." required="">
                     </div>
                     <div class="form-check mb-2">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -26,7 +26,9 @@
                     <div class="g-recaptcha" data-sitekey="6LdZ4gwoAAAAAGU-L1Z02jYNV-4pOvO41GT0f-z9"></div>
                     <br />
                     <button type="submit" class="btn btn-primary submit mb-4">Giriş Yap</button>
-                    <p style="text-align:justify;"><a href="~/Register/Index">Hesabın yok mu?</a></p>
+                    <p style="text-align:justify;">
+                        <a href="~/Register/Index">Hesabın yok mu?</a>
+                    </p>
                 </form>
             </div>
         </div>

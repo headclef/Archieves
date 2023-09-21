@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Archieves.Persistence.Concretes
 {
-    public class BookManager : IBookService
+    public class BookService : IBookService
     {
         IBookDal BookDal;
-        public BookManager(IBookDal bookDal)
+        public BookService(IBookDal bookDal)
         {
             BookDal = bookDal;
         }

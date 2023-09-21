@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Archieves.Persistence.Concretes
 {
-    public class UserManager : IUserService
+    public class UserService: IUserService
     {
         IUserDal UserDal;
-        public UserManager(IUserDal userDal)
+        public UserService(IUserDal userDal)
         {
             UserDal = userDal;
         }

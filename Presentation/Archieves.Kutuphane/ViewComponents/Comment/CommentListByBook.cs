@@ -7,7 +7,7 @@ namespace KütüphaneOtomasyonu.ViewComponents.Comment
 {
     public class CommentListByBook : ViewComponent
     {
-        CommentManager commentManager = new CommentManager(new EfCommentRepository());
+        CommentService commentService = new CommentService(new EfCommentRepository());
         public IViewComponentResult Invoke(int id)
         {
             using (var context = new ArchievesDbContext())

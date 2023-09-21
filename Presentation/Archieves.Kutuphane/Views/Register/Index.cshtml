@@ -12,7 +12,7 @@
             <div class="login p-5 bg-light mx-auto mw-100">
                 @using (Html.BeginForm("Index", "Register", FormMethod.Post))
                 {
-                    <div class="form-row">
+                    <div class="form-group" align="center">
                         <!--/İsim-->
                         <div class="col-md-6 mb-3">
                             <label for="Name">İsim</label>
@@ -20,6 +20,8 @@
                             <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Name)</p>
                         </div>
                         <!--//İsim-->
+                    </div>
+                    <div class="form-group" align="center">
                         <!--/Soyisim-->
                         <div class="col-md-6 mb-3">
                             <label for="Surname">Soyisim</label>
@@ -28,7 +30,7 @@
                         </div>
                         <!--//Soyisim-->
                     </div>
-                    <div class="form-row" align>
+                    <div class="form-group" align="center">
                         <!--/Şifre-->
                         <div class="form-group col-md-6">
                             <label for="Password1">Şifre</label>
@@ -36,6 +38,8 @@
                             <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Password)</p>
                         </div>
                         <!--//Şifre-->
+                    </div>
+                    <div class="form-group" align="center">
                         <!--/Doğum Tarihi-->
                         <div class="form-group col-md-6">
                             <label for="Date">Doğum Tarihi</label>
@@ -44,7 +48,7 @@
                         </div>
                         <!--//Doğum Tarihi-->
                     </div>
-                    <div class="form-row">
+                    <div class="form-group" align="center">
                         <!--/Telefon Numarası-->
                         <div class="form-group col-md-6">
                             <label for="Phone">Telefon Numarası</label>
@@ -52,6 +56,8 @@
                             <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Phone)</p>
                         </div>
                         <!--//Telefon Numarası-->
+                    </div>
+                    <div class="form-group" align="center">
                         <!--/Email-->
                         <div class="form-group col-md-6">
                             <label for="Email">E - Posta Adresi</label>
@@ -60,7 +66,7 @@
                         </div>
                         <!--//Email-->
                     </div>
-                    <div class="form-row">
+                    <div class="form-group" align="center">
                         <!--/Adres-->
                         <div class="form-group col-md-6">
                             <label for="Address">Adres</label>

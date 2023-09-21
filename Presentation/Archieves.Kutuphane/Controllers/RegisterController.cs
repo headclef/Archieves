@@ -8,7 +8,7 @@ namespace KütüphaneOtomasyonu.Controllers
 {
 	public class RegisterController : Controller
 	{
-		UserManager userManager = new UserManager(new EfUserRepository());
+        UserService userService = new UserService(new EfUserRepository());
 		[HttpGet]
 		public IActionResult Index()
 		{
@@ -31,7 +31,7 @@ namespace KütüphaneOtomasyonu.Controllers
             {
                 user.Status = true;
                 user.Image = "empty";
-                userManager.Add(user);
+                userService.Add(user);
                 return RedirectToAction("Index", "Login");
             }
 		}
