@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Archieves.Domain.Entities.Subscriber>
+﻿@model Archieves.Domain.Entities.Subscriber
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -29,14 +29,20 @@
             <!--right-->
             <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
                 <div class="right-blog-info text-left">
-                    <div class="tech-btm">
+                    <div class="tech-btm" align="center">
                         <h4>Kütüphanemize abone ol</h4>
                         <p style="text-align:justify;">Basitçe abone olarak, kütüphanemize yeni eklenecek olan içeriklerden ve yapılacak olan etkinliklerden haberdar olabilirsin.</p>
-                        @using (Html.BeginForm("Subscribe", "About", FormMethod.Post))
+                        @using (Html.BeginForm("Index", "About", FormMethod.Post))
                         {
-                            <input type="email" placeholder="Email" required="">
-                            <p style="text-align:justify; color:red;">Html.ValidationMessageFor(x => x.Email)</p>
-                            <button type="submit" value="Abone Ol">Abone Ol</button>
+                            <div class="form-group" align="center">
+                                <label for="Email">E - Posta Adresi</label>
+                                <br />
+                                <input type="text" class="form-control" name="Email" placeholder="Buraya giriniz.">
+                                <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Email)</p>
+                            </div>
+                            <div align="center">
+                                <button type="submit" class="btn btn-primary submit mb-4">Abone Ol</button>
+                            </div>
                         }
                     </div>
                 </div>

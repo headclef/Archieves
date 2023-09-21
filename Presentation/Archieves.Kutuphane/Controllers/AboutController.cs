@@ -9,19 +9,22 @@ namespace Archieves.Kutuphane.Controllers
     public class AboutController : Controller
     {
         SubscriberService subscribers = new SubscriberService(new EfSubscriberRepository());
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-
         [HttpPost]
-        public IActionResult Subscribe(Subscriber subscriber)
+        public IActionResult Index(Subscriber subscriber)
         {
             SubscriberValidator subscriberValidator = new SubscriberValidator();
             ValidationResult validationResult = subscriberValidator.Validate(subscriber);
             if (!validationResult.IsValid)
             {
-                ModelState.AddModelError("Email", validationResult.Errors[0].ErrorMessage);
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
                 return View();
             }
             else
