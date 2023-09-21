@@ -45,6 +45,9 @@
     <li>v1.8  Persistance katmanına concrete, repository ve efrepository eklenmesi.</li>
     <li>v1.9	Presentation katmanına güncelleme.</li>
 		<li>v1.10	Tüm projeye genel bir güncelleme ile stabil çalışan proje eldesi.</li>
+		<br />
+		<li>v2.0	Presentation katmanına güncelleme.</li>
+		<li>v2.1	Tüm projeye genel bir güncelleme ve kayıt olma eklenmesi.</li>
   </ul>
 </div>
 <!--//Güncellemeler-->
