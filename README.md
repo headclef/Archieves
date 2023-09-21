@@ -13,6 +13,9 @@
     kitap arama v.b. uygulamalar bulunduracak olup, kullanıcılar tarafından kullanılabilmektedir. Temel ihtiyaçları karşılayacak olan giriş yapma, kayıt olma, şifremi unuttum
     gibi işlemler de bulunduracaktır.
   </p>
+	<div align = "center">
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/Project.png"/>
+	</div>
   <br />
   <p>
     Yapı içerisinde aktif halde google autho api 'si bulunup, bazı diğer işlemlerinde api 'leştirilmesi planlanmaktadır.
@@ -22,10 +25,30 @@
     Projenin ilk yüklenme tarihi 13.09.2023 olup, v1.0 olarak adlandırılacaktır. Gelişmeler güncellemeler halinde aktarıldıktan sonra ise yeni versiyonlar halinde isimlendirilmeye
     devam edilecektir.
   </p>
+	<br />
+	<p>
+		İlk stabil versiyonun eldesi V1.10 ile olmuştur. Bu sürüm ile proje, ArchievesDb veritabanında bulunan Books tablosundaki kitapları çekerek BookController 'daki Index IActionResult 'u
+		aracılığıyla Book > Index.cshtml razor sayfasına listeliyor. Sayfa dahilinde bulunması planlanan maksimum sayıdaki kitap sayısı henüz ayarlanmadı. Dolayısıyla çok sayıda kitabın
+		olması durumu tüm kitapları yüklemeyi gerektireceğinden mantıklı ve verimli bir seçim olmayacaktır.
+	</p>
+	<p>
+		Aynı zamanda BookDetails.cshtml razor sayfası aracılığıyla seçilmiş olan kitabın detaylarını içeren farklı bir sayfayı oluşturup, bu sayfaya yeniden ArchievesDb veritabanında bulunan
+		Comments tablosundaki yorumları çekerek CommentListByBookId aracılığıyla ViewComponent kullanılarak listeliyor.
+	</p>
+	<p>
+		Yeniden v1.10 sürümünde Anasayfa, Kitaplar, Hakkında, İletişim, Giriş Yap ve Kayıt Ol sayfalarına geçiş yapmak mümkündür. Bu sayfalar arasından Hakkında, İletişim, Giriş Yap ve Kayıt Ol
+		sayfaları veritabanına işleme veya veritabanından kontrol işlemleri yapmamaktadır.
+	</p>
+	<br />
+	<p>
+		...
+	</p>
   <br />
   <p>
+		<i>
     Aktif halde bulunan güncel proje, çalıştırılma noktalarında hatalar fırlatma ihtimaline sahiptir. Tam (optimize) sürüm çıkmadan çalışma sırasında alınacak hatalar oldukça
     normaldir.
+		</i>
   </p>
 </div>
 <!--//İlk Paragraf-->
@@ -48,6 +71,10 @@
 		<br />
 		<li>v2.0	Presentation katmanına güncelleme.</li>
 		<li>v2.1	Tüm projeye genel bir güncelleme ve kayıt olma eklenmesi.</li>
+		<li>v2.2	Domain katmanına güncelleme.</li>
+		<li>v2.3	Presentation katmanına güncelleme.</li>
+		<li>v2.4	Tüm projeye genel bir güncelleme ve bug / namespace düzenlemeleri.</li>
+		<li>v2.5	Presentation Katmanına güncelleme (Abone olma özelliği ile e - posta kaydı yapabilme).</li>
   </ul>
 </div>
 <!--//Güncellemeler-->
