@@ -28,6 +28,7 @@ namespace Archieves.Kutuphane.Controllers
                 {
                     foreach (var item in doesExist)
                         comment.UserId = item.Id;
+                    comment.BookId = 4; //TODO: BookId should be dynamic
                     comment.Status = true;
                     comment.Date = DateTime.Now;
                     commentService.Add(comment);

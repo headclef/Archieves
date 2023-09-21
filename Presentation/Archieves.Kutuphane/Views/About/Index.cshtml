@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -31,11 +32,12 @@
                     <div class="tech-btm">
                         <h4>Kütüphanemize abone ol</h4>
                         <p style="text-align:justify;">Basitçe abone olarak, kütüphanemize yeni eklenecek olan içeriklerden ve yapılacak olan etkinliklerden haberdar olabilirsin.</p>
-                        <form action="#" method="post">
+                        @using (Html.BeginForm("Subscribe", "About", FormMethod.Post))
+                        {
                             <input type="email" placeholder="Email" required="">
-                            <input type="submit" value="Abone Ol">
-                        </form>
-
+                            <p style="text-align:justify; color:red;">@*Html.ValidationMessageFor(x => x.Email)*@</p>
+                            <button type="submit" value="Abone Ol">Abone Ol</button>
+                        }
                     </div>
                 </div>
             </aside>
