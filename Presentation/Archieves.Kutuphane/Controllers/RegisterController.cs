@@ -2,10 +2,12 @@
 using Archieves.Kutuphane.ValidationRules;
 using Archieves.Persistence.Concretes;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Archieves.Kutuphane.Controllers
 {
+    [AllowAnonymous]
     public class RegisterController : Controller
     {
         UserService userService = new UserService(new EfUserRepository());

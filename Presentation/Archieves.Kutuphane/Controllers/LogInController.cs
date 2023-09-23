@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Archieves.Domain.Entities;
+using Archieves.Persistence.Contexts;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -6,9 +9,44 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class LogInController : Controller
     {
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> IndexAsync(User user)
+        {
+            /*var reCaptchaResponse = HttpContext.Request.Form["g-recaptcha-response"];
+            if (string.IsNullOrEmpty(reCaptchaResponse))
+            {
+                return Content("Lütfen güvenlik doğrulamasını yapınız.");
+            }
+
+            // Google reCAPTCHA doğrulamasını kontrol et
+            var secretKey = "6LdZ4gwoAAAAAKDbfI6jbyUCp78JEGGWYsIQctMs"; // reCAPTCHA'nın sağladığı gizli anahtar
+            var reCaptchaVerified = await GoogleCaptcha.IsReCaptchaValidAsync(reCaptchaResponse, secretKey);
+
+            if (!reCaptchaVerified)
+            {
+                return Content("Güvenlik doğrulaması başarısız.");
+            }*/
+
+            using (var context = new ArchievesDbContext()) // İleriki zamanlarda controller üzerinden kaldırılıp servis katmanına alınacak.
+            {
+                var userControl = context.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+                if (userControl != null)
+                {
+                    HttpContext.Session.SetString("Email", user.Email);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Message = "Kullanıcı adı veya şifre hatalı";
+                    return View();
+                }
+            }
         }
 
         [HttpPost]
