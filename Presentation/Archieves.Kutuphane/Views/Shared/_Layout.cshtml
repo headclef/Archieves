@@ -42,16 +42,16 @@
                         <img src="~/images/book.svg" height="50px" /> Kütüphane
                     </a>
                 </div>
-                <div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
-                    <span class="mx-lg-4 mx-md-2  mx-1">
-                        <img src="~/images/lock.svg" height="15px" />
-                        <a href="~/LogIn/Index">Giriş Yap</a>
-                    </span>
-                    <span>
-                        <img src="~/images/userSignUp.svg" height="15px" />
-                        <a href="~/Register/Index">Kayıt Ol</a>
-                    </span>
-                </div>
+                <!--/ login, logout, register -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @await Html.PartialAsync("PartialViewLoggedIn")
+                }
+                else
+                {
+                    @await Html.PartialAsync("PartialViewLoggedOut")
+                }
+                <!--// login, logout, register -->
                 <div class="col-md-4 log-icons text-right">
                     <ul class="social_list1 mt-3">
                         <li>

@@ -2,13 +2,25 @@
 <div class="comment-top">
     <h4>Yorum Yap</h4>
     <div class="comment-bottom">
-        @using (Html.BeginForm("PartialAddComment", "Comment", FormMethod.Post))
+        @if (User.Identity.IsAuthenticated)
         {
-            <input class="form-control" type="text" name="Name" placeholder="İsim." required="" style="color:black;" />
-            <input class="from-control" type="text" name="Surname" placeholder="Soyisim." required="" style="color:black;" />
-            <textarea class="form-control" name="Content" placeholder="Yorum..." required="" style="color:black;"></textarea>
-            <button type="submit" class="btn btn-primary submit">Submit</button>
+            @using (Html.BeginForm("PartialAddComment", "Comment", FormMethod.Post))
+            {
+                <textarea class="form-control" name="Content" placeholder="Yorum..." required="" style="color:black;"></textarea>
+                <button type="submit" class="btn btn-primary submit">Submit</button>
+            }
         }
+        else
+        {
+            @using (Html.BeginForm("PartialAddComment", "Comment", FormMethod.Post))
+            {
+                <input class="form-control" type="text" name="Name" placeholder="İsim." required="" style="color:black;" />
+                <input class="from-control" type="text" name="Surname" placeholder="Soyisim." required="" style="color:black;" />
+                <textarea class="form-control" name="Content" placeholder="Yorum..." required="" style="color:black;"></textarea>
+                <button type="submit" class="btn btn-primary submit">Submit</button>
+            }
+        }
+
     </div>
 </div>
 <!--//add comments-->

@@ -24,15 +24,23 @@ namespace Archieves.Kutuphane.Controllers
             using (var context = new ArchievesDbContext())
             {
                 var doesExist = context.Users.Where(x => x.Name == comment.Name && x.Surname == comment.Surname).ToList();
-                if (doesExist.Any())
+                if (User.Identity.IsAuthenticated)
                 {
-                    foreach (var item in doesExist)
-                        comment.UserId = item.Id;
-                    comment.BookId = 4; //TODO: BookId should be dynamic
-                    comment.Status = true;
-                    comment.Date = DateTime.Now;
-                    commentService.Add(comment);
+
                 }
+                else
+                {
+                    if (doesExist.Any())
+                    {
+                        foreach (var item in doesExist)
+                            comment.UserId = item.Id;
+                        comment.BookId = 4; //TODO: BookId should be dynamic
+                        comment.Status = true;
+                        comment.Date = DateTime.Now;
+                        commentService.Add(comment);
+                    }
+                }
+
             }
             return PartialView();
         }

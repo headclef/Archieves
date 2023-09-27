@@ -1,9 +1,11 @@
 ﻿using Archieves.Domain.Entities;
 using Archieves.Persistence.Contexts;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Security.Claims;
 
 namespace Archieves.Kutuphane.Controllers
 {
@@ -38,7 +40,17 @@ namespace Archieves.Kutuphane.Controllers
                 var userControl = context.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
                 if (userControl != null)
                 {
+                    /*
                     HttpContext.Session.SetString("Email", user.Email);
+                    return RedirectToAction("Index", "Home");
+                    */
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Email, user.Email)
+                    };
+                    var userIdentity = new ClaimsIdentity(claims, "login");
+                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                    await HttpContext.SignInAsync(principal);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -47,6 +59,12 @@ namespace Archieves.Kutuphane.Controllers
                     return View();
                 }
             }
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "LogIn");
         }
 
         [HttpPost]
