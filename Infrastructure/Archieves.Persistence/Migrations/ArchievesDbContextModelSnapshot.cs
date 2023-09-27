@@ -22,30 +22,7 @@ namespace Archieves.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Archieves.Domain.Entities.Subscriber", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Subscribers");
-                });
-
-            modelBuilder.Entity("KütüphaneOtomasyonu.Domain.Entities.Book", b =>
+            modelBuilder.Entity("Archieves.Domain.Entities.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,7 +57,7 @@ namespace Archieves.Persistence.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("KütüphaneOtomasyonu.Domain.Entities.Comment", b =>
+            modelBuilder.Entity("Archieves.Domain.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,7 +98,30 @@ namespace Archieves.Persistence.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("KütüphaneOtomasyonu.Domain.Entities.User", b =>
+            modelBuilder.Entity("Archieves.Domain.Entities.Subscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscribers");
+                });
+
+            modelBuilder.Entity("Archieves.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,15 +168,15 @@ namespace Archieves.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("KütüphaneOtomasyonu.Domain.Entities.Comment", b =>
+            modelBuilder.Entity("Archieves.Domain.Entities.Comment", b =>
                 {
-                    b.HasOne("KütüphaneOtomasyonu.Domain.Entities.Book", "Book")
+                    b.HasOne("Archieves.Domain.Entities.Book", "Book")
                         .WithMany("Comments")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KütüphaneOtomasyonu.Domain.Entities.User", "User")
+                    b.HasOne("Archieves.Domain.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -187,12 +187,12 @@ namespace Archieves.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KütüphaneOtomasyonu.Domain.Entities.Book", b =>
+            modelBuilder.Entity("Archieves.Domain.Entities.Book", b =>
                 {
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("KütüphaneOtomasyonu.Domain.Entities.User", b =>
+            modelBuilder.Entity("Archieves.Domain.Entities.User", b =>
                 {
                     b.Navigation("Comments");
                 });

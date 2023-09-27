@@ -52,6 +52,7 @@
                 <!--/add comments-->
                 @foreach (var item in Model)
                 {
+                    ViewBag.BookId = item.Id;
                     @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
                 }
                 <!--//add comments-->

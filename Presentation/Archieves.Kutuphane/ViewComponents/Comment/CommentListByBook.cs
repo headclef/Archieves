@@ -7,7 +7,6 @@ namespace Archieves.Kutuphane.ViewComponents.Comment
 {
     public class CommentListByBook : ViewComponent
     {
-        CommentService commentService = new CommentService(new EfCommentRepository());
         public IViewComponentResult Invoke(int id)
         {
             using (var context = new ArchievesDbContext())
