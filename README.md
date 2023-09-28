@@ -74,7 +74,10 @@
 		<li>v2.2	Domain katmanına güncelleme.</li>
 		<li>v2.3	Presentation katmanına güncelleme.</li>
 		<li>v2.4	Tüm projeye genel bir güncelleme ve bug / namespace düzenlemeleri.</li>
-		<li>v2.5	Presentation Katmanına güncelleme (Abone olma özelliği ile e - posta kaydı yapabilme).</li>
+		<li>v2.5	Presentation katmanına güncelleme (Abone olma özelliği ile e - posta kaydı yapabilme).</li>
+	  <li>v2.6	Presentation katmanına güncelleme (Giriş yap fonksiyonlarına iyileştirme ve kimlik doğrulama işlemleri)</li>
+		<li>v2.7	Presentation katmanına güncelleme (Admin paneli, yeni kitaplar ve genel bir güncelleme)</li>
+		<li>v2.8	Presentation katmanına güncelleme (Yorum yapma altyapısında köklü değişiklik ve genel bir güncelleme)</li>
   </ul>
 </div>
 <!--//Güncellemeler-->
