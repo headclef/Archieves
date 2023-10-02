@@ -11,38 +11,33 @@ namespace Archieves.Persistence.Concretes
     public class SubscriberService : ISubscriberService
     {
         ISubscriberDal subscriberDal;
-        public SubscriberService(EfSubscriberRepository efSubscriberRepository)
+        public SubscriberService() // Contructor
         {
-            subscriberDal = efSubscriberRepository;
+            subscriberDal = new EfSubscriberRepository();
         }
         public void Add(Subscriber entity)
         {
             subscriberDal.Add(entity);
         }
-
         public void Delete(Subscriber entity)
         {
             subscriberDal.Delete(entity);
         }
-
-        public ICollection<Subscriber> GetAll(int id)
+        public void Update(Subscriber entity)
         {
-            return subscriberDal.GetAll(x => x.Id == id);
+            subscriberDal.Update(entity);
         }
-
         public ICollection<Subscriber> GetAll()
         {
             return subscriberDal.GetAll();
         }
-
+        public ICollection<Subscriber> GetAll(int id)
+        {
+            return subscriberDal.GetAll(x => x.Id == id);
+        }
         public Subscriber GetById(int id)
         {
             return subscriberDal.GetById(id);
-        }
-
-        public void Update(Subscriber entity)
-        {
-            subscriberDal.Update(entity);
         }
     }
 }

@@ -8,8 +8,5 @@ using System.Threading.Tasks;
 
 namespace Archieves.Application.Abstraction
 {
-    public interface ICommentService : IGenericService<Comment>
-    {
-        ICollection<Comment> GetAll(int id);
-    }
+    public interface ICommentService : IGenericService<Comment> {}
 }

@@ -11,38 +11,33 @@ namespace Archieves.Persistence.Concretes
     public class UserService: IUserService
     {
         IUserDal UserDal;
-        public UserService(IUserDal userDal)
+        public UserService() // Constructor
         {
-            UserDal = userDal;
+            UserDal = new EfUserRepository();
         }
         public void Add(User entity)
         {
             UserDal.Add(entity);
         }
-
         public void Delete(User entity)
         {
             UserDal.Delete(entity);
         }
-
+        public void Update(User entity)
+        {
+            UserDal.Update(entity);
+        }
         public ICollection<User> GetAll(int id)
         {
             return UserDal.GetAll(x => x.Id == id);
         }
-
         public ICollection<User> GetAll()
         {
             return UserDal.GetAll();
         }
-
         public User GetById(int id)
         {
             return UserDal.GetById(id);
-        }
-
-        public void Update(User entity)
-        {
-            UserDal.Update(entity);
         }
     }
 }

@@ -8,12 +8,7 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class BookController : Controller
     {
-        private readonly ILogger<BookController> _logger;
-        BookService bookService = new BookService(new EfBookRepository());
-        public BookController(ILogger<BookController> logger)
-        {
-            _logger = logger;
-        }
+        BookService bookService = new BookService();
         public IActionResult Index()
         {
             var values = bookService.GetAll();

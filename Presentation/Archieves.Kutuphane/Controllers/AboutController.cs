@@ -8,7 +8,7 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class AboutController : Controller
     {
-        SubscriberService subscribers = new SubscriberService(new EfSubscriberRepository());
+        SubscriberService subscribers = new SubscriberService();
         [HttpGet]
         public IActionResult Index()
         {

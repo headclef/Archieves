@@ -12,6 +12,7 @@ namespace Archieves.Application.Abstraction.Common
         void Delete(T entity);
         void Update(T entity);
         ICollection<T> GetAll();
+        ICollection<T> GetAll(int id);
         T GetById(int id);
     }
 }

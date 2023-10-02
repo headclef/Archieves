@@ -10,7 +10,7 @@ namespace Archieves.Kutuphane.Controllers
     [AllowAnonymous]
     public class RegisterController : Controller
     {
-        UserService userService = new UserService(new EfUserRepository());
+        UserService userService = new UserService();
         [HttpGet]
         public IActionResult Index()
         {

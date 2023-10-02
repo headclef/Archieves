@@ -8,8 +8,5 @@ using System.Threading.Tasks;
 
 namespace Archieves.Application.Abstraction
 {
-    public interface ISubscriberService : IGenericService<Subscriber>
-    {
-        ICollection<Subscriber> GetAll(int id);
-    }
+    public interface ISubscriberService : IGenericService<Subscriber> {}
 }

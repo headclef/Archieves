@@ -38,8 +38,8 @@
         <div class="top-bar_sub_w3layouts container-fluid">
             <div class="row">
                 <div class="col-md-4 logo text-left">
-                    <a class="navbar-brand" href="~/Home/Index">
-                        <img src="~/images/book.svg" height="50px" /> Kütüphane
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                        <img src="~/images/archievesLogo.png" height="50px"/>
                     </a>
                 </div>
                 <!--/ login, logout, register -->
@@ -55,23 +55,18 @@
                 <div class="col-md-4 log-icons text-right">
                     <ul class="social_list1 mt-3">
                         <li>
-                            <a href="https://www.facebook.com/headcleFT" class="facebook1 mx-2">
+                            <a href="https://www.facebook.com/headcleFT">
                                 <img src="~/images/facebook.svg" height="15px" />
                             </a>
                         </li>
                         <li>
-                            <a href="https://twitter.com/headclef" class="twitter2">
+                            <a href="https://twitter.com/headclef">
                                 <img src="~/images/twitter.svg" height="15px" />
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="dribble3 mx-2">
+                            <a href="#">
                                 <img src="~/images/basketball.svg" height="15px" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="pin">
-                                <img src="~/images/pinterest.svg" height="15px" />
                             </a>
                         </li>
                     </ul>
@@ -88,19 +83,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="~/Home/Index">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
                                 Anasayfa
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="~/Book/Index">Kitaplık</a>
+                            <a class="nav-link" asp-controller="Book" asp-action="Index">Kitaplık</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="~/About/Index">Hakkımızda</a>
+                            <a class="nav-link" asp-controller="About" asp-action="Index">Hakkımızda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="~/Contact/Index">İletişim</a>
+                            <a class="nav-link" asp-controller="Contact" asp-action="Index">İletişim</a>
                         </li>
 
                     </ul>
@@ -164,7 +159,7 @@
                 </div>
                 <div class="w3layouts-agile-copyrightbottom">
                     <p>
-                        © 2023 Kütüphane Uygulaması. Bütün Hakları Saklıdır. | headclef tarafından tasarlandı ve düzenlendi.
+                        © @DateTime.Now.Year Kütüphane Uygulaması. Bütün Hakları Saklıdır. | headclef tarafından tasarlandı ve düzenlendi.
                     </p>
                 </div>
             </div>

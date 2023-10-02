@@ -20,30 +20,12 @@ namespace Archieves.Kutuphane.Controllers
         [HttpPost]
         public async Task<IActionResult> IndexAsync(User user)
         {
-            /*var reCaptchaResponse = HttpContext.Request.Form["g-recaptcha-response"];
-            if (string.IsNullOrEmpty(reCaptchaResponse))
-            {
-                return Content("Lütfen güvenlik doğrulamasını yapınız.");
-            }
-
-            // Google reCAPTCHA doğrulamasını kontrol et
-            var secretKey = "6LdZ4gwoAAAAAKDbfI6jbyUCp78JEGGWYsIQctMs"; // reCAPTCHA'nın sağladığı gizli anahtar
-            var reCaptchaVerified = await GoogleCaptcha.IsReCaptchaValidAsync(reCaptchaResponse, secretKey);
-
-            if (!reCaptchaVerified)
-            {
-                return Content("Güvenlik doğrulaması başarısız.");
-            }*/
-
             using (var context = new ArchievesDbContext()) // İleriki zamanlarda controller üzerinden kaldırılıp servis katmanına alınacak.
             {
                 var userControl = context.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
                 if (userControl != null)
                 {
-                    /*
-                    HttpContext.Session.SetString("Email", user.Email);
-                    return RedirectToAction("Index", "Home");
-                    */
+                    // User Validation
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Email, user.Email)
@@ -51,6 +33,9 @@ namespace Archieves.Kutuphane.Controllers
                     var userIdentity = new ClaimsIdentity(claims, "login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                     await HttpContext.SignInAsync(principal);
+
+                    // TODO: Google Recaptcha çalışmıyor, çalıştırılacak.
+                    await Post();
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -60,30 +45,27 @@ namespace Archieves.Kutuphane.Controllers
                 }
             }
         }
-
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "LogIn");
         }
-
+        // Google Recaptcha
         [HttpPost]
         public async Task<IActionResult> Post()
         {
             var captchaImage = HttpContext.Request.Form["g-recaptcha-response"];
             if (string.IsNullOrEmpty(captchaImage))
             {
-                return Content("Lütfen güvenlik doğrulamasını yapınız.");
+                ViewBag.Message = "ReCaptcha boş hatası aldınız.";
+                return RedirectToAction("Index", "LogIn");
             }
 
             var verified = await CheckCaptcha();
             if (!verified)
             {
-                return Content("Lütfen güvenlik doğrulamasını yapınız.");
-            }
-            if (verified)
-            {
-                return Content("Güvenlik doğrulaması başarılı.");
+                ViewBag.Message = "ReCaptcha 'yı işaretlememe hatası aldınız.";
+                return RedirectToAction("Index", "LogIn");
             }
             return View();
         }

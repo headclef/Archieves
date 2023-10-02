@@ -133,7 +133,7 @@
                                         </td>
                                         <td> Etiket ile ilgili konu </td>
                                         <td>
-                                            <label class="badge badge-gradient-info">ON HOLD</label>
+                                            <label class="badge badge-gradient-info">Beklemede</label>
                                         </td>
                                         <td> 16 Aralık 2017 </td>
                                         <td> WD-12347 </td>
@@ -144,7 +144,7 @@
                                         </td>
                                         <td> Etiket ile ilgili konu </td>
                                         <td>
-                                            <label class="badge badge-gradient-danger">REJECTED</label>
+                                            <label class="badge badge-gradient-danger">Reddedildi</label>
                                         </td>
                                         <td> 3 Aralık 2017 </td>
                                         <td> WD-12348 </td>
@@ -161,7 +161,7 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Recent Updates</h4>
+                        <h4 class="card-title">Son Güncellemeler</h4>
                         <div class="d-flex">
                             <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
                                 <img src="~/images/user.svg" height="10px" />
@@ -200,32 +200,34 @@
             <div class="col-md-7 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Project Status</h4>
+                        <h4 class="card-title">Proje İstatistikleri</h4>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th> # </th>
-                                        <th> Name </th>
-                                        <th> Due Date </th>
-                                        <th> Progress </th>
+                                        <th> İsim Soyisim </th>
+                                        <th> Teslim Tarihi </th>
+                                        <th> İlerleme </th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <!-- /Döngü başlangıcı -->
                                     <tr>
                                         <td> 1 </td>
                                         <td> Herman Beck </td>
-                                        <td> May 15, 2015 </td>
+                                        <td> 15 Mayıs 2015 </td>
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </td>
                                     </tr>
+                                    <!-- //Döngü bitişi -->
                                     <tr>
                                         <td> 2 </td>
                                         <td> Messsy Adam </td>
-                                        <td> Jul 01, 2015 </td>
+                                        <td> 1 Temmuz 2015 </td>
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
@@ -235,7 +237,7 @@
                                     <tr>
                                         <td> 3 </td>
                                         <td> John Richards </td>
-                                        <td> Apr 12, 2015 </td>
+                                        <td> 12 Nisan 2015 </td>
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
@@ -245,7 +247,7 @@
                                     <tr>
                                         <td> 4 </td>
                                         <td> Peter Meggik </td>
-                                        <td> May 15, 2015 </td>
+                                        <td> 15 Mayıs 2015 </td>
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -255,7 +257,7 @@
                                     <tr>
                                         <td> 5 </td>
                                         <td> Edward </td>
-                                        <td> May 03, 2015 </td>
+                                        <td> 3 Mayıs 2015 </td>
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
@@ -265,7 +267,7 @@
                                     <tr>
                                         <td> 5 </td>
                                         <td> Ronald </td>
-                                        <td> Jun 05, 2015 </td>
+                                        <td> @DateTime.Now.ToString("dd MMMM yyyy") </td> <!-- Örnek tarih -->
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar bg-gradient-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
@@ -281,17 +283,43 @@
             <div class="col-md-5 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title text-white">Todo</h4>
+                        <h4 class="card-title text-black">Yapılacaklar Listesi</h4>
                         <div class="add-items d-flex">
-                            <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?">
-                            <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
+                            <input type="text" class="form-control todo-list-input" placeholder="Bugün ne yapman gerekiyor?">
+                            <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">Ekle</button>
                         </div>
                         <div class="list-wrapper">
                             <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+                                <!-- /Döngü başlangıcı -->
                                 <li>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox"> Meeting with Alisa
+                                            <input class="checkbox" type="checkbox"> Alisa ile buluş.
+                                        </label>
+                                    </div>
+                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                </li>
+                                <!-- //Döngü bitişi -->
+                                <li class="completed">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="checkbox" type="checkbox" checked> John 'u ara.
+                                        </label>
+                                    </div>
+                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="checkbox" type="checkbox"> Fatura oluştur.
+                                        </label>
+                                    </div>
+                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="checkbox" type="checkbox"> İfadeleri yazdır.
                                         </label>
                                     </div>
                                     <i class="remove mdi mdi-close-circle-outline"></i>
@@ -299,7 +327,7 @@
                                 <li class="completed">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox" checked> Call John
+                                            <input class="checkbox" type="checkbox" checked> Sunum için hazırlan.
                                         </label>
                                     </div>
                                     <i class="remove mdi mdi-close-circle-outline"></i>
@@ -307,31 +335,7 @@
                                 <li>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox"> Create invoice
-                                        </label>
-                                    </div>
-                                    <i class="remove mdi mdi-close-circle-outline"></i>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox"> Print Statements
-                                        </label>
-                                    </div>
-                                    <i class="remove mdi mdi-close-circle-outline"></i>
-                                </li>
-                                <li class="completed">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox" checked> Prepare for presentation
-                                        </label>
-                                    </div>
-                                    <i class="remove mdi mdi-close-circle-outline"></i>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox"> Pick up kids from school
+                                            <input class="checkbox" type="checkbox"> Çocukları okuldan al.
                                         </label>
                                     </div>
                                     <i class="remove mdi mdi-close-circle-outline"></i>
