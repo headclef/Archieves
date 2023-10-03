@@ -28,19 +28,16 @@ namespace Archieves.Kutuphane.Controllers
         [HttpPost]
         public PartialViewResult PartialAddComment(Comment comment)
         {
-            using (var context = new ArchievesDbContext())
+            if (User.Identity.IsAuthenticated)
             {
-                if (User.Identity.IsAuthenticated)
-                {
-                    User authenticatedUser = GetAuthenticatedUser();
-                    comment.UserId = authenticatedUser.Id;
-                    comment.Name = authenticatedUser.Name;
-                    comment.Surname = authenticatedUser.Surname;
-                    comment.Status = true;
-                    comment.Date = DateTime.Now;
+                User authenticatedUser = GetAuthenticatedUser();
+                comment.UserId = authenticatedUser.Id;
+                comment.Name = authenticatedUser.Name;
+                comment.Surname = authenticatedUser.Surname;
+                comment.Status = true;
+                comment.Date = DateTime.Now;
 
-                    commentService.Add(comment);
-                }
+                commentService.Add(comment);
             }
             return PartialView();   //TODO: Yorum eklendikten sonra, yorumlar yeniden listelenmeli.
                                     //TODO: Yorum eklendikten sonra, yorum ekleme alanı temizlenmeli.

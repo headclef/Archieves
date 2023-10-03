@@ -10,7 +10,11 @@ namespace Archieves.Kutuphane.Controllers
     [AllowAnonymous]
     public class RegisterController : Controller
     {
-        UserService userService = new UserService();
+        private readonly UserService userService;
+        public RegisterController()
+        {
+            userService = new UserService();
+        }
         [HttpGet]
         public IActionResult Index()
         {

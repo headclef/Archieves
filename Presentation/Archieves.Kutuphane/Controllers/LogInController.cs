@@ -1,4 +1,5 @@
 ﻿using Archieves.Domain.Entities;
+using Archieves.Persistence.Concretes;
 using Archieves.Persistence.Contexts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +12,11 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class LogInController : Controller
     {
+        private readonly UserService userService;
+        public LogInController()
+        {
+            userService = new UserService();
+        }
         [AllowAnonymous]
         public IActionResult Index()
         {
@@ -20,29 +26,26 @@ namespace Archieves.Kutuphane.Controllers
         [HttpPost]
         public async Task<IActionResult> IndexAsync(User user)
         {
-            using (var context = new ArchievesDbContext()) // İleriki zamanlarda controller üzerinden kaldırılıp servis katmanına alınacak.
+            var userControl = userService.GetAll().FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+            if (userControl != null)
             {
-                var userControl = context.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
-                if (userControl != null)
-                {
-                    // User Validation
-                    var claims = new List<Claim>
+                // User Validation
+                var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Email, user.Email)
                     };
-                    var userIdentity = new ClaimsIdentity(claims, "login");
-                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                    await HttpContext.SignInAsync(principal);
+                var userIdentity = new ClaimsIdentity(claims, "login");
+                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                await HttpContext.SignInAsync(principal);
 
-                    // TODO: Google Recaptcha çalışmıyor, çalıştırılacak.
-                    await Post();
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ViewBag.Message = "Kullanıcı adı veya şifre hatalı";
-                    return View();
-                }
+                // TODO: Google Recaptcha çalışmıyor, çalıştırılacak.
+                await Post();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.Message = "Kullanıcı adı veya şifre hatalı";
+                return View();
             }
         }
         public async Task<IActionResult> Logout()

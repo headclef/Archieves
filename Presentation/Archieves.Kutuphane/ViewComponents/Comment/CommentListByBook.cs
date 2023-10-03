@@ -7,16 +7,18 @@ namespace Archieves.Kutuphane.ViewComponents.Comment
 {
     public class CommentListByBook : ViewComponent
     {
+        private readonly CommentService commentService;
+        public CommentListByBook()
+        {
+            commentService = new CommentService();
+        }
         public IViewComponentResult Invoke(int id)
         {
-            using (var context = new ArchievesDbContext())
-            {
-                var values = context.Comments.Include(x => x.Book).Where(x => x.BookId == id).ToList();
-                if (values != null)
-                    return View(values);
-                else
-                    return View();
-            }
+            var values = commentService.GetAll().Where(x => x.BookId == id).ToList();
+            if (values != null)
+                return View(values);
+            else
+                return View();
         }
     }
 }

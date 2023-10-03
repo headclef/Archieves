@@ -1,4 +1,5 @@
 ﻿using Archieves.Domain.Entities;
+using Archieves.Persistence.Concretes;
 using Archieves.Persistence.Contexts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,11 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class UserController : Controller
     {
+        private readonly UserService userService;
+        public UserController()
+        {
+            userService = new UserService();
+        }
         public IActionResult Index()
         {
             List<User> users = GetAuthenticatedUser();
@@ -15,12 +21,9 @@ namespace Archieves.Kutuphane.Controllers
         }
         private List<User> GetAuthenticatedUser()
         {
-            using (var context = new ArchievesDbContext())
-            {
-                string email = User.FindFirstValue(ClaimTypes.Email);
-                List<User> authenticatedUser = context.Users.Where(x => x.Email == email).ToList();
-                return authenticatedUser;
-            }
+            string email = User.FindFirstValue(ClaimTypes.Email);
+            List<User> authenticatedUser = userService.GetAll().Where(x => x.Email == email).ToList();
+            return authenticatedUser;
         }
     }
 }

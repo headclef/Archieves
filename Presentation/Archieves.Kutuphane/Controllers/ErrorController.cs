@@ -7,7 +7,7 @@ namespace Archieves.Kutuphane.Controllers
     public class ErrorController : Controller
     {
         [Route("/Error/ErrorPage")]
-        public IActionResult ErrorPage(int errorCode) // 404, 500 gibi hata kodları alması gerekli ancak her seferinde 0 alıyor, incelenecek!
+        public IActionResult ErrorPage(int errorCode) // TODO: 404, 500 gibi hata kodları alması gerekli ancak her seferinde 0 alıyor, incelenecek!
         {
 
             if (errorCode == 404)

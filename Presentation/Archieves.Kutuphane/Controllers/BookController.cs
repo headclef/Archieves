@@ -8,7 +8,11 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class BookController : Controller
     {
-        BookService bookService = new BookService();
+        private readonly BookService bookService;
+        public BookController()
+        {
+            bookService = new BookService();
+        }
         public IActionResult Index()
         {
             var values = bookService.GetAll();
