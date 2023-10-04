@@ -1,7 +1,5 @@
 ﻿using Archieves.Domain.Entities;
 using Archieves.Persistence.Concretes;
-using Archieves.Persistence.Contexts;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 

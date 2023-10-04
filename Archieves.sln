@@ -9,15 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrasctructure", "Infrasct
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{2152AF27-36D9-4C76-8C22-E39DF3DA5759}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archieves.Domain", "Core\Archieves.Domain\Archieves.Domain.csproj", "{A3519130-DB73-4C0E-A1E8-CEA330FC0E90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Archieves.Domain", "Core\Archieves.Domain\Archieves.Domain.csproj", "{A3519130-DB73-4C0E-A1E8-CEA330FC0E90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archieves.Application", "Core\Archieves.Application\Archieves.Application.csproj", "{37858504-70CD-4221-A66C-1A1B43C31B4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Archieves.Application", "Core\Archieves.Application\Archieves.Application.csproj", "{37858504-70CD-4221-A66C-1A1B43C31B4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archieves.Infrastructure", "Infrastructure\Archieves.Infrastructure\Archieves.Infrastructure.csproj", "{91D26EA1-122E-4478-91D6-C4EC140DBA26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Archieves.Infrastructure", "Infrastructure\Archieves.Infrastructure\Archieves.Infrastructure.csproj", "{91D26EA1-122E-4478-91D6-C4EC140DBA26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archieves.Persistence", "Infrastructure\Archieves.Persistence\Archieves.Persistence.csproj", "{39130B55-5556-4AF6-9BC0-AE250B4AEEC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Archieves.Persistence", "Infrastructure\Archieves.Persistence\Archieves.Persistence.csproj", "{39130B55-5556-4AF6-9BC0-AE250B4AEEC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archieves.Kutuphane", "Presentation\Archieves.Kutuphane\Archieves.Kutuphane.csproj", "{C36E8EB4-78E0-4A33-BF89-39E9F703D9EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Archieves.Kutuphane", "Presentation\Archieves.Kutuphane\Archieves.Kutuphane.csproj", "{C36E8EB4-78E0-4A33-BF89-39E9F703D9EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

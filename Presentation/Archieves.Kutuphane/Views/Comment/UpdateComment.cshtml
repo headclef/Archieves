@@ -1,0 +1,38 @@
+﻿@model Archieves.Domain.Entities.Comment
+@{
+    ViewData["Title"] = "UpdateComment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container text-center">
+    <h1 class="title">YORUM GÜNCELLEME PANELİ</h1>
+    <div class="inner-sec" align="center">
+        <div class="login p-5 bg-light mx-auto mw-100">
+            @using (Html.BeginForm("UpdateComment", "Comment", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <input class="form-control" type="hidden" id="BookId" name="BookId" value="@Model.BookId" />
+                    <input class="form-control" type="hidden" id="UserId" name="UserId" value="@Model.UserId" />
+                    <input class="form-control" type="hidden" id="Date" name="Date" value="@Model.Date" />
+                    <input class="form-control" type="hidden" id="Name" name="Name" value="@Model.Name" />
+                    <input class="form-control" type="hidden" id="Surname" name="Surname" value="@Model.Surname" />
+                </div>
+                <div class="form-group">
+                    <!-- Veritabanından Gelen Yorum -->
+                    <div class="col-md-6 mb-3">
+                        <label for="Content">Değiştirmek İstediğiniz Yorumun İçeriği</label>
+                        <textarea class="form-control" type="text" placeholder="@Model.Content" style="text-align:justify; color:black;" readonly></textarea>
+                    </div>
+                    <!-- Veritabanına Gidecek Yorum -->
+                    <div class="col-md-6 mb-3">
+                        <label for="Content">Yeni Yorum İçeriği</label>
+                        <textarea class="form-control" id="Content" name="Content" type="text" style="text-align:justify;" placeholder="Buraya giriniz." required=""></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-gradient-primary">Yorumu Güncelle</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

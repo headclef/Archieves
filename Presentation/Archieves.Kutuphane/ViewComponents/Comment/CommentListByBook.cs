@@ -1,7 +1,5 @@
 ﻿using Archieves.Persistence.Concretes;
-using Archieves.Persistence.Contexts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Archieves.Kutuphane.ViewComponents.Comment
 {

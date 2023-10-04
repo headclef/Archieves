@@ -3,9 +3,15 @@
     ViewData["Title"] = "CommentsList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <div>
     <table class="table table-borderless">
         <thead>
+            <tr>
+                <div class="text-center">
+                    <a asp-controller="Comment" asp-action="AddComment" class="btn btn-gradient-primary">+ Yorum Ekle</a>
+                </div>
+            </tr>
             <tr>
                 <th>Yorum Numarası</th>
                 <th>Yorum</th>
@@ -21,12 +27,22 @@
             {
                 <tr>
                     <td>@item.Id</td>
-                    <td>@item.Content</td>
+                    <td>
+                        @if (item.Content.Length > 50)
+                        {
+                            @item.Content.Substring(0, item.Content.Substring(0, 50).LastIndexOf(" "))
+                        }
+                        else
+                        {
+                            @item.Content
+                        }
+                        ...
+                    </td>
                     <td>@item.BookId</td>
                     <td>@item.Date</td>
                     <td>@item.Status</td>
-                    <td><a asp-controller="Comment" asp-action="UpdateComment" class="btn btn-warning">Düzenle</a></td>
-                    <td><a asp-controller="Comment" asp-action="DeleteComment" class="btn btn-danger">Sil</a></td>
+                    <td><a asp-controller="Comment" asp-action="UpdateComment" asp-route-id="@item.Id" class="btn btn-warning">Düzenle</a></td>
+                    <td><a asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@item.Id" class="btn btn-danger">Sil</a></td>
                 </tr>
             }
         </tbody>
