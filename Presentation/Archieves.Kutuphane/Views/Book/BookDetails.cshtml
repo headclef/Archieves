@@ -3,12 +3,12 @@
     ViewData["Title"] = "BookDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!--/main-->
+<!-- Main -->
 <section class="banner-bottom">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
-                <!--/details-->
+                <!-- Details -->
                 @foreach (var item in Model.ToList())
                 {
                     <div class="blog-grid-top">
@@ -42,22 +42,17 @@
                         <p style="text-align:justify;">@item.Description</p>
                     </div>
                 }
-                <!--//details-->
-                <!--/view comments-->
+                <!-- View Comments -->
                 @foreach (var item in Model)
                 {
                     @await Component.InvokeAsync("CommentListByBook", new { id = item.Id })
                 }
-                <!--//view comments-->
-                <!--/add comments-->
-                @foreach (var item in Model)
-                {
-                    ViewBag.BookId = item.Id;
+                <!-- Add Comments -->
+                @{
+                    ViewBag.BookId = Model.Single().Id;
                     @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
                 }
-                <!--//add comments-->
             </div>
         </div>
     </div>
 </section>
-<!--//main-->

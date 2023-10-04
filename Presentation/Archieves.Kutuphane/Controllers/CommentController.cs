@@ -11,38 +11,31 @@ namespace Archieves.Kutuphane.Controllers
     {
         private readonly CommentService commentService;
         private readonly UserService userService;
-        private readonly BookService bookService;
         public CommentController()
         {
             commentService = new CommentService();
             userService = new UserService();
-            bookService = new BookService();
         }
         public IActionResult Index()
         {
             return View();
         }
         #region Kitap Detayları Sayfasındaki Yorum İşlemleri
-        [HttpGet]
         public PartialViewResult PartialAddComment()
         {
             return PartialView();
         }
         [HttpPost]
-        public PartialViewResult PartialAddComment(Comment comment)
+        public IActionResult AddCommentPartial(Comment comment)
         {
-            // Hali hazırda authenticated.
             User authenticatedUser = GetAuthenticatedUser();
             comment.UserId = authenticatedUser.Id;
             comment.Name = authenticatedUser.Name;
             comment.Surname = authenticatedUser.Surname;
             comment.Status = true;
             comment.Date = DateTime.Now;
-
             commentService.Add(comment);
-            return PartialView();   //TODO: Yorum eklendikten sonra, yorumlar yeniden listelenmeli.
-                                    //TODO: Yorum eklendikten sonra, yorum ekleme alanı temizlenmeli.
-                                    //TODO: Yorum eklendikten sonra, sayfanın değişmemesi sağlanmalı.
+            return RedirectToAction("BookDetails", "Book", new { id = comment.BookId });
         }
         #endregion
         #region Admin Panelindeki Yorum İşlemleri

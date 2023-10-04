@@ -4,11 +4,11 @@
     <div class="comment-bottom">
         @if (User.Identity.IsAuthenticated)
         {
-            @using (Html.BeginForm("PartialAddComment", "Comment", FormMethod.Post, new { @class = "comment-form" }))
+            @using (Html.BeginForm("AddCommentPartial", "Comment", FormMethod.Post, new { @class = "comment-form" } ))
             {
                 <input class="form-control" name="BookId" type="hidden" placeholder="Kitap ismi." value="@ViewBag.BookId">
                 <textarea class="form-control" name="Content" placeholder="Yorum..." required="" style="color:black;"></textarea>
-                <button type="submit" class="btn btn-primary submit">Submit</button>
+                <button type="submit" class="btn btn-primary submit">Yorum Yap</button>
             }
         }
     </div>
