@@ -15,27 +15,22 @@ namespace Archieves.Persistence.Concretes
         {
             throw new NotImplementedException();
         }
-
         public void Delete(Book entity)
         {
             throw new NotImplementedException();
         }
-
         public ICollection<Book> GetAll()
         {
             throw new NotImplementedException();
         }
-
         public ICollection<Book> GetAll(Expression<Func<Book, bool>> filter)
         {
             throw new NotImplementedException();
         }
-
         public Book GetById(int id)
         {
             throw new NotImplementedException();
         }
-
         public void Update(Book entity)
         {
             throw new NotImplementedException();

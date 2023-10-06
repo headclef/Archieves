@@ -9,29 +9,34 @@ using System.Threading.Tasks;
 
 namespace Archieves.Persistence.Concretes
 {
-    public class UserRepository : IUserDal
+    public class RatingRepository : IRatingDal
     {
-        public void Add(User entity)
+        public void Add(Rating entity)
         {
             throw new NotImplementedException();
         }
-        public void Delete(User entity)
+
+        public void Delete(Rating entity)
         {
             throw new NotImplementedException();
         }
-        public ICollection<User> GetAll()
+
+        public ICollection<Rating> GetAll()
         {
             throw new NotImplementedException();
         }
-        public ICollection<User> GetAll(Expression<Func<User, bool>> filter)
+
+        public ICollection<Rating> GetAll(Expression<Func<Rating, bool>> filter)
         {
             throw new NotImplementedException();
         }
-        public User GetById(int id)
+
+        public Rating GetById(int id)
         {
             throw new NotImplementedException();
         }
-        public void Update(User entity)
+
+        public void Update(Rating entity)
         {
             throw new NotImplementedException();
         }

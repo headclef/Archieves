@@ -15,6 +15,10 @@ namespace Archieves.Domain.Entities
         public string Image { get; set; }
         public string Description { get; set; }
 
+        public int AuthorId { get; set; }
+        public Author User { get; set; }
+
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
     }
 }

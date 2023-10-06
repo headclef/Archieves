@@ -11,16 +11,6 @@
     <meta charset="utf-8">
     <meta name="keywords" content="PC, android ve akıllı cihazlarda çalışabilecek bir kütüphane template 'i." />
 
-    <script>
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-
     <link href="~/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="~/css/single.css" rel="stylesheet" type="text/css" />
     <link href="~/css/style.css" rel="stylesheet" type="text/css" />
@@ -29,7 +19,6 @@
     <link href="~/css/jquery.desoslide.css" rel="stylesheet" type="text/css" />
     <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
           rel="stylesheet" />
-
 </head>
 
 <body>
@@ -120,10 +109,9 @@
     <!--/main-->
     @RenderBody()
     <!--//main-->
-    <!--footer-->
+    <!--/footer-->
     <footer>
         <div class="container">
-            <!-- footer -->
             <div class="footer-cpy text-center">
                 <div class="footer-social">
                     <div class="copyrighttop">
@@ -164,16 +152,22 @@
                     </p>
                 </div>
             </div>
-            <!-- //footer -->
         </div>
     </footer>
-    <!---->
-    <!-- js -->
-    <script src="~/js/jquery-2.2.3.min.js"></script>
-    <!-- //js -->
-    <!--/ start-smoth-scrolling -->
-    <script src="~/js/move-top.js"></script>
-    <script src="~/js/easing.js"></script>
+    <!--//footer-->
+    <a href="#home" class="scroll" id="toTop" style="display: block;">
+        <span id="toTopHover" style="opacity: 1;"> </span>
+    </a>
+    <!--/js-->
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
     <script>
         jQuery(document).ready(function ($) {
             $(".scroll").click(function (event) {
@@ -184,32 +178,19 @@
             });
         });
     </script>
-    <!--// end-smoth-scrolling -->
-
     <script>
         $(document).ready(function () {
-            /*
-            var defaults = {
-                    containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-                };
-            */
-
             $().UItoTop({
                 easingType: 'easeOutQuart'
             });
 
         });
     </script>
-    <a href="#home" class="scroll" id="toTop" style="display: block;">
-        <span id="toTopHover" style="opacity: 1;"> </span>
-    </a>
-
-    <!-- //Custom-JavaScript-File-Links -->
+    <script src="~/js/move-top.js"></script>
+    <script src="~/js/easing.js"></script>
+    <script src="~/js/jquery-2.2.3.min.js"></script>
     <script src="~/js/bootstrap.js"></script>
-
+    <!--//js-->
 </body>
 
 </html>

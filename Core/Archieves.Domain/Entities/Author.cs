@@ -7,17 +7,12 @@ using System.Threading.Tasks;
 
 namespace Archieves.Domain.Entities
 {
-    public class Comment : BaseEntity
+    public class Author : BaseEntity
     {
-        public string Content { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int Rate { get; set; }
+        public string? Description { get; set; }
 
-        public int BookId { get; set; }
-        public Book Book { get; set; }
-
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

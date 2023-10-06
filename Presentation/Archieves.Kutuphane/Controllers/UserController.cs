@@ -18,8 +18,8 @@ namespace Archieves.Kutuphane.Controllers
         }
         public IActionResult Index()
         {
-            List<User> users = GetAuthenticatedUserList();
-            return View(users);
+            User user = GetAuthenticatedUser();
+            return View(user);
         }
         #region Admin Panelindeki Yorum İşlemleri
         public IActionResult CommentsList()
@@ -81,12 +81,6 @@ namespace Archieves.Kutuphane.Controllers
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
             var authenticatedUser = userService.GetAll().Where(u => u.Email == email).FirstOrDefault();
-            return authenticatedUser;
-        }
-        private List<User> GetAuthenticatedUserList()
-        {
-            string email = User.FindFirstValue(ClaimTypes.Email);
-            List<User> authenticatedUser = userService.GetAll().Where(x => x.Email == email).ToList();
             return authenticatedUser;
         }
     }

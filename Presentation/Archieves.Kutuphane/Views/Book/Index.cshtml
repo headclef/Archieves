@@ -3,7 +3,6 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!--/main-->
 <section class="main-content-w3layouts-agileits">
     <div class="container">
         <h3 class="tittle">Kitaplar</h3>
@@ -14,7 +13,7 @@
                     @foreach (var item in Model)
                     {
                         <div class="col-lg-4 card" name="mizite">
-                            <a href="~/Book/BookDetails/@item.Id">
+                            <a asp-controller="Book" asp-action="BookDetails" asp-route-id="@item.Id">
                                 <img src=@item.Image class="card-img-top img-fluid fixed-size-image" alt="" style="width:350px; height:400px; object-fit:cover">
                             </a>
                             <div class="card-body">
@@ -26,10 +25,10 @@
                                     </li>
                                 </ul>
                                 <h5 class="card-title">
-                                    <a href="~/Book/BookDetails/@item.Id">@item.Name</a>
+                                    <a asp-controller="Book" asp-action="BookDetails" asp-route-id="@item.Id">@item.Name</a>
                                 </h5>
                                 <p class="card-text mb-3" style="text-align:justify;">@item.Description.Substring(0, item.Description.Substring(0, 105).LastIndexOf(" "))...</p>
-                                <a href="~/Book/BookDetails/@item.Id" class="btn btn-primary read-m">Daha Fazla Oku...</a>
+                                <a asp-controller="Book" asp-action="BookDetails" asp-route-id="@item.Id" class="btn btn-primary read-m">Daha Fazla Oku...</a>
                             </div>
                         </div>
                     }
@@ -39,4 +38,3 @@
         </div>
     </div>
 </section>
-<!--//main-->

@@ -11,10 +11,12 @@ namespace Archieves.Kutuphane.Controllers
     {
         private readonly CommentService commentService;
         private readonly UserService userService;
+        private readonly RatingService ratingService;
         public CommentController()
         {
             commentService = new CommentService();
             userService = new UserService();
+            ratingService = new RatingService();
         }
         public IActionResult Index()
         {
@@ -28,12 +30,29 @@ namespace Archieves.Kutuphane.Controllers
         [HttpPost]
         public IActionResult AddCommentPartial(Comment comment)
         {
+            if (ratingService.GetAll().Where(x => x.BookId == comment.BookId).Count() > 0)
+            {
+                var rating = ratingService.GetAll().Where(x => x.BookId == comment.BookId).FirstOrDefault();
+                rating.Rate += comment.Rate;
+                rating.Count += 1;
+                ratingService.Update(rating);
+            }
+            else
+            {
+                var rating = new Rating();
+                rating.BookId = comment.BookId;
+                rating.Rate = comment.Rate;
+                rating.Count = 1;
+                rating.Date = DateTime.Now;
+                rating.Status = true;
+                ratingService.Add(rating);
+            }
             User authenticatedUser = GetAuthenticatedUser();
             comment.UserId = authenticatedUser.Id;
             comment.Name = authenticatedUser.Name;
             comment.Surname = authenticatedUser.Surname;
-            comment.Status = true;
             comment.Date = DateTime.Now;
+            comment.Status = true;
             commentService.Add(comment);
             return RedirectToAction("BookDetails", "Book", new { id = comment.BookId });
         }

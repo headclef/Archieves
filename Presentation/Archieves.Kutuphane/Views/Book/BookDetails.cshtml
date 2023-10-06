@@ -1,9 +1,11 @@
-﻿@model IEnumerable<Archieves.Domain.Entities.Book>
+﻿@using Archieves.Persistence.Concretes;
+@model IEnumerable<Archieves.Domain.Entities.Book>
 @{
     ViewData["Title"] = "BookDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var authorService = new AuthorService();
+    var commentService = new CommentService();
 }
-<!-- Main -->
 <section class="banner-bottom">
     <div class="container">
         <div class="row">
@@ -24,13 +26,15 @@
                                         </a>
                                     </li>
                                     <li class="mx-2">
+                                        @{
+                                        }
                                         <a href="~/Book/BookDetails/@item.Id">
-                                            <img src="~/images/thumbsUpRegular.svg" height="15px" /> ... Beğeni
+                                            <img src="~/images/feather.svg" height="15px" /> @authorService.GetById(item.AuthorId).Name @authorService.GetById(item.AuthorId).Surname
                                         </a>
                                     </li>
                                     <li>
                                         <a href="~/Book/BookDetails/@item.Id">
-                                            <img src="~/images/comment.svg" height="15px" /> ... Yorum
+                                            <img src="~/images/comment.svg" height="15px" /> @commentService.GetAll().Where(x => x.BookId == item.Id).Count() Yorum
                                         </a>
                                     </li>
                                 </ul>

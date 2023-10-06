@@ -6,7 +6,14 @@
         {
             @using (Html.BeginForm("AddCommentPartial", "Comment", FormMethod.Post, new { @class = "comment-form" } ))
             {
-                <input class="form-control" name="BookId" type="hidden" placeholder="Kitap ismi." value="@ViewBag.BookId">
+                <input class="form-control" id="Rate" name="Rate" list="RateList" placeholder="Puan." />
+                <datalist id="RateList">
+                    @for (int i = 0; i <= 10; i++)
+                    {
+                        <option value="@i">@i puan</option>
+                    }
+                </datalist>
+                <input class="form-control" name="BookId" type="hidden" placeholder="Kitap ismi." value="@ViewBag.BookId" />
                 <textarea class="form-control" name="Content" placeholder="Yorum..." required="" style="color:black;"></textarea>
                 <button type="submit" class="btn btn-primary submit">Yorum Yap</button>
             }

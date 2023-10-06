@@ -15,27 +15,22 @@ namespace Archieves.Persistence.Concretes
         {
             throw new NotImplementedException();
         }
-
         public void Delete(Comment entity)
         {
             throw new NotImplementedException();
         }
-
         public ICollection<Comment> GetAll()
         {
             throw new NotImplementedException();
         }
-
         public ICollection<Comment> GetAll(Expression<Func<Comment, bool>> filter)
         {
             throw new NotImplementedException();
         }
-
         public Comment GetById(int id)
         {
             throw new NotImplementedException();
         }
-
         public void Update(Comment entity)
         {
             throw new NotImplementedException();

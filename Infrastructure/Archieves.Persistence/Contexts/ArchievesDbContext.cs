@@ -12,6 +12,7 @@ namespace Archieves.Persistence.Contexts
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //optionsBuilder.UseSqlServer(@"Server = FURKANTURAL; Database = ArchievesDb; Integrated Security = True; TrustServerCertificate = True");
             optionsBuilder.UseSqlServer(@"Server = FURKANTURAL; Database = ArchievesDb; Integrated Security = True; TrustServerCertificate = True");
         }
 
@@ -19,5 +20,7 @@ namespace Archieves.Persistence.Contexts
         public DbSet<Comment> Comments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
     }
 }
