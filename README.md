@@ -73,10 +73,15 @@
 		<li>v2.3	Presentation katmanına güncelleme.</li>
 		<li>v2.4	Tüm projeye genel bir güncelleme ve bug / namespace düzenlemeleri.</li>
 		<li>v2.5	Presentation katmanına güncelleme (Abone olma özelliği ile e - posta kaydı yapabilme).</li>
-		<li>v2.6	Presentation katmanına güncelleme (Giriş yap fonksiyonlarına iyileştirme ve kimlik doğrulama işlemleri)</li>
-		<li>v2.7	Presentation katmanına güncelleme (Admin paneli, yeni kitaplar ve genel bir güncelleme)</li>
-		<li>v2.8	Presentation katmanına güncelleme (Yorum yapma altyapısında köklü değişiklik ve genel bir güncelleme)</li>
-		<li>v2.9	Presentation katmanına güncelleme (Yorum yapma ve admin paneli altyapısında iyileştirme ve genel bir güncelleme)</li>
+		<li>v2.6	Presentation katmanına güncelleme (Giriş yap fonksiyonlarına iyileştirme ve kimlik doğrulama işlemleri).</li>
+		<li>v2.7	Presentation katmanına güncelleme (Kullanıcı paneli, yeni kitaplar ve genel bir güncelleme).</li>
+		<li>v2.8	Presentation katmanına güncelleme (Yorum yapma altyapısında köklü değişiklik ve genel bir güncelleme).</li>
+		<li>v2.9	Presentation katmanına güncelleme (Yorum yapma ve kullanıcı paneli altyapısında iyileştirme ve genel bir güncelleme).</li>
+		<li>v2.10	Presentation katmanına güncelleme (Controller 'ların context kullanımını önlemek amacıyla veritabanı işlemleri servis katmanına taşınmıştır).</li>
+		<li>v2.11	Presentation katmanına güncelleme (Kullanıcı paneline yorumlar sayfası eklendi. Mevcut sayfada daha önceden yapılmış olan yorumları görüp, düzenleyip, silme özellikleri eklendi).</li>
+		<li>v2.12	Presentation katmanına güncelleme (Kitap detaylarını içeren sayfadaki yorum yapma paneline fix).</li>
+		<li>v2.13	Tüm projeye genel bir güncelleme.</li>
+		<li>v2.14	Oylama (Rating) sistemi eklendi.</li>
 	</ul>
 </div>
 
