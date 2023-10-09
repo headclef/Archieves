@@ -21,7 +21,7 @@ namespace Archieves.Kutuphane.Controllers
             User user = GetAuthenticatedUser();
             return View(user);
         }
-        #region Admin Panelindeki Yorum İşlemleri
+        #region Kullanıcı Panelindeki Yorum İşlemleri
         public IActionResult CommentsList()
         {
             var authenticatedUser = GetAuthenticatedUser();
@@ -77,11 +77,56 @@ namespace Archieves.Kutuphane.Controllers
             }
         }
         #endregion
+        #region Kullanıcı Panelindeki Profil İşlemleri
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            var authenticatedUser = GetAuthenticatedUser();
+            return View(authenticatedUser);
+        }
+        [HttpPost]
+        public IActionResult Profile(User user)
+        {
+            var authenticatedUser = GetAuthenticatedUser();
+            var controlledUser = ControlPropertiesOfUser(user);
+            UserValidator uv = new UserValidator();
+            ValidationResult vr = uv.Validate(user);
+            if (!vr.IsValid)
+            {
+                foreach (var item in vr.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                return View(GetAuthenticatedUser());
+            }
+            else
+            {
+                user.Id = authenticatedUser.Id;
+                user.Date = controlledUser.ElementAt(0) == false ? authenticatedUser.Date : user.Date;
+                user.Image = controlledUser.ElementAt(1) == false ? authenticatedUser.Image : user.Image;
+                userService.Update(user);
+            }
+            return RedirectToAction("LogOut", "LogIn");
+        }
+        public IActionResult DeleteUser()
+        {
+            var authenticatedUser = GetAuthenticatedUser();
+            authenticatedUser.Status = false;
+            userService.Update(authenticatedUser);
+            return RedirectToAction("LogOut", "LogIn");
+        }
+        #endregion
         private User GetAuthenticatedUser()
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
             var authenticatedUser = userService.GetAll().Where(u => u.Email == email).FirstOrDefault();
             return authenticatedUser;
+        }
+        private ICollection<bool> ControlPropertiesOfUser(User user)
+        {
+            bool Date = user.Date == null ? false : true;
+            bool Image = user.Image == null ? false : true;
+            return new List<bool>() { Date, Image};
         }
     }
 }

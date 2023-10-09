@@ -1,0 +1,95 @@
+﻿@model Archieves.Domain.Entities.User
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="col-md-10 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Üyelik Bilgileri</h4>
+            @using (Html.BeginForm("Profile", "User", FormMethod.Post))
+            {
+                <div class="form-group row">
+                    <label for="Name" class="col-sm-3 col-form-label">İsim</label>
+                    <div class="col-sm-9 text-center">
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="@Model.Name" />
+                        <p style="color:red;">@Html.ValidationMessageFor(x => x.Name)</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Surname" class="col-sm-3 col-form-label">Soyisim</label>
+                    <div class="col-sm-9 text-center">
+                        <input type="text" class="form-control" id="Surname" name="Surname" placeholder="@Model.Surname" />
+                        <p style="color:red;">@Html.ValidationMessageFor(x => x.Surname)</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Email" class="col-sm-3 col-form-label">E - Posta</label>
+                    <div class="col-sm-9 text-center">
+                        <input type="email" class="form-control" id="Email" name="Email" placeholder="@Model.Email" />
+                        <p style="color:red;">@Html.ValidationMessageFor(x => x.Email)</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Password" class="col-sm-3 col-form-label">Şifre</label>
+                    <div class="col-sm-9 text-center">
+                        <input type="password" class="form-control" id="Password" name="Password" placeholder="@Model.Password" />
+                        <p style="color:red;">@Html.ValidationMessageFor(x => x.Password)</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Phone" class="col-sm-3 col-form-label">Telefon Numarası</label>
+                    <div class="col-sm-9 text-center">
+                        <input type="text" class="form-control" id="Phone" name="Phone" placeholder="@Model.Phone" />
+                        <p style="color:red;">@Html.ValidationMessageFor(x => x.Phone)</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Address" class="col-sm-3 col-form-label">Adres</label>
+                    <div class="col-sm-9 text-center">
+                        <input type="text" class="form-control" id="Address" name="Address" placeholder="@Model.Address" />
+                        <p style="color:red;">@Html.ValidationMessageFor(x => x.Address)</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Image" class="col-sm-3 col-form-label">Fotoğraf</label>
+                    <div class="col-sm-9 text-center">
+                        <input type="file" class="form-control" id="Image" name="Image" placeholder="@Model.Image" value="empty" disabled />
+                        Sisteme fotoğraf yükleme fonksiyonu henüz çalışmamaktadır. Bu sorun en kısa sürede düzeltilecektir.
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Date" class="col-sm-3 col-form-label">Doğum Tarihi</label>
+                    <div class="col-sm-9 text-center">
+                        <input class="text-center" placeholder="@Model.Date.ToString("dd MMMM yyyy")" readonly />
+                        <input type="date" class="form-control" id="Date" name="Date" placeholder="@Model.Date" /> 
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Status" class="col-sm-3 col-form-label" hidden>Doğum Tarihi</label>
+                    <div class="col-sm-9 text-center">
+                        <input id="Status" name="Status" value="true" type="hidden" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <a class="btn btn-light" asp-controller="User" asp-action="Profile">İptal Et</a>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button type="submit" class="btn btn-gradient-primary mr-2">Kaydet</button>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <a class="btn btn-danger" asp-controller="User" asp-action="DeleteUser">Hesabımı Sil!</a>
+                    </div>
+                </div>
+                <!--
+                    TODO: DeleteUser isimli Metod tanımlanıp, gerekli işlemler yapılacak!
+                    TODO: Metod içerisinde yapılacak işlem, hesabı tamamen silmek yerine, hesabı pasif hale getirmek olacak!
+                    TODO: Pasif hale getirilen hesaplar ile giriş yapmak mümkün olmayacak!
+                    TODO: Pasif hale getirilen hesaplar, veritabanında tutulacak!
+                    TODO: Pasif hale getirilen hesaplara ait bilgiler ile yeni bir hesap oluşturulamayacak!
+                -->
+            }
+        </div>
+    </div>
+</div>

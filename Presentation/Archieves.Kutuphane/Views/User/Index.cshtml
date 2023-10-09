@@ -1,4 +1,6 @@
-﻿@model Archieves.Domain.Entities.User
+﻿@using Archieves.Persistence.Concretes;
+@using System.Security.Claims;
+@model Archieves.Domain.Entities.User
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -7,60 +9,62 @@
     <div class="content-wrapper">
         @*
         <div class="row" id="proBanner">
-            <div class="col-12">
-                <span class="d-flex align-items-center purchase-popup">
-                    <p>Get tons of UI components, Plugins, multiple layouts, 20+ sample pages, and more!</p>
-                    <a href="https://www.bootstrapdash.com/product/purple-bootstrap-admin-template?utm_source=organic&utm_medium=banner&utm_campaign=free-preview" target="_blank" class="btn download-button purchase-button ml-auto">Upgrade To Pro</a>
-                    <i class="mdi mdi-close" id="bannerClose"></i>
-                </span>
-            </div>
+        <div class="col-12">
+        <span class="d-flex align-items-center purchase-popup">
+        <p>Get tons of UI components, Plugins, multiple layouts, 20+ sample pages, and more!</p>
+        <a href="https://www.bootstrapdash.com/product/purple-bootstrap-admin-template?utm_source=organic&utm_medium=banner&utm_campaign=free-preview" target="_blank" class="btn download-button purchase-button ml-auto">Upgrade To Pro</a>
+        <i class="mdi mdi-close" id="bannerClose"></i>
+        </span>
+        </div>
         </div>
         *@
         <div class="page-header">
             <h3 class="page-title">
                 <span class="page-title-icon bg-gradient-primary text-white mr-2" align="center">
-                    <img src="~/images/house.svg" height="15px" />
-                </span> Yönetici Paneli
+                    <img src="~/images/house.svg" height="15px" style="margin-top:10px;" />
+                </span>Yönetici Paneli
+                <nav aria-label="breadcrumb">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <span style="margin-right:5px;">
+                                <img src="~/images/exclamation.svg" height="15px" />
+                            </span>Genel Bakış
+                        </li>
+                    </ul>
+                </nav>
             </h3>
-            <nav aria-label="breadcrumb">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">
-                        <span style="margin-right:5px;">Genel Bakış</span> <img src="~/images/exclamation.svg" height="15px" />
-                    </li>
-                </ul>
-            </nav>
         </div>
         <div class="row">
-            <div class="col-md-4 stretch-card grid-margin">
+            <div class="col-md-6 stretch-card grid-margin">
                 <div class="card bg-gradient-danger card-img-holder text-white">
                     <div class="card-body">
                         <h4 class="font-weight-normal mb-3">
-                            Haftalık Satışlar <img src="~/images/rotate.svg" alt="circle-image" height="20px" style="float:right;"/>
+                            Sitemizde Mevcut Bulunan Toplam Kitap Sayısı <img src="~/images/book.svg" alt="circle-image" height="20px" style="float:right;" />
                         </h4>
-                        <h2 class="mb-5">..,..₺</h2> <!-- Haftalık satış değeri -->
-                        <h6 class="card-text">Önceki haftaya oranla miktar (+ / -) ..%</h6> <!-- Önceki haftaya oranla miktar -->
+                        @{
+                            BookService bookService = new BookService();
+                            var books = bookService.GetAll();
+                        }
+                        <h2 class="mb-5">@books.Count Adet</h2> <!-- Haftalık satış değeri -->
+                        <h6 class="card-text text-justify">Sunulan veriler direkt olarak veritabanından çekilmektedir. Bir yanlışlık ya da hata görmeniz durumunda lütfen bize ulaşınız.</h6> <!-- Önceki haftaya oranla miktar -->
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 stretch-card grid-margin">
+            <div class="col-md-6 stretch-card grid-margin">
                 <div class="card bg-gradient-info card-img-holder text-white">
                     <div class="card-body">
                         <h4 class="font-weight-normal mb-3">
-                            Haftalık Siparişler <img src="~/images/rotate.svg" alt="circle-image" height="20px" style="float:right;" />
+                            Yapmış Toplam Yorum Sayısı <img src="~/images/comment.svg" alt="circle-image" height="20px" style="float:right;" />
                         </h4>
-                        <h2 class="mb-5">..,... Adet</h2> <!-- Haftalık sipariş sayısı -->
-                        <h6 class="card-text">Önceki haftaya oranla miktar (+ / -) ..%</h6> <!-- Önceki haftaya oranla miktar -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                    <div class="card-body">
-                        <h4 class="font-weight-normal mb-3">
-                            Aktif Kullanıcılar <img src="~/images/rotate.svg" alt="circle-image" height="20px" style="float:right;" />
-                        </h4>
-                        <h2 class="mb-5">..,... Adet</h2> <!-- Aktif kullanıcı sayısı -->
-                        <h6 class="card-text">Önceki haftaya oranla miktar (+ / -) ..%</h6> <!-- Önceki haftaya oranla miktar -->
+                        @{
+                            UserService userService = new UserService();
+                            var user = userService.GetAll().Where(x => x.Email == User.FindFirst(ClaimTypes.Email).Value).FirstOrDefault();
+
+                            CommentService commentService = new CommentService();
+                            var comments = commentService.GetAll().Where(x => x.UserId == user.Id).Count();
+                        }
+                        <h2 class="mb-5">@comments Adet</h2> <!-- Haftalık sipariş sayısı -->
+                        <h6 class="card-text text-justify">Sunulan veriler direkt olarak veritabanından çekilmektedir. Bir yanlışlık ya da hata görmeniz durumunda lütfen bize ulaşınız.</h6> <!-- Önceki haftaya oranla miktar -->
                     </div>
                 </div>
             </div>
@@ -165,12 +169,12 @@
                         <h4 class="card-title">Son Eklenen Kitaplar</h4>
                         <div class="d-flex">
                             @*<div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                                <img src="~/images/user.svg" height="10px" />
-                                <span style="margin-left:10px;">@Model.Name @Model.Surname</span>
+                            <img src="~/images/user.svg" height="10px" />
+                            <span style="margin-left:10px;">@Model.Name @Model.Surname</span>
                             </div>
                             <div class="d-flex align-items-center text-muted font-weight-light">
-                                <img src="~/images/clock.svg" height="10px" />
-                                <span style="margin-left:5px;">3 Ekim 2018</span>
+                            <img src="~/images/clock.svg" height="10px" />
+                            <span style="margin-left:5px;">3 Ekim 2018</span>
                             </div>*@
                         </div>
                         <!-- Kitap görselleri -->

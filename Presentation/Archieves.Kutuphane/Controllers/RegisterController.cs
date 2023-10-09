@@ -23,22 +23,30 @@ namespace Archieves.Kutuphane.Controllers
         [HttpPost]
         public IActionResult Index(User user)
         {
-            UserValidator uv = new UserValidator();
-            ValidationResult vr = uv.Validate(user);
-            if (!vr.IsValid)
+            if (userService.GetAll().Where(x => x.Email == user.Email).Count() == 0)
             {
-                foreach (var item in vr.Errors)
+                UserValidator uv = new UserValidator();
+                ValidationResult vr = uv.Validate(user);
+                if (!vr.IsValid)
                 {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                    foreach (var item in vr.Errors)
+                    {
+                        ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                    }
+                    return View();
                 }
-                return View();
+                else
+                {
+                    user.Status = true;
+                    user.Image = "empty";
+                    userService.Add(user);
+                    return RedirectToAction("Index", "Login");
+                }
             }
             else
             {
-                user.Status = true;
-                user.Image = "empty";
-                userService.Add(user);
-                return RedirectToAction("Index", "Login");
+                ViewBag.Message = "Bu e-posta adresi kullanılmaktadır.";
+                return View();
             }
         }
     }

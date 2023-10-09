@@ -28,18 +28,26 @@ namespace Archieves.Kutuphane.Controllers
             var userControl = userService.GetAll().FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
             if (userControl != null)
             {
-                // User Validation
-                var claims = new List<Claim>
+                if (userControl.Status != false)
+                {
+                    // User Validation
+                    var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Email, user.Email)
                     };
-                var userIdentity = new ClaimsIdentity(claims, "login");
-                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                await HttpContext.SignInAsync(principal);
+                    var userIdentity = new ClaimsIdentity(claims, "login");
+                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                    await HttpContext.SignInAsync(principal);
 
-                // TODO: Google Recaptcha çalışmıyor, çalıştırılacak.
-                await Post();
-                return RedirectToAction("Index", "Home");
+                    // TODO: Google Recaptcha çalışmıyor, çalıştırılacak.
+                    await Post();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Message = "Hesabınız aktif değil. Lütfen yönetici ile iletişime geçiniz.";
+                    return View();
+                }
             }
             else
             {

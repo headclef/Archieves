@@ -13,64 +13,65 @@
                 {
                     <div class="form-group" align="center">
                         <!--/İsim-->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3 text-center">
                             <label for="Name">İsim</label>
                             <input type="text" class="form-control" id="name" name="Name" placeholder="Buraya giriniz.">
-                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Name)</p>
+                            <p style="color:red;">@Html.ValidationMessageFor(x => x.Name)</p>
                         </div>
                         <!--//İsim-->
                     </div>
                     <div class="form-group" align="center">
                         <!--/Soyisim-->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3 text-center">
                             <label for="Surname">Soyisim</label>
                             <input type="text" class="form-control" id="surname" name="Surname" placeholder="Buraya giriniz.">
-                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Surname)</p>
+                            <p style="color:red;">@Html.ValidationMessageFor(x => x.Surname)</p>
                         </div>
                         <!--//Soyisim-->
                     </div>
                     <div class="form-group" align="center">
                         <!--/Şifre-->
-                        <div class="form-group col-md-6">
+                        <div class="col-md-6 text-center">
                             <label for="Password1">Şifre</label>
                             <input type="password" class="form-control" id="password1" name="Password" placeholder="Buraya giriniz.">
-                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Password)</p>
+                            <p style="color:red;">@Html.ValidationMessageFor(x => x.Password)</p>
                         </div>
                         <!--//Şifre-->
                     </div>
                     <div class="form-group" align="center">
                         <!--/Doğum Tarihi-->
-                        <div class="form-group col-md-6">
+                        <div class="col-md-6 text-center">
                             <label for="Date">Doğum Tarihi</label>
                             <input type="date" class="form-control" id="birthDate" name="Date" placeholder="Buraya giriniz.">
-                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Date)</p>
+                            <p style="color:red;">@Html.ValidationMessageFor(x => x.Date)</p>
                         </div>
                         <!--//Doğum Tarihi-->
                     </div>
                     <div class="form-group" align="center">
                         <!--/Telefon Numarası-->
-                        <div class="form-group col-md-6">
+                        <div class="col-md-6 text-center">
                             <label for="Phone">Telefon Numarası</label>
                             <input type="tel" class="form-control" id="phone" name="Phone" placeholder="Buraya giriniz.">
-                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Phone)</p>
+                            <p style="color:red;">@Html.ValidationMessageFor(x => x.Phone)</p>
                         </div>
                         <!--//Telefon Numarası-->
                     </div>
                     <div class="form-group" align="center">
                         <!--/Email-->
-                        <div class="form-group col-md-6">
+                        <div class="col-md-6 text-center">
                             <label for="Email">E - Posta Adresi</label>
                             <input type="email" class="form-control" id="email" name="Email" aria-describedby="emailHelp" placeholder="Buraya giriniz.">
-                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Email)</p>
+                            <p style="color:red;">@Html.ValidationMessageFor(x => x.Email)</p>
+                            <p style="color:red;">@ViewBag.Message</p>
                         </div>
                         <!--//Email-->
                     </div>
                     <div class="form-group" align="center">
                         <!--/Adres-->
-                        <div class="form-group col-md-6">
+                        <div class="col-md-6 text-center">
                             <label for="Address">Adres</label>
                             <input type="text" class="form-control" id="adres" name="Address" placeholder="Buraya giriniz.">
-                            <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.Address)</p>
+                            <p style="color:red;">@Html.ValidationMessageFor(x => x.Address)</p>
                         </div>
                         <!--//Adres-->
                     </div>
