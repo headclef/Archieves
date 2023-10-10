@@ -10,8 +10,6 @@ namespace Archieves.Domain.Entities
     public class Comment : BaseEntity
     {
         public string Content { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
         public int Rate { get; set; }
 
         public int BookId { get; set; }

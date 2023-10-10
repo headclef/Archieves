@@ -1,23 +1,23 @@
-﻿using Archieves.Persistence.Concretes;
+﻿using Archieves.Kutuphane.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Archieves.Kutuphane.Controllers
 {
     public class BookController : Controller
     {
-        private readonly BookService bookService;
-        public BookController()
+        private readonly IBookService _bookService;
+        public BookController(IBookService bookService)
         {
-            bookService = new BookService();
+            _bookService = bookService;
         }
         public IActionResult Index()
         {
-            var values = bookService.GetAll();
+            var values = _bookService.GetAllBooksAsync();
             return View(values);
         }
         public IActionResult BookDetails(int id)
         {
-            var values = bookService.GetAll(id);
+            var values = _bookService.GetAllBooksByIdAsync(id);
             return View(values);
         }
     }

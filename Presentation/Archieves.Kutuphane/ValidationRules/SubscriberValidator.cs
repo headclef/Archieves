@@ -1,11 +1,11 @@
-﻿using Archieves.Domain.Entities;
+﻿using Archieves.Kutuphane.Models.Subscriber;
 using FluentValidation;
 
 namespace Archieves.Kutuphane.ValidationRules
 {
-    public class SubscriberValidator : AbstractValidator<Subscriber>
+    public class SubscriberAddModelValidator : AbstractValidator<SubscriberAddModel>
     {
-        public SubscriberValidator()
+        public SubscriberAddModelValidator()
         {
             RuleFor(x => x.Email)
                 .NotEmpty()
