@@ -1,18 +1,18 @@
-﻿using Archieves.Persistence.Concretes;
+﻿using Archieves.Kutuphane.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Archieves.Kutuphane.ViewComponents.Comment
 {
     public class CommentListByBook : ViewComponent
     {
-        private readonly CommentService commentService;
-        public CommentListByBook()
+        private readonly ICommentService _commentService;
+        public CommentListByBook(ICommentService commentService)
         {
-            commentService = new CommentService();
+            _commentService = commentService;
         }
         public IViewComponentResult Invoke(int id)
         {
-            var values = commentService.GetAll().Where(x => x.BookId == id).ToList();
+            var values = _commentService.GetAllCommentsByBookIdAsync(id).Result.Value;
             if (values != null)
                 return View(values);
             else

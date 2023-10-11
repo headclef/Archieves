@@ -1,14 +1,14 @@
-﻿using Archieves.Persistence.Concretes;
+﻿using Archieves.Kutuphane.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Archieves.Kutuphane.ViewComponents.Admin
 {
     public class LatestBooks : ViewComponent
     {
-        BookService bookService;
-        public LatestBooks()
+        private readonly IBookService _bookService;
+        public LatestBooks(IBookService bookService)
         {
-            bookService = new BookService();
+            _bookService = bookService;
         }
         public IViewComponentResult Invoke(int id)
         {
