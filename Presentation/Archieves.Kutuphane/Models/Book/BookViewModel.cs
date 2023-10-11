@@ -1,5 +1,7 @@
 ﻿using Archieves.Kutuphane.Models.Author;
+using Archieves.Kutuphane.Models.Comment;
 using Archieves.Kutuphane.Models.Common;
+using Archieves.Kutuphane.Models.Rating;
 
 namespace Archieves.Kutuphane.Models.Book
 {

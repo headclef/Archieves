@@ -1,8 +1,8 @@
 ﻿using Archieves.Kutuphane.Models.Common;
 
-namespace Archieves.Kutuphane.Models
+namespace Archieves.Kutuphane.Models.User.Common
 {
-    public class UserViewModel : BaseViewModel
+    public class UserValidateModel : BaseViewModel
     {
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -11,7 +11,5 @@ namespace Archieves.Kutuphane.Models
         public string? Phone { get; set; }
         public string? Address { get; set; }
         public string? Image { get; set; }
-
-        public ICollection<CommentViewModel> Comments { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Archieves.Kutuphane.Models.Book;
 using Archieves.Kutuphane.Models.Common;
 
-namespace Archieves.Kutuphane.Models
+namespace Archieves.Kutuphane.Models.Rating
 {
     public class RatingViewModel : BaseViewModel
     {

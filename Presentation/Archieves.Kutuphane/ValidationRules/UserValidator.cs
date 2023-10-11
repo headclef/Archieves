@@ -1,9 +1,9 @@
-﻿using Archieves.Domain.Entities;
+﻿using Archieves.Kutuphane.Models.User.Common;
 using FluentValidation;
 
 namespace Archieves.Kutuphane.ValidationRules
 {
-    public class UserValidator : AbstractValidator<User>
+    public class UserValidator : AbstractValidator<UserValidateModel>
     {
         public UserValidator()
         {

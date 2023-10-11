@@ -1,6 +1,7 @@
-﻿using Archieves.Domain.Entities;
+﻿using Archieves.Kutuphane.Models.Comment;
+using Archieves.Kutuphane.Models.User;
+using Archieves.Kutuphane.Services.Abstractions;
 using Archieves.Kutuphane.ValidationRules;
-using Archieves.Persistence.Concretes;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -9,41 +10,49 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserService userService;
-        private readonly CommentService commentService;
-        public UserController()
+        private readonly IUserService _userService;
+        private readonly ICommentService _commentService;
+        public UserController(IUserService userService, ICommentService commentService)
         {
-            userService = new UserService();
-            commentService = new CommentService();
+            _userService = userService;
+            _commentService = commentService;
         }
         public IActionResult Index()
         {
-            User user = GetAuthenticatedUser();
+            UserViewModel user = GetAuthenticatedUser();
             return View(user);
         }
         #region Kullanıcı Panelindeki Yorum İşlemleri
         public IActionResult CommentsList()
         {
             var authenticatedUser = GetAuthenticatedUser();
-            var comments = commentService.GetAllByUserId(authenticatedUser.Id).Where(x => x.Status == true);
+            var comments = _commentService.GetAllCommentsAsync(authenticatedUser.Id, true);
             return View(comments);
         }
         [HttpGet]
         public IActionResult UpdateComment(int id)
         {
-            return View(commentService.GetById(id));
+            return View(_commentService.GetCommentByIdAsync(id));
         }
         [HttpPost]
-        public IActionResult UpdateComment(Comment comment)
+        public IActionResult UpdateComment(CommentUpdateModel comment)
         {
-            commentService.Update(comment);
+            _commentService.UpdateCommentAsync(comment);
             return RedirectToAction("CommentsList", "User");
         }
         public IActionResult DeleteComment(int id)
         {
-            var comment = commentService.GetById(id);
+            var comment = _commentService.GetCommentByIdAsync(id).Result.Value;
             comment.Status = false;
-            commentService.Update(comment);
+            CommentUpdateModel commentUpdateModel = new CommentUpdateModel
+            {
+                Id = comment.Id,
+                Content = comment.Content,
+                Rate = comment.Rate,
+                Date = comment.Date,
+                Status = false,
+            };
+            _commentService.UpdateCommentAsync(commentUpdateModel);
             return RedirectToAction("CommentsList", "User");
         }
         [HttpGet]
@@ -52,7 +61,7 @@ namespace Archieves.Kutuphane.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddComment(Comment comment)
+        public IActionResult AddComment(CommentAddModel comment)
         {
             CommentValidator cv = new CommentValidator();
             ValidationResult vr = cv.Validate(comment);
@@ -68,11 +77,9 @@ namespace Archieves.Kutuphane.Controllers
             {
                 var user = GetAuthenticatedUser();
                 comment.UserId = user.Id;
-                comment.Name = user.Name;
-                comment.Surname = user.Surname;
                 comment.Status = true;
                 comment.Date = DateTime.Now;
-                commentService.Add(comment);
+                _commentService.AddCommentAsync(comment);
                 return RedirectToAction("CommentsList", "User");
             }
         }
@@ -85,7 +92,7 @@ namespace Archieves.Kutuphane.Controllers
             return View(authenticatedUser);
         }
         [HttpPost]
-        public IActionResult Profile(User user)
+        public IActionResult Profile(UserUpdateModel user)
         {
             var authenticatedUser = GetAuthenticatedUser();
             var controlledUser = ControlPropertiesOfUser(user);
@@ -104,25 +111,37 @@ namespace Archieves.Kutuphane.Controllers
                 user.Id = authenticatedUser.Id;
                 user.Date = controlledUser.ElementAt(0) == false ? authenticatedUser.Date : user.Date;
                 user.Image = controlledUser.ElementAt(1) == false ? authenticatedUser.Image : user.Image;
-                userService.Update(user);
+                _userService.UpdateUserAsync(user);
             }
             return RedirectToAction("LogOut", "LogIn");
         }
         public IActionResult DeleteUser()
         {
             var authenticatedUser = GetAuthenticatedUser();
-            authenticatedUser.Status = false;
-            userService.Update(authenticatedUser);
+            UserUpdateModel userUpdateModel = new UserUpdateModel
+            {
+                Id = authenticatedUser.Id,
+                Name = authenticatedUser.Name,
+                Surname = authenticatedUser.Surname,
+                Email = authenticatedUser.Email,
+                Password = authenticatedUser.Password,
+                Phone = authenticatedUser.Phone,
+                Address = authenticatedUser.Address,
+                Image = authenticatedUser.Image,
+                Date = authenticatedUser.Date,
+                Status = false,
+            };
+            _userService.UpdateUserAsync(userUpdateModel);
             return RedirectToAction("LogOut", "LogIn");
         }
         #endregion
-        private User GetAuthenticatedUser()
+        private UserViewModel GetAuthenticatedUser()
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
-            var authenticatedUser = userService.GetAll().Where(u => u.Email == email).FirstOrDefault();
+            var authenticatedUser = _userService.GetUserByEmailAsync(email).Result.Value;
             return authenticatedUser;
         }
-        private ICollection<bool> ControlPropertiesOfUser(User user)
+        private ICollection<bool> ControlPropertiesOfUser(UserUpdateModel user)
         {
             bool Date = user.Date == null ? false : true;
             bool Image = user.Image == null ? false : true;

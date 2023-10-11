@@ -1,7 +1,8 @@
 ﻿using Archieves.Domain.Entities;
-using Archieves.Kutuphane.ValidationRules;
-using Archieves.Persistence.Concretes;
-using FluentValidation.Results;
+using Archieves.Kutuphane.Models.Comment;
+using Archieves.Kutuphane.Models.Rating;
+using Archieves.Kutuphane.Models.User;
+using Archieves.Kutuphane.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -9,14 +10,14 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class CommentController : Controller
     {
-        private readonly CommentService commentService;
-        private readonly UserService userService;
-        private readonly RatingService ratingService;
-        public CommentController()
+        private readonly ICommentService _commentService;
+        private readonly IUserService _userService;
+        private readonly IRatingService _ratingService;
+        public CommentController(ICommentService commentService, IUserService userService, IRatingService ratingService)
         {
-            commentService = new CommentService();
-            userService = new UserService();
-            ratingService = new RatingService();
+            _commentService = commentService;
+            _userService = userService;
+            _ratingService = ratingService;
         }
         public IActionResult Index()
         {
@@ -28,39 +29,36 @@ namespace Archieves.Kutuphane.Controllers
             return PartialView();
         }
         [HttpPost]
-        public IActionResult AddCommentPartial(Comment comment)
+        public IActionResult AddCommentPartial(CommentAddModel comment)
         {
-            if (ratingService.GetAll().Where(x => x.BookId == comment.BookId).Count() > 0)
+            if (_ratingService.GetAllRatingsByBookIdAsync(comment.BookId) is not null)
             {
-                var rating = ratingService.GetAll().Where(x => x.BookId == comment.BookId).FirstOrDefault();
-                rating.Rate += comment.Rate;
-                rating.Count += 1;
-                ratingService.Update(rating);
+                var rating = new RatingUpdateModel();
+                rating.Rate = comment.Rate;
+                _ratingService.UpdateRatingAsync(rating);
             }
             else
             {
-                var rating = new Rating();
+                var rating = new RatingAddModel();
                 rating.BookId = comment.BookId;
                 rating.Rate = comment.Rate;
                 rating.Count = 1;
                 rating.Date = DateTime.Now;
                 rating.Status = true;
-                ratingService.Add(rating);
+                _ratingService.AddRatingAsync(rating);
             }
-            User authenticatedUser = GetAuthenticatedUser();
+            UserViewModel authenticatedUser = GetAuthenticatedUser();
             comment.UserId = authenticatedUser.Id;
-            comment.Name = authenticatedUser.Name;
-            comment.Surname = authenticatedUser.Surname;
             comment.Date = DateTime.Now;
             comment.Status = true;
-            commentService.Add(comment);
+            _commentService.AddCommentAsync(comment);
             return RedirectToAction("BookDetails", "Book", new { id = comment.BookId });
         }
         #endregion
-        private User GetAuthenticatedUser()
+        private UserViewModel GetAuthenticatedUser()
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
-            var authenticatedUser = userService.GetAll().Where(u => u.Email == email).FirstOrDefault();
+            var authenticatedUser = _userService.GetUserByEmailAsync(email).Result.Value;
             return authenticatedUser;
         }
     }

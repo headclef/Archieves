@@ -1,9 +1,9 @@
-﻿using Archieves.Domain.Entities;
+﻿using Archieves.Kutuphane.Models.Comment;
 using FluentValidation;
 
 namespace Archieves.Kutuphane.ValidationRules
 {
-    public class CommentValidator : AbstractValidator<Comment>
+    public class CommentValidator : AbstractValidator<CommentAddModel>
     {
         public CommentValidator()
         {

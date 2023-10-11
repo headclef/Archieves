@@ -1,7 +1,6 @@
 ﻿using Archieves.Kutuphane.Models.Subscriber;
 using Archieves.Kutuphane.Services.Concretes;
 using Archieves.Kutuphane.ValidationRules;
-using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,6 +1,6 @@
-﻿using Archieves.Domain.Entities;
+﻿using Archieves.Kutuphane.Models.User;
+using Archieves.Kutuphane.Services.Abstractions;
 using Archieves.Kutuphane.ValidationRules;
-using Archieves.Persistence.Concretes;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +10,10 @@ namespace Archieves.Kutuphane.Controllers
     [AllowAnonymous]
     public class RegisterController : Controller
     {
-        private readonly UserService userService;
-        public RegisterController()
+        private readonly IUserService _userService;
+        public RegisterController(IUserService userService)
         {
-            userService = new UserService();
+            _userService = userService;
         }
         [HttpGet]
         public IActionResult Index()
@@ -21,9 +21,9 @@ namespace Archieves.Kutuphane.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(User user)
+        public IActionResult Index(UserAddModel user)
         {
-            if (userService.GetAll().Where(x => x.Email == user.Email).Count() == 0)
+            if (_userService.GetUserByEmailAsync(user.Email).Result.Value is null)
             {
                 UserValidator uv = new UserValidator();
                 ValidationResult vr = uv.Validate(user);
@@ -39,7 +39,7 @@ namespace Archieves.Kutuphane.Controllers
                 {
                     user.Status = true;
                     user.Image = "empty";
-                    userService.Add(user);
+                    _userService.AddUserAsync(user);
                     return RedirectToAction("Index", "Login");
                 }
             }

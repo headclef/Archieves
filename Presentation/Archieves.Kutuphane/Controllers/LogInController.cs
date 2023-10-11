@@ -1,5 +1,5 @@
-﻿using Archieves.Domain.Entities;
-using Archieves.Persistence.Concretes;
+﻿using Archieves.Kutuphane.Models.User;
+using Archieves.Kutuphane.Services.Abstractions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +11,10 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class LogInController : Controller
     {
-        private readonly UserService userService;
-        public LogInController()
+        private readonly IUserService _userService;
+        public LogInController(IUserService userService)
         {
-            userService = new UserService();
+            _userService = userService;
         }
         [AllowAnonymous]
         public IActionResult Index()
@@ -23,9 +23,9 @@ namespace Archieves.Kutuphane.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> IndexAsync(User user)
+        public async Task<IActionResult> IndexAsync(UserViewModel user)
         {
-            var userControl = userService.GetAll().FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+            var userControl = _userService.GetUserByEmailandPasswordAsync(user).Result.Value;
             if (userControl != null)
             {
                 if (userControl.Status != false)
