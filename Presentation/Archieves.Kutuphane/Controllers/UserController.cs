@@ -26,7 +26,7 @@ namespace Archieves.Kutuphane.Controllers
         public IActionResult CommentsList()
         {
             var authenticatedUser = GetAuthenticatedUser();
-            var comments = _commentService.GetAllCommentsAsync(authenticatedUser.Id, true);
+            var comments = _commentService.GetAllCommentsAsync(authenticatedUser.Id, true).Result.Value;
             return View(comments);
         }
         [HttpGet]

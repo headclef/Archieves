@@ -2,9 +2,7 @@
     ViewData["Title"] = "Error2";
     Layout = null;
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -13,7 +11,7 @@
 <body>
     <div align="center">
         <img src="~/images/InternalServerError.png" height="80%" width="80%" />
-        <a style="text-decoration:none;" href="~/Home/Index.cshtml">
+        <a style="text-decoration:none;" asp-controller="Home" asp-action="Index">
             Ana sayfaya dönmek için tıklayınız.
         </a>
     </div>

@@ -1,10 +1,12 @@
 ﻿@using System.Security.Claims;
-@using Archieves.Persistence.Concretes;
+@using Archieves.Kutuphane.Services.Abstractions;
+@inject IUserService _userService;
 @{
     Layout = null;
+    var userEmail = User.FindFirst(ClaimTypes.Email).Value;
+    var user = _userService.GetUserByEmailAsync(userEmail).Result.Value;
 }
 <!DOCTYPE html>
-
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -44,11 +46,6 @@
                                 <span class="availability-status online"></span>
                             </div>
                             <div class="nav-profile-text">
-                                @{
-                                    var userEmail = User.FindFirst(ClaimTypes.Email);
-                                    UserService userService = new UserService();
-                                    var user = userService.GetAll().Where(u => u.Email == userEmail.Value).FirstOrDefault();
-                                }
                                 <p class="font-weight-bold mb-2">
                                     @user.Name @user.Surname
                                 </p>

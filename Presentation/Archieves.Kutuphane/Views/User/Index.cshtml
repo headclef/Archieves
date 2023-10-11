@@ -1,9 +1,16 @@
-﻿@using Archieves.Persistence.Concretes;
+﻿@using Archieves.Kutuphane.Models.User;
 @using System.Security.Claims;
-@model Archieves.Domain.Entities.User
+@using Archieves.Kutuphane.Services.Abstractions;
+@model UserViewModel
+@inject IBookService _bookService;
+@inject IUserService _userService;
+@inject ICommentService _commentService;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var books = _bookService.GetAllBooksAsync().Result.Value.Count();
+    var user = _userService.GetUserByEmailAsync(User.FindFirst(ClaimTypes.Email).Value).Result.Value;
+    var comments = _commentService.GetAllCommentsAsync().Result.Value.Where(x => x.UserId == user.Id).Count();
 }
 <div class="main-panel">
     <div class="content-wrapper">
@@ -41,11 +48,7 @@
                         <h4 class="font-weight-normal mb-3">
                             Sitemizde Mevcut Bulunan Toplam Kitap Sayısı <img src="~/images/book.svg" alt="circle-image" height="20px" style="float:right;" />
                         </h4>
-                        @{
-                            BookService bookService = new BookService();
-                            var books = bookService.GetAll();
-                        }
-                        <h2 class="mb-5">@books.Count Adet</h2> <!-- Haftalık satış değeri -->
+                        <h2 class="mb-5">@books Adet</h2>
                         <h6 class="card-text text-justify">Sunulan veriler direkt olarak veritabanından çekilmektedir. Bir yanlışlık ya da hata görmeniz durumunda lütfen bize ulaşınız.</h6> <!-- Önceki haftaya oranla miktar -->
                     </div>
                 </div>
@@ -57,11 +60,6 @@
                             Yapmış Toplam Yorum Sayısı <img src="~/images/comment.svg" alt="circle-image" height="20px" style="float:right;" />
                         </h4>
                         @{
-                            UserService userService = new UserService();
-                            var user = userService.GetAll().Where(x => x.Email == User.FindFirst(ClaimTypes.Email).Value).FirstOrDefault();
-
-                            CommentService commentService = new CommentService();
-                            var comments = commentService.GetAll().Where(x => x.UserId == user.Id).Count();
                         }
                         <h2 class="mb-5">@comments Adet</h2> <!-- Haftalık sipariş sayısı -->
                         <h6 class="card-text text-justify">Sunulan veriler direkt olarak veritabanından çekilmektedir. Bir yanlışlık ya da hata görmeniz durumunda lütfen bize ulaşınız.</h6> <!-- Önceki haftaya oranla miktar -->

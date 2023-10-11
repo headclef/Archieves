@@ -17,7 +17,7 @@ namespace Archieves.Kutuphane.Controllers
         }
         public IActionResult BookDetails(int id)
         {
-            var values = _bookService.GetAllBooksByIdAsync(id);
+            var values = _bookService.GetBookByIdAsync(id).Result.Value;
             return View(values);
         }
     }

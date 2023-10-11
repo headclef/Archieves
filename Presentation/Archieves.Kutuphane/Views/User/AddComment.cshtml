@@ -1,8 +1,11 @@
-﻿@using Archieves.Persistence.Concretes;
-@model Archieves.Domain.Entities.Comment
+﻿@using Archieves.Kutuphane.Models.Comment;
+@using Archieves.Kutuphane.Services.Abstractions;
+@model CommentAddModel
+@inject IBookService _bookService;
 @{
     ViewData["Title"] = "AddComment";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var books = _bookService.GetAllBooksAsync().Result.Value;
 }
 <div class="container text-center">
     <h1 class="title">YORUM EKLEME PANELİ</h1>
@@ -14,13 +17,9 @@
                     <label for="BookId" style="color:black;">Kitap Adı</label>
                     <input class="form-control" id="BookId" name="BookId" list="Book" />
                     <datalist id="Book">
-                        @{
-                            BookService bookService = new BookService();
-                            var books = bookService.GetAll();
-                            @foreach (var book in books) // TODO: Hata fırlatıyor, çözülecek.
-                            {
-                                <option value="@book.Id">@book.Name</option>
-                            }
+                        @foreach (var book in books) // TODO: Hata fırlatıyor, çözülecek.
+                        {
+                            <option value="@book.Id">@book.Name</option>
                         }
                     </datalist>
                     <p style="text-align:justify; color:red;">@Html.ValidationMessageFor(x => x.BookId)</p>
