@@ -82,6 +82,12 @@
 		<li>v2.12	Presentation katmanına güncelleme (Kitap detaylarını içeren sayfadaki yorum yapma paneline fix).</li>
 		<li>v2.13	Tüm projeye genel bir güncelleme.</li>
 		<li>v2.14	Oylama (Rating) sistemi eklendi.</li>
+			<br />
+		<li>v3.0	Tüm projeyi sanallaştırma (soyutlama); Servis, repository ve interface 'lere güncelleme. Kimi katmanlar üzerinde köklü değişiklikler.</li>
+		<li>v3.1	Presentation katmanına güncelleme (Controller, model ve mapping katmanlarına üyeler eklenmesi).</li>
+		<li>v3.2	Presentation katmanına güncelleme (Bütün view 'ler elden geçirildi ve yeni servis katmanına uyarlanarak domain katmanı, presentation katmanından tamamen soyutlandı).</li>
+		<li>v3.3	Infrasctructure katmanına güncelleme (Migrasyon yapıldı ve veri tabanı ihtiyaçlara göre ayarlandı).</li>
+		<li>v3.4	Presentation katmanına güncelleme (Hata fırlatan view 'ler ve controller 'lar düzenlendi. Mapping ayarları tekrar gözden geçirildi ve Program.cs 'e güncelleme uygulandı).</li>
 	</ul>
 </div>
 
