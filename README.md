@@ -13,7 +13,9 @@
 		gibi işlemler de bulunduracaktır.
 	</p>
 	<div align = "center">
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/Project.png"/>
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreLayer.png"/>
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationLayer.png"/>
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureLayer.png"/>
 	</div>
 		<br />
 	<p>
