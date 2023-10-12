@@ -56,7 +56,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<List<UserViewModel>>();
             try
             {
-                var user = _userRepository.GetAllQuery().ToList();
+                var user = _userRepository.GetAllAsync().Result.ToList();
                 var userViewModel = _mapper.Map<List<UserViewModel>>(user);
                 return result.Success(userViewModel);
             }
@@ -71,7 +71,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<UserViewModel>();
             try
             {
-                var user = _userRepository.GetAllQuery().FirstOrDefaultAsync(x => x.Email == model.Email && x.Password == model.Password);
+                var user = _userRepository.GetAllAsync().Result.ToList().FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
                 if (user is null)
                 {
                     return result.Fail($"No user found with email {model.Email}.");
@@ -90,7 +90,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<UserViewModel>();
             try
             {
-                var user = _userRepository.GetAllQuery().FirstOrDefaultAsync(x => x.Email == email);
+                var user = _userRepository.GetAllAsync().Result.ToList().FirstOrDefault(x => x.Email == email);
                 if (user is null)
                 {
                     return result.Fail($"No user found with email {email}.");

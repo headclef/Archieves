@@ -23,12 +23,13 @@ namespace Archieves.Kutuphane.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> IndexAsync(UserViewModel user)
+        public async Task<IActionResult> Index(UserViewModel user)
         {
-            var userControl = _userService.GetUserByEmailandPasswordAsync(user).Result.Value;
-            if (userControl != null)
+            var userControl = await _userService.GetUserByEmailandPasswordAsync(user);
+            var controlledUser = userControl.Value;
+            if (controlledUser != null)
             {
-                if (userControl.Status != false)
+                if (userControl.Value.Status != false)
                 {
                     // User Validation
                     var claims = new List<Claim>

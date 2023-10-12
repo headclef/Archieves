@@ -40,10 +40,10 @@ namespace Archieves.Persistence.Repositories.Common
             return entity;
         }
 
-        IQueryable<T> IGenericRepository<T>.GetAllQuery()
+        public async Task<ICollection<T>> GetAllAsync()
         {
-            var query = _context.Set<T>().AsQueryable();
-            return query;
+            var result = await _context.Set<T>().ToListAsync();
+            return result;
         }
 
         public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
@@ -54,11 +54,6 @@ namespace Archieves.Persistence.Repositories.Common
             bool tracking = _context.ChangeTracker.Entries<T>().Any(x => x.Entity.Id == entity.Id);
             if (tracking)
                 _context.ChangeTracker.Entries<T>().FirstOrDefault(x => x.Entity.Id == entity.Id).State = EntityState.Detached;
-        }
-
-        public IQueryable<T> GetAllQuery()
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

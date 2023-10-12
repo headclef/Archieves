@@ -65,13 +65,13 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<List<BookViewModel>>();
             try
             {
-                var books = _bookRepository.GetAllQuery().ToList();
+                var books = _bookRepository.GetAllAsync().Result.ToList();
                 var bookViewModels = _mapper.Map<List<BookViewModel>>(books);
                 return result.Success(bookViewModels);
             }
             catch (Exception e)
             {
-                return result.Fail($"An error occured: {e.Message}.");
+                return result.Fail($"An error occured: {e.Message}.\n StackTrace: {e.StackTrace}.");
             }
         }
         public async Task<ModelResponse<List<BookViewModel>>> GetAllBooksByIdAsync(int id)
@@ -79,7 +79,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<List<BookViewModel>>();
             try
             {
-                var books = _bookRepository.GetAllQuery().Where(x => x.Id == id).ToList();
+                var books = _bookRepository.GetAllAsync().Result.Where(x => x.Id == id).ToList();
                 var bookViewModels = _mapper.Map<List<BookViewModel>>(books);
                 return result.Success(bookViewModels);
             }

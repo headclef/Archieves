@@ -13,6 +13,6 @@ namespace Archieves.Application.Repositories.Common
         Task<T> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);
         Task<T> GetByIdAsync(int id);
-        IQueryable<T> GetAllQuery();
+        Task<ICollection<T>> GetAllAsync();
     }
 }

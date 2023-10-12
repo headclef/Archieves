@@ -1,6 +1,10 @@
 ﻿@using Archieves.Kutuphane.Models.Wrappers;
 @using Archieves.Kutuphane.Models.Book;
 @using Archieves.Kutuphane.Services.Abstractions;
+@using Archieves.Kutuphane.Services.Concretes;
+@using Archieves.Persistence.Contexts;
+@using Archieves.Persistence.Repositories;
+@using AutoMapper;
 @model BookViewModel
 @inject IAuthorService authorService;
 @inject ICommentService commentService;

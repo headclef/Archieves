@@ -12,7 +12,8 @@ namespace Archieves.Kutuphane.Services.Abstractions
         Task<ModelResponse<CommentViewModel>> DeleteCommentAsync(int id);
         Task<ModelResponse<CommentViewModel>> GetCommentByIdAsync(int id);
         Task<ModelResponse<List<CommentViewModel>>> GetAllCommentsAsync();
-        Task<ModelResponse<List<CommentViewModel>>> GetAllCommentsAsync(int id, bool status);
+        Task<ModelResponse<List<CommentViewModel>>> GetAllCommentsByUserIdAsync(int id);
+        Task<ModelResponse<List<CommentViewModel>>> GetAllCommentsByUserIdandStatusAsync(int id, bool status);
         Task<ModelResponse<List<CommentViewModel>>> GetAllCommentsByBookIdAsync(int bookId);
     }
 }

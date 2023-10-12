@@ -1,15 +1,29 @@
 ﻿@using Archieves.Kutuphane.Models.Book;
 @using Archieves.Kutuphane.Services.Abstractions;
 @inject IBookService _bookService;
+@{
+    string[] items = new string[4];
+    try
+    {
+        items[0] = _bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count).Result.Value.Image;
+        items[1] = _bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count - 1).Result.Value.Image;
+        items[2] = _bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count - 2).Result.Value.Image;
+        items[3] = _bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count - 3).Result.Value.Image;
+    }
+    catch (Exception e)
+    {
+        <p>e.Message</p>
+    }
+}
 <div class="row mt-3">
     @{
         <div class="col-6 pr-1">
-            <img src="@_bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count()).Result.Value.Image" class="mb-2 mw-100 w-100 rounded" alt="image">
-            <img src="@_bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count() - 1).Result.Value.Image" class="mw-100 w-100 rounded" alt="image">
+            <img src="@items[0]" class="mb-2 mw-100 w-100 rounded" alt="image">
+            <img src="@items[1]" class="mw-100 w-100 rounded" alt="image">
         </div>
         <div class="col-6 pl-1">
-            <img src="@_bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count() - 2).Result.Value.Image" class="mb-2 mw-100 w-100 rounded" alt="image">
-            <img src="@_bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count() - 3).Result.Value.Image" class="mw-100 w-100 rounded" alt="image">
+            <img src="@items[2]" class="mb-2 mw-100 w-100 rounded" alt="image">
+            <img src="@items[3]" class="mw-100 w-100 rounded" alt="image">
         </div>
     }
 </div>

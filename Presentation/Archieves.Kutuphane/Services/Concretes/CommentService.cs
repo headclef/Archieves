@@ -56,7 +56,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<List<CommentViewModel>>();
             try
             {
-                var comment = _commentRepository.GetAllQuery().ToList();
+                var comment = _commentRepository.GetAllAsync().Result.ToList();
                 var commentViewModel = _mapper.Map<List<CommentViewModel>>(comment);
                 return result.Success(commentViewModel);
             }
@@ -65,13 +65,26 @@ namespace Archieves.Kutuphane.Services.Concretes
                 return result.Fail($"An error occured: {e.Message}.");
             }
         }
-
-        public async Task<ModelResponse<List<CommentViewModel>>> GetAllCommentsAsync(int id, bool status)
+        public async Task<ModelResponse<List<CommentViewModel>>> GetAllCommentsByUserIdAsync(int id)
         {
             var result = new ModelResponse<List<CommentViewModel>>();
             try
             {
-                var comments = _commentRepository.GetAllQuery().Where(x => x.UserId == id && x.Status == status).ToList();
+                var comments = _commentRepository.GetAllAsync().Result.Where(x => x.UserId == id).ToList();
+                var commentViewModel = _mapper.Map<List<CommentViewModel>>(comments);
+                return result.Success(commentViewModel);
+            }
+            catch (Exception e)
+            {
+                return result.Fail($"An error occured: {e.Message}.");
+            }
+        }
+        public async Task<ModelResponse<List<CommentViewModel>>> GetAllCommentsByUserIdandStatusAsync(int id, bool status)
+        {
+            var result = new ModelResponse<List<CommentViewModel>>();
+            try
+            {
+                var comments = _commentRepository.GetAllAsync().Result.Where(x => x.UserId == id && x.Status == status).ToList();
                 var commentViewModels = _mapper.Map<List<CommentViewModel>>(comments);
                 return result.Success(commentViewModels);
             }
@@ -80,13 +93,12 @@ namespace Archieves.Kutuphane.Services.Concretes
                 return result.Fail($"An error occured: {e.Message}.");
             }
         }
-
         public async Task<ModelResponse<List<CommentViewModel>>> GetAllCommentsByBookIdAsync(int bookId)
         {
             var result = new ModelResponse<List<CommentViewModel>>();
             try
             {
-                var comments = _commentRepository.GetAllQuery().Where(x => x.BookId == bookId).ToList();
+                var comments = _commentRepository.GetAllAsync().Result.Where(x => x.BookId == bookId).ToList();
                 var commentViewModels = _mapper.Map<List<CommentViewModel>>(comments);
                 return result.Success(commentViewModels);
             }

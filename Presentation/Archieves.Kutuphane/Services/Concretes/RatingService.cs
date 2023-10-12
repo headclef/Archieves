@@ -53,7 +53,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<List<RatingViewModel>>();
             try
             {
-                var ratings = _ratingRepository.GetAllQuery().ToList();
+                var ratings = _ratingRepository.GetAllAsync().Result.ToList();
                 var ratingViewModels = _mapper.Map<List<RatingViewModel>>(ratings);
                 return result.Success(ratingViewModels);
             }
@@ -68,7 +68,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<List<RatingViewModel>>();
             try
             {
-                var ratings = _ratingRepository.GetAllQuery().Where(x => x.BookId == bookId).ToList();
+                var ratings = _ratingRepository.GetAllAsync().Result.Where(x => x.BookId == bookId).ToList();
                 var ratingViewModels = _mapper.Map<List<RatingViewModel>>(ratings);
                 return result.Success(ratingViewModels);
             }
@@ -99,7 +99,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             try
             {
                 var rating = _mapper.Map<Rating>(model);
-                rating.Count = _ratingRepository.GetAllQuery().Where(x => x.BookId == model.BookId).FirstOrDefault().Count + 1;
+                rating.Count = _ratingRepository.GetAllAsync().Result.Where(x => x.BookId == model.BookId).FirstOrDefault().Count + 1;
                 var updateResult = await _ratingRepository.UpdateAsync(rating);
                 var ratingViewModel = _mapper.Map<RatingViewModel>(updateResult);
                 return result.Success(ratingViewModel);

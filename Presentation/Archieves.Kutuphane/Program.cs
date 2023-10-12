@@ -1,8 +1,10 @@
 using Archieves.Application.Repositories;
+using Archieves.Kutuphane.Mapping;
 using Archieves.Kutuphane.Services.Abstractions;
 using Archieves.Kutuphane.Services.Concretes;
 using Archieves.Persistence.Contexts;
 using Archieves.Persistence.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -10,24 +12,48 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// IConfiguration
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+// Add IConfiguration to sservices
+builder.Services.AddSingleton<IConfiguration>(configuration);
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc().AddRazorRuntimeCompilation();
 #region Dependency Injections
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<IRatingRepository, RatingRepository>();
-builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IAuthorService, AuthorService>();
-builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<ICommentService, CommentService>();
-builder.Services.AddScoped<IRatingService, RatingService>();
-builder.Services.AddScoped<ISubscriberService, SubscriberService>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddDbContext<ArchievesDbContext>
+    (options => 
+    { 
+        options.UseSqlServer(configuration.GetConnectionString("VeriTabaniBaglantisi")); 
+    });
+
+builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
+builder.Services.AddTransient<IBookRepository, BookRepository>();
+builder.Services.AddTransient<ICommentRepository, CommentRepository>();
+builder.Services.AddTransient<IRatingRepository, RatingRepository>();
+builder.Services.AddTransient<ISubscriberRepository, SubscriberRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+// AutoMapper
+var mapperConfiguration = new MapperConfiguration
+    (cfg =>
+    {
+        cfg.AddProfile<GeneralMapping>();
+    });
+var mapper = mapperConfiguration.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddTransient<IAuthorService, AuthorService>();
+builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<ICommentService, CommentService>();
+builder.Services.AddTransient<IRatingService, RatingService>();
+builder.Services.AddTransient<ISubscriberService, SubscriberService>();
+builder.Services.AddTransient<IUserService, UserService>();
 #endregion
-builder.Services.AddDbContext<ArchievesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddSession();
 builder.Services.AddMvc(config =>
 {

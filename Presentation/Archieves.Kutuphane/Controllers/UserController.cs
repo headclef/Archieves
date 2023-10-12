@@ -1,7 +1,10 @@
-﻿using Archieves.Kutuphane.Models.Comment;
+﻿using Archieves.Kutuphane.Models;
+using Archieves.Kutuphane.Models.Book;
+using Archieves.Kutuphane.Models.Comment;
 using Archieves.Kutuphane.Models.User;
 using Archieves.Kutuphane.Services.Abstractions;
 using Archieves.Kutuphane.ValidationRules;
+using AutoMapper;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -12,21 +15,23 @@ namespace Archieves.Kutuphane.Controllers
     {
         private readonly IUserService _userService;
         private readonly ICommentService _commentService;
-        public UserController(IUserService userService, ICommentService commentService)
+        private readonly IMapper _mapper;
+        public UserController(IUserService userService, ICommentService commentService, IMapper mapper)
         {
             _userService = userService;
             _commentService = commentService;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
-            UserViewModel user = GetAuthenticatedUser();
+            var user = GetAuthenticatedUserAsync();
             return View(user);
         }
         #region Kullanıcı Panelindeki Yorum İşlemleri
         public IActionResult CommentsList()
         {
-            var authenticatedUser = GetAuthenticatedUser();
-            var comments = _commentService.GetAllCommentsAsync(authenticatedUser.Id, true).Result.Value;
+            var authenticatedUser = GetAuthenticatedUserAsync();
+            var comments = _commentService.GetAllCommentsByUserIdandStatusAsync(authenticatedUser.Id, true).Result.Value;
             return View(comments);
         }
         [HttpGet]
@@ -75,7 +80,7 @@ namespace Archieves.Kutuphane.Controllers
             }
             else
             {
-                var user = GetAuthenticatedUser();
+                var user = GetAuthenticatedUserAsync();
                 comment.UserId = user.Id;
                 comment.Status = true;
                 comment.Date = DateTime.Now;
@@ -88,13 +93,14 @@ namespace Archieves.Kutuphane.Controllers
         [HttpGet]
         public IActionResult Profile()
         {
-            var authenticatedUser = GetAuthenticatedUser();
-            return View(authenticatedUser);
+            var authenticatedUser = GetAuthenticatedUserAsync();
+            var userUpdateModel = _mapper.Map<UserUpdateModel>(authenticatedUser);
+            return View(userUpdateModel);
         }
         [HttpPost]
         public IActionResult Profile(UserUpdateModel user)
         {
-            var authenticatedUser = GetAuthenticatedUser();
+            var authenticatedUser = GetAuthenticatedUserAsync();
             var controlledUser = ControlPropertiesOfUser(user);
             UserValidator uv = new UserValidator();
             ValidationResult vr = uv.Validate(user);
@@ -104,7 +110,7 @@ namespace Archieves.Kutuphane.Controllers
                 {
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
-                return View(GetAuthenticatedUser());
+                return View(GetAuthenticatedUserAsync());
             }
             else
             {
@@ -117,7 +123,7 @@ namespace Archieves.Kutuphane.Controllers
         }
         public IActionResult DeleteUser()
         {
-            var authenticatedUser = GetAuthenticatedUser();
+            var authenticatedUser = GetAuthenticatedUserAsync();
             UserUpdateModel userUpdateModel = new UserUpdateModel
             {
                 Id = authenticatedUser.Id,
@@ -135,17 +141,18 @@ namespace Archieves.Kutuphane.Controllers
             return RedirectToAction("LogOut", "LogIn");
         }
         #endregion
-        private UserViewModel GetAuthenticatedUser()
+        private UserViewModel GetAuthenticatedUserAsync()
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
-            var authenticatedUser = _userService.GetUserByEmailAsync(email).Result.Value;
+            var user = _userService.GetUserByEmailAsync(email);
+            var authenticatedUser = user.Result.Value;
             return authenticatedUser;
         }
         private ICollection<bool> ControlPropertiesOfUser(UserUpdateModel user)
         {
             bool Date = user.Date == null ? false : true;
             bool Image = user.Image == null ? false : true;
-            return new List<bool>() { Date, Image};
+            return new List<bool>() { Date, Image };
         }
     }
 }

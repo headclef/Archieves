@@ -3,6 +3,7 @@ using Archieves.Domain.Entities;
 using Archieves.Kutuphane.Models.Author;
 using Archieves.Kutuphane.Models.Wrappers;
 using Archieves.Kutuphane.Services.Abstractions;
+using Archieves.Persistence.Repositories;
 using AutoMapper;
 
 namespace Archieves.Kutuphane.Services.Concretes

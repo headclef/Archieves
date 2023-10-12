@@ -30,6 +30,8 @@ namespace Archieves.Kutuphane.Mapping
 
             CreateMap<User, UserViewModel>().ReverseMap();
             CreateMap<User, UserAddModel>().ReverseMap();
+
+            CreateMap<UserViewModel, UserUpdateModel>().ReverseMap();
         }
     }
 }

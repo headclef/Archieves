@@ -1,5 +1,6 @@
-﻿using Archieves.Kutuphane.Models.Subscriber;
-using Archieves.Kutuphane.Services.Concretes;
+﻿using Archieves.Domain.Entities;
+using Archieves.Kutuphane.Models.Subscriber;
+using Archieves.Kutuphane.Services.Abstractions;
 using Archieves.Kutuphane.ValidationRules;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +9,10 @@ namespace Archieves.Kutuphane.Controllers
 {
     public class AboutController : Controller
     {
-        private readonly SubscriberService subscribers;
-        public AboutController(SubscriberService _subscribers)
+        private readonly ISubscriberService _subscriberService;
+        public AboutController(ISubscriberService subscribers)
         {
-            subscribers = _subscribers;
+            _subscriberService = subscribers;
         }
         [HttpGet]
         public IActionResult Index()
@@ -19,7 +20,7 @@ namespace Archieves.Kutuphane.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(SubscriberAddModel subscriber)
+        public IActionResult IndexAsync(SubscriberAddModel subscriber)
         {
             SubscriberAddModelValidator subscriberValidator = new SubscriberAddModelValidator();
             ValidationResult validationResult = subscriberValidator.Validate(subscriber);
@@ -33,7 +34,7 @@ namespace Archieves.Kutuphane.Controllers
             }
             else
             {
-                subscribers.AddSubscriberModelAsync(subscriber);
+                _ = _subscriberService.AddSubscriberModelAsync(subscriber);
                 return RedirectToAction("Index", "About");
             }
         }

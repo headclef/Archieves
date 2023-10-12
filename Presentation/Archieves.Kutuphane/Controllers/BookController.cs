@@ -12,7 +12,7 @@ namespace Archieves.Kutuphane.Controllers
         }
         public IActionResult Index()
         {
-            var values = _bookService.GetAllBooksAsync();
+            var values = _bookService.GetAllBooksAsync().Result.Value;
             return View(values);
         }
         public IActionResult BookDetails(int id)

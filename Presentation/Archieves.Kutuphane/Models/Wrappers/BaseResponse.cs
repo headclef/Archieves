@@ -5,6 +5,5 @@
         public bool IsSuccess { get; set; }
         public T Value { get; set; }
         public Error Error { get; set; }
-        public int CurrentPage { get; set; }
     }
 }

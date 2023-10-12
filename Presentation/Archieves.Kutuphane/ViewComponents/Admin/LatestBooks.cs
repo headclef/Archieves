@@ -10,7 +10,7 @@ namespace Archieves.Kutuphane.ViewComponents.Admin
         {
             _bookService = bookService;
         }
-        public IViewComponentResult Invoke(int id)
+        public IViewComponentResult Invoke()
         {
             return View();
         }
