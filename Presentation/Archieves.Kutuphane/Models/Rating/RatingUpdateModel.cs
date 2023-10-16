@@ -1,8 +1,13 @@
-﻿namespace Archieves.Kutuphane.Models.Rating
+﻿using Archieves.Kutuphane.Models.Book;
+using Archieves.Kutuphane.Models.Common;
+
+namespace Archieves.Kutuphane.Models.Rating
 {
-    public class RatingUpdateModel
+    public class RatingUpdateModel : BaseViewModel
     {
         public int Rate { get; set; }
+        public int Count { get; set; }
+
         public int BookId { get; set; }
     }
 }

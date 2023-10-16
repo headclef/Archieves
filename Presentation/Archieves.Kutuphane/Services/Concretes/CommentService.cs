@@ -112,7 +112,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<CommentViewModel>();
             try
             {
-                var comment = _commentRepository.GetByIdAsync(id);
+                var comment = await _commentRepository.GetByIdAsync(id);
                 if (comment is null)
                 {
                     return result.Fail($"No comment found with id {id}.");
@@ -131,7 +131,9 @@ namespace Archieves.Kutuphane.Services.Concretes
             try
             {
                 var comment = await _commentRepository.GetByIdAsync(model.Id);
-                var updateComment = _mapper.Map(model, comment);
+                var updateComment = _mapper.Map<Comment>(comment);
+                updateComment.Content = model.Content;      // Güncellenecek veri
+                updateComment.Rate = model.Rate;            // Güncellenecek veri
                 var updateResult = await _commentRepository.UpdateAsync(updateComment);
                 var commentViewModel = _mapper.Map<CommentViewModel>(updateResult);
                 return result.Success(commentViewModel);

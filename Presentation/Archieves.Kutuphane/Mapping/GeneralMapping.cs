@@ -21,9 +21,15 @@ namespace Archieves.Kutuphane.Mapping
 
             CreateMap<Comment, CommentViewModel>().ReverseMap();
             CreateMap<Comment, CommentAddModel>().ReverseMap();
+            CreateMap<Comment, CommentUpdateModel>().ReverseMap();
+
+            CreateMap<CommentViewModel, CommentUpdateModel>().ReverseMap();
 
             CreateMap<Rating, RatingViewModel>().ReverseMap();
             CreateMap<Rating, RatingAddModel>().ReverseMap();
+            CreateMap<Rating, RatingUpdateModel>().ReverseMap();
+
+            CreateMap<RatingViewModel, RatingUpdateModel>().ReverseMap();
 
             CreateMap<Subscriber, SubscriberViewModel>().ReverseMap();
             CreateMap<Subscriber, SubscriberAddModel>().ReverseMap();

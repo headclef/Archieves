@@ -99,7 +99,6 @@ namespace Archieves.Kutuphane.Services.Concretes
             try
             {
                 var rating = _mapper.Map<Rating>(model);
-                rating.Count = _ratingRepository.GetAllAsync().Result.Where(x => x.BookId == model.BookId).FirstOrDefault().Count + 1;
                 var updateResult = await _ratingRepository.UpdateAsync(rating);
                 var ratingViewModel = _mapper.Map<RatingViewModel>(updateResult);
                 return result.Success(ratingViewModel);

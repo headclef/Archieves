@@ -6,6 +6,7 @@ namespace Archieves.Kutuphane.Models.Comment
     {
         public string Content { get; set; }
         public int Rate { get; set; }
+
         public int BookId { get; set; }
         public int UserId { get; set; }
     }

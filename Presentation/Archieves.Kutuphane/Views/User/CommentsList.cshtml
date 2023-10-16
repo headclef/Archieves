@@ -17,6 +17,7 @@
                 <th>Yorum Numarası</th>
                 <th>Yorum</th>
                 <th>Yorum Yapılan Kitap Numarası</th>
+                <th>Yorun Puanı</th>
                 <th>Yorum Yapma Tarihi</th>
                 <th>Yorumun Aktifliği</th>
                 <th>Düzenle</th>
@@ -40,6 +41,7 @@
                         ...
                     </td>
                     <td>@item.BookId</td>
+                    <td>@item.Rate</td>
                     <td>@item.Date.ToString("dd MMMM yyyy")</td>
                     <td>@item.Status</td>
                     <td><a asp-controller="User" asp-action="UpdateComment" asp-route-id="@item.Id" class="btn btn-warning">Düzenle</a></td>

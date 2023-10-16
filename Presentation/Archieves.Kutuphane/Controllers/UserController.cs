@@ -1,7 +1,6 @@
-﻿using Archieves.Kutuphane.Models;
-using Archieves.Kutuphane.Models.Book;
-using Archieves.Kutuphane.Models.Comment;
+﻿using Archieves.Kutuphane.Models.Comment;
 using Archieves.Kutuphane.Models.User;
+using Archieves.Kutuphane.Models.Rating;
 using Archieves.Kutuphane.Services.Abstractions;
 using Archieves.Kutuphane.ValidationRules;
 using AutoMapper;
@@ -15,11 +14,13 @@ namespace Archieves.Kutuphane.Controllers
     {
         private readonly IUserService _userService;
         private readonly ICommentService _commentService;
+        private readonly IRatingService _ratingService;
         private readonly IMapper _mapper;
-        public UserController(IUserService userService, ICommentService commentService, IMapper mapper)
+        public UserController(IUserService userService, ICommentService commentService, IRatingService ratingService, IMapper mapper)
         {
             _userService = userService;
             _commentService = commentService;
+            _ratingService = ratingService;
             _mapper = mapper;
         }
         public IActionResult Index()
@@ -35,29 +36,54 @@ namespace Archieves.Kutuphane.Controllers
             return View(comments);
         }
         [HttpGet]
-        public IActionResult UpdateComment(int id)
+        public async Task<IActionResult> UpdateComment(int id)
         {
-            return View(_commentService.GetCommentByIdAsync(id));
+            var comment = (await _commentService.GetCommentByIdAsync(id)).Value;
+            return View(comment);
         }
         [HttpPost]
-        public IActionResult UpdateComment(CommentUpdateModel comment)
+        public async Task<IActionResult> UpdateComment(CommentViewModel comment)
         {
-            _commentService.UpdateCommentAsync(comment);
-            return RedirectToAction("CommentsList", "User");
+            var updateComment = _mapper.Map<CommentUpdateModel>(comment);
+            var rating = (await _ratingService.GetAllRatingsByBookIdAsync(comment.BookId)).Value.SingleOrDefault();
+            if (rating is not null)
+            {
+                rating.Rate = comment.Rate;
+                var updateRating = _mapper.Map<RatingUpdateModel>(rating);
+                var ratingResult = await _ratingService.UpdateRatingAsync(updateRating);
+                if (ratingResult.IsSuccess)
+                {
+                    ViewBag.ErrorMessage = "İşlem Başarılı.";
+                    var commentResult = await _commentService.UpdateCommentAsync(updateComment);
+                    if (commentResult.IsSuccess)
+                    {
+                        ViewBag.ErrorMessage = "İşlem Başarılı.";
+                        return RedirectToAction("CommentsList", "User");
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = commentResult.Fail($"An error occured when verifying commentResult variable: \n{commentResult.Error}!");
+                        return View(comment);
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = ratingResult.Fail($"An error occured when verifying ratingResult variable: \n{ratingResult.Error}!");
+                    return View(comment);
+                }
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "An error occured!";
+                return View(comment);
+            }
         }
         public IActionResult DeleteComment(int id)
         {
             var comment = _commentService.GetCommentByIdAsync(id).Result.Value;
             comment.Status = false;
-            CommentUpdateModel commentUpdateModel = new CommentUpdateModel
-            {
-                Id = comment.Id,
-                Content = comment.Content,
-                Rate = comment.Rate,
-                Date = comment.Date,
-                Status = false,
-            };
-            _commentService.UpdateCommentAsync(commentUpdateModel);
+            var commentUpdateModel = _mapper.Map<CommentUpdateModel>(comment);
+            _ = _commentService.UpdateCommentAsync(commentUpdateModel);
             return RedirectToAction("CommentsList", "User");
         }
         [HttpGet]
