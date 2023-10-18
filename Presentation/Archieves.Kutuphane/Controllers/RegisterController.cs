@@ -1,6 +1,7 @@
 ﻿using Archieves.Kutuphane.Models.User;
 using Archieves.Kutuphane.Services.Abstractions;
 using Archieves.Kutuphane.ValidationRules;
+using AutoMapper;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,11 @@ namespace Archieves.Kutuphane.Controllers
     public class RegisterController : Controller
     {
         private readonly IUserService _userService;
-        public RegisterController(IUserService userService)
+        private readonly IMapper _mapper;
+        public RegisterController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult Index()
@@ -26,7 +29,7 @@ namespace Archieves.Kutuphane.Controllers
             if (_userService.GetUserByEmailAsync(user.Email).Result.Value is null)
             {
                 UserValidator uv = new UserValidator();
-                ValidationResult vr = uv.Validate(user);
+                ValidationResult vr = uv.Validate(_mapper.Map<UserViewModel>(user));
                 if (!vr.IsValid)
                 {
                     foreach (var item in vr.Errors)

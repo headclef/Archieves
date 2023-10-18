@@ -45,11 +45,22 @@
                     <td>@item.Date.ToString("dd MMMM yyyy")</td>
                     <td>@item.Status</td>
                     <td><a asp-controller="User" asp-action="UpdateComment" asp-route-id="@item.Id" class="btn btn-warning">Düzenle</a></td>
-                    <td><a asp-controller="User" asp-action="DeleteComment" asp-route-id="@item.Id" class="btn btn-danger">Sil</a></td>
+                    @if (item.Status is false)
+                    {
+                        <td><a asp-controller="User" asp-action="ReActivateComment" asp-route-id="@item.Id" class="btn btn-success">Aktif Et</a></td>
+                    }
+                    else
+                    {
+                        <td><a asp-controller="User" asp-action="DeleteComment" asp-route-id="@item.Id" class="btn btn-danger">Sil</a></td>
+                    }
                 </tr>
             }
         </tbody>
     </table>
+    <br />
+    <p class="text-justify">
+        @ViewBag.ErrorMessage
+    </p>
     <br />
     <p class="text-justify">
         Yukarıdaki listede görmüş olduğunuz yorumlar tarafınızca yapılmış yorumlar olup, sadece aktif durumda olanlar listelenmiştir.
@@ -60,7 +71,7 @@
         Web sitemizde yer alan aktif yorumlar, kullanıcılarımızın deneyimlerini ve görüşlerini yansıtmaktadır. Bizim için bu yorumlar,
         hizmetlerimizi geliştirmemiz ve daha iyi hale getirmemiz için önemli geri bildirimler sunmaktadır. Her bir yorumu dikkatle inceliyor
         ve değerli katkılarınız için teşekkür ediyoruz.
-        
+
         Siz de deneyimlerinizi ve düşüncelerinizi paylaşmak isterseniz, lütfen yorum bölümümüzü kullanarak görüşlerinizi bizimle paylaşın.
         İşte daha fazla kullanıcı geri bildirimi ve etkileşim için bir fırsat!
 

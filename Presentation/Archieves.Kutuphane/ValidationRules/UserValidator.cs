@@ -1,9 +1,9 @@
-﻿using Archieves.Kutuphane.Models.User.Common;
+﻿using Archieves.Kutuphane.Models.User;
 using FluentValidation;
 
 namespace Archieves.Kutuphane.ValidationRules
 {
-    public class UserValidator : AbstractValidator<UserValidateModel>
+    public class UserValidator : AbstractValidator<UserViewModel>
     {
         public UserValidator()
         {
@@ -26,7 +26,7 @@ namespace Archieves.Kutuphane.ValidationRules
                 .WithMessage("The Password can not be lesser than 6 characters.");
 
             RuleFor(x => x.Phone)
-                .MaximumLength(11)
+                .MaximumLength(10)
                 .WithMessage("The phone number can not be longer than 11 characters.");
 
             RuleFor(x => x.Address)
@@ -36,10 +36,3 @@ namespace Archieves.Kutuphane.ValidationRules
         }
     }
 }
-/*
- * .MustAsync(async (password, cancellation) =>
-                 {
-                     var regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$");
-                     return await Task.FromResult(regex.IsMatch(password));
-                 })
-*/

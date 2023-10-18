@@ -1,8 +1,8 @@
-﻿using Archieves.Kutuphane.Models.User.Common;
+﻿using Archieves.Kutuphane.Models.Common;
 
 namespace Archieves.Kutuphane.Models.User
 {
-    public class UserAddModel : UserValidateModel
+    public class UserAddModel : BaseViewModel
     {
         public string Name { get; set; }
         public string Surname { get; set; }

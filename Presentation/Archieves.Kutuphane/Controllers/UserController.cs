@@ -23,17 +23,23 @@ namespace Archieves.Kutuphane.Controllers
             _ratingService = ratingService;
             _mapper = mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var user = GetAuthenticatedUserAsync();
+            var user = await GetAuthenticatedUserAsync();
             return View(user);
         }
         #region Kullanıcı Panelindeki Yorum İşlemleri
-        public IActionResult CommentsList()
+        public async Task<IActionResult> CommentsList()
         {
-            var authenticatedUser = GetAuthenticatedUserAsync();
-            var comments = _commentService.GetAllCommentsByUserIdandStatusAsync(authenticatedUser.Id, true).Result.Value;
-            return View(comments);
+            var authenticatedUser = await GetAuthenticatedUserAsync();
+            var result = await _commentService.GetAllCommentsByUserIdandStatusAsync(authenticatedUser.Id, true);
+            if (result.IsSuccess)
+            {
+                var comments = result.Value;
+                return View(comments);
+            }
+            else
+                return RedirectToAction("Error1", "Error");
         }
         [HttpGet]
         public async Task<IActionResult> UpdateComment(int id)
@@ -57,34 +63,74 @@ namespace Archieves.Kutuphane.Controllers
                     var commentResult = await _commentService.UpdateCommentAsync(updateComment);
                     if (commentResult.IsSuccess)
                     {
-                        ViewBag.ErrorMessage = "İşlem Başarılı.";
                         return RedirectToAction("CommentsList", "User");
                     }
                     else
                     {
-                        ViewBag.ErrorMessage = commentResult.Fail($"An error occured when verifying commentResult variable: \n{commentResult.Error}!");
                         return View(comment);
                     }
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = ratingResult.Fail($"An error occured when verifying ratingResult variable: \n{ratingResult.Error}!");
                     return View(comment);
                 }
             }
             else
             {
-                ViewBag.ErrorMessage = "An error occured!";
                 return View(comment);
             }
         }
-        public IActionResult DeleteComment(int id)
+        public async Task<IActionResult> ReActivateComment(int id)
         {
-            var comment = _commentService.GetCommentByIdAsync(id).Result.Value;
-            comment.Status = false;
-            var commentUpdateModel = _mapper.Map<CommentUpdateModel>(comment);
-            _ = _commentService.UpdateCommentAsync(commentUpdateModel);
-            return RedirectToAction("CommentsList", "User");
+            var result = await _commentService.GetCommentByIdAsync(id);
+            if (result.IsSuccess)
+            {
+                var comment = result.Value;
+                comment.Status = true;
+                var updateComment = _mapper.Map<CommentUpdateModel>(comment);
+                var updateResult = await _commentService.UpdateCommentAsync(updateComment);
+                if (updateResult.IsSuccess)
+                {
+                    ViewBag.ErrorMessage = "İşlem başarılı!";
+                    return RedirectToAction("CommentsList", "User");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "An error occured while updating comment!";
+                    return RedirectToAction("CommentsList", "User");
+                }
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "An error occured while getting comment!";
+                return RedirectToAction("CommentsList", "User");
+            }
+        }
+        public async Task<IActionResult> DeleteComment(int id)
+        {
+            var result = await _commentService.GetCommentByIdAsync(id);
+            if (result.IsSuccess)
+            {
+                var comment = result.Value;
+                comment.Status = false;
+                var updateComment = _mapper.Map<CommentUpdateModel>(comment);
+                var updateResult = await _commentService.UpdateCommentAsync(updateComment);
+                if (updateResult.IsSuccess)
+                {
+                    ViewBag.ErrorMessage = "İşlem başarılı!";
+                    return RedirectToAction("CommentsList", "User");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "An error occured while updating comment!";
+                    return RedirectToAction("CommentsList", "User");
+                }
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "An error occured while getting comment!";
+                return RedirectToAction("CommentsList", "User");
+            }
         }
         [HttpGet]
         public IActionResult AddComment()
@@ -117,68 +163,100 @@ namespace Archieves.Kutuphane.Controllers
         #endregion
         #region Kullanıcı Panelindeki Profil İşlemleri
         [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            var authenticatedUser = GetAuthenticatedUserAsync();
+            var authenticatedUser = await GetAuthenticatedUserAsync();
             var userUpdateModel = _mapper.Map<UserUpdateModel>(authenticatedUser);
             return View(userUpdateModel);
         }
         [HttpPost]
-        public IActionResult Profile(UserUpdateModel user)
+        public async Task<IActionResult> Profile(UserUpdateModel user)
         {
-            var authenticatedUser = GetAuthenticatedUserAsync();
-            var controlledUser = ControlPropertiesOfUser(user);
-            UserValidator uv = new UserValidator();
-            ValidationResult vr = uv.Validate(user);
-            if (!vr.IsValid)
+            var verifyUser = await FillInTheBlanks(user);
+            var result = await _userService.UpdateUserAsync(verifyUser);
+            if (result.IsSuccess)
             {
-                foreach (var item in vr.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-                return View(GetAuthenticatedUserAsync());
+                var verifiedUser = result.Value;
+                // return RedirectToAction("LogOut", "LogIn");
+                return RedirectToAction("Profile", "User");
             }
             else
             {
-                user.Id = authenticatedUser.Id;
-                user.Date = controlledUser.ElementAt(0) == false ? authenticatedUser.Date : user.Date;
-                user.Image = controlledUser.ElementAt(1) == false ? authenticatedUser.Image : user.Image;
-                _userService.UpdateUserAsync(user);
+                return RedirectToAction("Profile", "User");
             }
-            return RedirectToAction("LogOut", "LogIn");
         }
-        public IActionResult DeleteUser()
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            var authenticatedUser = GetAuthenticatedUserAsync();
-            UserUpdateModel userUpdateModel = new UserUpdateModel
+            var user = await GetAuthenticatedUserAsync(id);
+            if (user is not null)
             {
-                Id = authenticatedUser.Id,
-                Name = authenticatedUser.Name,
-                Surname = authenticatedUser.Surname,
-                Email = authenticatedUser.Email,
-                Password = authenticatedUser.Password,
-                Phone = authenticatedUser.Phone,
-                Address = authenticatedUser.Address,
-                Image = authenticatedUser.Image,
-                Date = authenticatedUser.Date,
-                Status = false,
-            };
-            _userService.UpdateUserAsync(userUpdateModel);
-            return RedirectToAction("LogOut", "LogIn");
+                var updateUserControl = _mapper.Map<UserUpdateModel>(user);
+                updateUserControl.Status = false;
+                var updateUserResult = await _userService.UpdateUserAsync(updateUserControl);
+                if (updateUserResult.IsSuccess)
+                {
+                    return RedirectToAction("Profile", "User");
+                }
+                else
+                {
+                    return RedirectToAction("Profile", "User");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Profile", "User");
+            }
         }
         #endregion
-        private UserViewModel GetAuthenticatedUserAsync()
+        #region User Getters
+        private async Task<UserViewModel?> GetAuthenticatedUserAsync()
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
-            var user = _userService.GetUserByEmailAsync(email);
-            var authenticatedUser = user.Result.Value;
-            return authenticatedUser;
+            var userResult = await _userService.GetUserByEmailAsync(email);
+            if (userResult.IsSuccess)
+            {
+                var user = userResult.Value;
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
-        private ICollection<bool> ControlPropertiesOfUser(UserUpdateModel user)
+        private async Task<UserViewModel?> GetAuthenticatedUserAsync(int id)
         {
-            bool Date = user.Date == null ? false : true;
-            bool Image = user.Image == null ? false : true;
-            return new List<bool>() { Date, Image };
+            var userResult = await _userService.GetUserByIdAsync(id);
+            if (userResult.IsSuccess)
+            {
+                var user = userResult.Value;
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
+        #endregion
+        #region Input Verifier
+        private async Task<UserUpdateModel> FillInTheBlanks(UserUpdateModel userUpdateModel)
+        {
+            var user = await GetAuthenticatedUserAsync();
+            if (userUpdateModel.Name == String.Empty)
+                userUpdateModel.Name = user.Name;
+            if (userUpdateModel.Surname == String.Empty)
+                userUpdateModel.Surname = user.Surname;
+            if (userUpdateModel.Email == String.Empty)
+                userUpdateModel.Email = user.Email;
+            if (userUpdateModel.Password == String.Empty)
+                userUpdateModel.Password = user.Password;
+            if (userUpdateModel.Phone == String.Empty)
+                userUpdateModel.Phone = user.Phone;
+            if (userUpdateModel.Address == String.Empty)
+                userUpdateModel.Address = user.Address;
+            if (userUpdateModel.Image == String.Empty)
+                userUpdateModel.Image = user.Image;
+            return userUpdateModel;
+        }
+        #endregion
     }
 }
