@@ -1,0 +1,40 @@
+﻿@using Archieves.Kutuphane.Models.User;
+@model UserViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">Hemen Giriş Yap</h3>
+        <div class="row inner-sec">
+            <div class="login p-5 bg-light mx-auto mw-100" align="center">
+                @using (Html.BeginForm("IndexLogIn", "Archieves", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <label for="Email">E - Posta Adresi</label>
+                        <input type="email" class="form-control" id="Email" name="Email" placeholder="Buraya giriniz." required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">Şifre</label>
+                        <input type="password" class="form-control" id="Password" name="Password" placeholder="Buraya giriniz." required="">
+                    </div>
+                    <div class="form-check mb-2">
+                        <input type="checkbox" class="form-check-input" id="Check">
+                        <label class="form-check-label" for="Check">Bilgilerimi kaydet</label>
+                    </div>
+                    <div class="form-group" align="center">
+                        <small class="form-text text-muted">Bilgilerinizi kimseyle paylaşmayacağız.</small>
+                    </div>
+                    <div class="g-recaptcha" data-sitekey="6LdZ4gwoAAAAAGU-L1Z02jYNV-4pOvO41GT0f-z9"></div>
+                    <p class="mt-2 mb-2" style="color:red;">@ViewBag.LogInMessage</p>
+                    <button type="submit" class="btn btn-primary submit mb-4">Giriş Yap</button>
+                    <p style="text-align:justify;">
+                        <a asp-controller="Archieves" asp-action="IndexRegister">Hesabın yok mu?</a>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</section>

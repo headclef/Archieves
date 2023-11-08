@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Archieves.Kutuphane.ValidationRules
 {
-    public class SubscriberAddModelValidator : AbstractValidator<SubscriberAddModel>
+    public class SubscriberValidator : AbstractValidator<SubscriberViewModel>
     {
-        public SubscriberAddModelValidator()
+        public SubscriberValidator()
         {
             RuleFor(x => x.Email)
                 .NotEmpty()

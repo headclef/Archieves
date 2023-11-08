@@ -1,9 +1,10 @@
 ﻿@using Archieves.Kutuphane.Models.Comment;
+@using Archieves.Kutuphane.Models.User;
 @using Archieves.Kutuphane.Services.Abstractions;
 @model List<CommentViewModel>
-@inject IUserService _userService;
+@inject IArchievesService archievesService;
 @{
-    var users = await _userService.GetAllUsersAsync();
+    var users = (await archievesService.GetUsersAsync()).Value;
 }
 <div class="comment-top">
     <h4>Yorumlar</h4>
@@ -15,7 +16,6 @@
     {
         @foreach (var item in Model)
         {
-            var user = users.Value.Where(x => x.Id == item.UserId).FirstOrDefault();
             int solidCounter = 0, regularCounter = 0;
             for (int i = 0; i <= 10; i++)
             {
@@ -43,7 +43,7 @@
             <div class="media">
                 <img src="~/images/circleUser.svg" height="50px" />
                 <div class="media-body">
-                    <h5 class="mt-0">@user.Name @user.Surname</h5>
+                    <h5 class="mt-0">@item.UserName @item.UserSurname</h5>
                     <p style="text-align:justify;">@item.Content</p>
                 </div>
             </div>

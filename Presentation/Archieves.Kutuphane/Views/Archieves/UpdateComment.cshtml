@@ -1,0 +1,49 @@
+﻿@using Archieves.Kutuphane.Models.Comment;
+@using Archieves.Kutuphane.Services.Abstractions;
+@model CommentViewModel
+@inject IArchievesService archievesService;
+@{
+    ViewData["Title"] = "UpdateComment";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="container text-center">
+    <h1 class="title">YORUM GÜNCELLEME PANELİ</h1>
+    <div class="inner-sec" align="center">
+        <div class="login p-5 bg-light mx-auto mw-100">
+            @using (Html.BeginForm("UpdateComment", "User", FormMethod.Post))
+            {
+                <h2>@ViewBag.ErrorMessage</h2>
+                <div class="form-group">
+                    <input class="form-control" type="hidden" id="BookId" name="BookId" value="@Model.BookId" />
+                    <input class="form-control" type="hidden" id="UserId" name="UserId" value="@Model.UserId" />
+                    <input class="form-control" type="hidden" id="Date" name="Date" value="@Model.Date" />
+                    <input class="form-control" type="hidden" id="Status" name="Status" value="@Model.Status" />
+                </div>
+                <div class="form-group">
+                    <!-- Veritabanından Gelen Yorum -->
+                    <div class="col-md-6 mb-3">
+                        <label for="Content">Değiştirmek İstediğiniz Yorumun İçeriği</label>
+                        <textarea class="form-control" type="text" value="@Model.Content" style="text-align:justify; color:black;" readonly></textarea>
+                        <label for="Rate">Yorumu yaparken ilgili kitaba vermiş olduğunuz puan: @Model.Rate</label>
+                    </div>
+                    <!-- Veritabanına Gidecek Yorum -->
+                    <div class="col-md-6 mb-3">
+                        <label for="Content">Yeni Yorum İçeriği</label>
+                        <textarea class="form-control" id="Content" name="Content" type="text" style="text-align:justify;" value="@Model.Content" required=""></textarea>
+                        <input class="form-control" id="Rate" name="Rate" type="range" min="0" max="10" onchange="run(this)" required="" />
+                        <label for="Rate">İlgili kitaba vermek istediğiniz yeni puan: <label id="point">5</label></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-gradient-primary">Yorumu Güncelle</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    function run(run) {
+        document.getElementById('point').textContent = run.value;
+    }
+</script>

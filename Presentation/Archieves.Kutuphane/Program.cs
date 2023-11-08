@@ -37,6 +37,7 @@ builder.Services.AddTransient<ICommentRepository, CommentRepository>();
 builder.Services.AddTransient<IRatingRepository, RatingRepository>();
 builder.Services.AddTransient<ISubscriberRepository, SubscriberRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IArchievesService, ArchievesService>();
 
 // AutoMapper
 var mapperConfiguration = new MapperConfiguration
@@ -46,13 +47,6 @@ var mapperConfiguration = new MapperConfiguration
     });
 var mapper = mapperConfiguration.CreateMapper();
 builder.Services.AddSingleton(mapper);
-
-builder.Services.AddTransient<IAuthorService, AuthorService>();
-builder.Services.AddTransient<IBookService, BookService>();
-builder.Services.AddTransient<ICommentService, CommentService>();
-builder.Services.AddTransient<IRatingService, RatingService>();
-builder.Services.AddTransient<ISubscriberService, SubscriberService>();
-builder.Services.AddTransient<IUserService, UserService>();
 #endregion
 builder.Services.AddSession();
 builder.Services.AddMvc(config =>
@@ -67,7 +61,7 @@ builder.Services.AddMvc();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Login/Index";
+        options.LoginPath = "/Archieves/IndexLogIn";
         //options.LogoutPath = "/Login/Logout";
         //options.AccessDeniedPath = "/Login/AccessDenied";
     });
@@ -81,7 +75,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseStatusCodePagesWithReExecute("/Error/ErrorPage", "?statusCode={0}"); // TODO: Hata mekanizmasý olmasý gerektiði gibi çalýþmýyor.
+app.UseStatusCodePagesWithReExecute("/Archieves/ErrorPage", "?statusCode={0}"); // TODO: Hata mekanizmasý olmasý gerektiði gibi çalýþmýyor.
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -96,6 +90,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Archieves}/{action=IndexHome}/{id?}");
 
 app.Run();

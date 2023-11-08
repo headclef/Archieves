@@ -1,9 +1,15 @@
-﻿using Archieves.Kutuphane.Models.Common;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Archieves.Kutuphane.Models.Subscriber
 {
-    public class SubscriberViewModel : BaseViewModel
+    public class SubscriberViewModel
     {
-        public string Email { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        public string? Email { get; set; }
+
+        public DateTime? Date { get; set; }
+        public bool? Status { get; set; }
     }
 }

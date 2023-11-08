@@ -1,20 +1,21 @@
-﻿using Archieves.Kutuphane.Models.Author;
-using Archieves.Kutuphane.Models.Comment;
-using Archieves.Kutuphane.Models.Common;
-using Archieves.Kutuphane.Models.Rating;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Archieves.Kutuphane.Models.Book
 {
-    public class BookViewModel : BaseViewModel
+    public class BookViewModel
     {
-        public string Name { get; set; }
-        public string Image { get; set; }
-        public string Description { get; set; }
+        [Key]
+        public int Id { get; set; }
 
-        public int AuthorId { get; set; }
-        public AuthorViewModel Author { get; set; }
+        public string? Name { get; set; }
+        public string? Image { get; set; }
+        public string? Description { get; set; }
 
-        public ICollection<CommentViewModel> Comments { get; set; }
-        public ICollection<RatingViewModel> Ratings { get; set; }
+        public int? AuthorId { get; set; }
+        public string? AuthorName { get; set; } // Extra property for Author name.
+        public string? AuthorSurname { get; set; }    // Extra property for Author surname.
+
+        public DateTime? Date { get; set; }
+        public bool? Status { get; set; }
     }
 }

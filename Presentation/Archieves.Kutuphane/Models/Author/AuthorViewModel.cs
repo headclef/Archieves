@@ -1,14 +1,17 @@
-﻿using Archieves.Kutuphane.Models.Book;
-using Archieves.Kutuphane.Models.Common;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Archieves.Kutuphane.Models.Author
 {
-    public class AuthorViewModel : BaseViewModel
+    public class AuthorViewModel
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        public string? Name { get; set; }
+        public string? Surname { get; set; }
         public string? Description { get; set; }
 
-        public ICollection<BookViewModel> Books { get; set; }
+        public DateTime? Date { get; set; }
+        public bool? Status { get; set; }
     }
 }

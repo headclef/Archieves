@@ -14,32 +14,11 @@ namespace Archieves.Kutuphane.Mapping
         public GeneralMapping()
         {
             CreateMap<Author, AuthorViewModel>().ReverseMap();
-            CreateMap<Author, AuthorAddModel>().ReverseMap();
-
             CreateMap<Book, BookViewModel>().ReverseMap();
-            CreateMap<Book, BookAddModel>().ReverseMap();
-
             CreateMap<Comment, CommentViewModel>().ReverseMap();
-            CreateMap<Comment, CommentAddModel>().ReverseMap();
-            CreateMap<Comment, CommentUpdateModel>().ReverseMap();
-
-            CreateMap<CommentViewModel, CommentUpdateModel>().ReverseMap();
-
             CreateMap<Rating, RatingViewModel>().ReverseMap();
-            CreateMap<Rating, RatingAddModel>().ReverseMap();
-            CreateMap<Rating, RatingUpdateModel>().ReverseMap();
-
-            CreateMap<RatingViewModel, RatingUpdateModel>().ReverseMap();
-
             CreateMap<Subscriber, SubscriberViewModel>().ReverseMap();
-            CreateMap<Subscriber, SubscriberAddModel>().ReverseMap();
-
             CreateMap<User, UserViewModel>().ReverseMap();
-            CreateMap<User, UserAddModel>().ReverseMap();
-            CreateMap<User, UserUpdateModel>().ReverseMap();
-
-            CreateMap<UserViewModel, UserUpdateModel>().ReverseMap();
-            CreateMap<UserViewModel, UserAddModel>().ReverseMap();
         }
     }
 }

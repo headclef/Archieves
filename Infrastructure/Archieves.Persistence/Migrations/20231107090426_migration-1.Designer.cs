@@ -4,6 +4,7 @@ using Archieves.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Archieves.Persistence.Migrations
 {
     [DbContext(typeof(ArchievesDbContext))]
-    partial class ArchievesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231107090426_migration-1")]
+    partial class migration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,7 @@ namespace Archieves.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -39,7 +41,7 @@ namespace Archieves.Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("Status")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.Property<string>("Surname")
@@ -61,7 +63,7 @@ namespace Archieves.Persistence.Migrations
                     b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -73,7 +75,7 @@ namespace Archieves.Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("Status")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -95,13 +97,13 @@ namespace Archieves.Persistence.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("Rate")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Status")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.Property<int?>("UserId")
@@ -126,13 +128,13 @@ namespace Archieves.Persistence.Migrations
                     b.Property<int?>("Count")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("Rate")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Status")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -148,13 +150,13 @@ namespace Archieves.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("Status")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -173,7 +175,7 @@ namespace Archieves.Persistence.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -191,7 +193,7 @@ namespace Archieves.Persistence.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("Status")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.Property<string>("Surname")

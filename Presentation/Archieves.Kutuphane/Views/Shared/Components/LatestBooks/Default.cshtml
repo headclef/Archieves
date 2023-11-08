@@ -1,14 +1,15 @@
 ﻿@using Archieves.Kutuphane.Models.Book;
 @using Archieves.Kutuphane.Services.Abstractions;
-@inject IBookService _bookService;
+@inject IArchievesService archievesService;
 @{
+    var count = (await archievesService.GetBooksAsync()).Value.Count;
     string[] items = new string[4];
     try
     {
-        items[0] = _bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count).Result.Value.Image;
-        items[1] = _bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count - 1).Result.Value.Image;
-        items[2] = _bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count - 2).Result.Value.Image;
-        items[3] = _bookService.GetBookByIdAsync(_bookService.GetAllBooksAsync().Result.Value.Count - 3).Result.Value.Image;
+        items[0] = (await archievesService.GetBookAsync(count)).Value.Image;
+        items[1] = (await archievesService.GetBookAsync(count - 1)).Value.Image;
+        items[2] = (await archievesService.GetBookAsync(count - 2)).Value.Image;
+        items[3] = (await archievesService.GetBookAsync(count - 3)).Value.Image;
     }
     catch (Exception e)
     {

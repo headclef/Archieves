@@ -4,6 +4,6 @@ namespace Archieves.Domain.Entities
 {
     public class Subscriber : BaseEntity
     {
-        public string Email { get; set; }
+        public string? Email { get; set; }
     }
 }
