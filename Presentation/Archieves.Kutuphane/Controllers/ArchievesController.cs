@@ -40,40 +40,55 @@ namespace Archieves.Kutuphane.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> IndexLogIn(UserViewModel userViewModel)
         {
-            var model = (await _archievesService.GetUserAsync(userViewModel)).Value;
-            if (model is not null)
+            LogInValidator lv = new LogInValidator();
+            ValidationResult vr = lv.Validate(userViewModel);
+            if (!vr.IsValid)
             {
-                if (model.Status is not false or null)
+                foreach (var item in vr.Errors)
                 {
-                    var claims = new List<Claim>
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                return View();
+            }
+            else
+            {
+                var model = (await _archievesService.GetUserAsync(userViewModel)).Value;
+                if (model is not null)
+                {
+
+                    if (model.Status is not false or null)
+                    {
+                        var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.NameIdentifier, model.Id.ToString()),
                         new Claim(ClaimTypes.Name, model.Name != null ? model.Name : ""),
                         new Claim(ClaimTypes.Surname, model.Surname != null ? model.Surname : ""),
                         new Claim(ClaimTypes.Email, model.Email != null ? model.Email : "")
                     };
-                    var userIdentity = new ClaimsIdentity(claims, "login");
-                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                    await HttpContext.SignInAsync(principal);
+                        var userIdentity = new ClaimsIdentity(claims, "login");
+                        ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                        await HttpContext.SignInAsync(principal);
 
-                    // TODO: Google Recaptcha çalışmıyor, çalıştırılacak.
-                    await Post();
-                    return RedirectToAction("IndexHome", "Archieves");
+                        // TODO: Google Recaptcha çalışmıyor, çalıştırılacak.
+                        await Post();
+                        return RedirectToAction("IndexHome", "Archieves");
+                    }
+                    else
+                    {
+                        ViewBag.LogInMessage = "Hesabınız aktif değil." +
+                            "\nLütfen bir yönetici ile iletişime geçiniz ya da bize bilet gönderiniz.";
+                        return View();
+                    }
                 }
                 else
                 {
-                    ViewBag.LogInMessage = "Hesabınız aktif değil." +
-                        "\nLütfen bir yönetici ile iletişime geçiniz ya da bize bilet gönderiniz.";
+                    ViewBag.LogInMessage = "Kullanıcı adı veya şifre hatalı!";
                     return View();
                 }
-            }
-            else
-            {
-                ViewBag.LogInMessage = "Kullanıcı adı veya şifre hatalı!";
-                return View();
             }
         }
         public async Task<IActionResult> IndexLogOut()
@@ -89,21 +104,36 @@ namespace Archieves.Kutuphane.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> IndexRegister(UserViewModel userViewModel)
         {
             var model = (await _archievesService.GetUserAsync(userViewModel)).Value;
             if (model is null)
             {
-                var result = await _archievesService.AddUserAsync(userViewModel);
-                if (result.IsSuccess)
+                UserValidator uv = new UserValidator();
+                ValidationResult vr = uv.Validate(userViewModel);
+                if (!vr.IsValid)
                 {
-                    return RedirectToAction("IndexLogIn", "Archieves");
+                    foreach (var item in vr.Errors)
+                    {
+                        ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                    }
+                    return View();
+
                 }
                 else
                 {
-                    ViewBag.RegisterMessage = "Kayıt işlemi başarısız oldu.";
-                    return View();
+                    var result = await _archievesService.AddUserAsync(userViewModel);
+                    if (result.IsSuccess)
+                    {
+                        return RedirectToAction("IndexLogIn", "Archieves");
+                    }
+                    else
+                    {
+                        ViewBag.RegisterMessage = "Kayıt işlemi başarısız oldu.";
+                        return View();
+                    }
                 }
             }
             else

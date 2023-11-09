@@ -11,9 +11,9 @@ namespace Archieves.Kutuphane.ViewComponents.Comment
         {
             _archievesService = archievesService;
         }
-        public async Task<IViewComponentResult> Invoke(int id)
+        public IViewComponentResult Invoke(int id)
         {
-            var values = (await _archievesService.GetCommentAsync(id)).Value;
+            var values = _archievesService.GetCommentAsync(id).Result.Value;
             if (values != null)
                 return View(values);
             else

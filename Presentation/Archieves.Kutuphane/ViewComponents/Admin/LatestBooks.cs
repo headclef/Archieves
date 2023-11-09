@@ -1,5 +1,4 @@
-﻿using Archieves.Kutuphane.Services.Abstractions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Archieves.Kutuphane.ViewComponents.Admin
 {

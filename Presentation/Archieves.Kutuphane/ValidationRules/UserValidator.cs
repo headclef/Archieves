@@ -8,31 +8,26 @@ namespace Archieves.Kutuphane.ValidationRules
         public UserValidator()
         {
             RuleFor(x => x.Name)
-                .NotEmpty()
-                .WithMessage("The name field can not be empty.");
+                .NotEmpty().WithMessage("İsim kısmı boş olmamalıdır.");
 
             RuleFor(x => x.Surname)
-                .NotEmpty()
-                .WithMessage("The surname field can not be empty.");
+                .NotEmpty().WithMessage("Soyisim kısmı boş olmamalıdır.");
             
             RuleFor(x => x.Email)
-                .NotEmpty()
-                .EmailAddress()
-                .WithMessage("The email field can not be empty and email must be valid.");
+                .NotEmpty().WithMessage("E - Posta kısmı boş olmamalıdır.")
+                .EmailAddress().WithMessage("E - Posta kısmı geçersiz olmamalıdır.");
 
             RuleFor(x => x.Password)
-                .NotEmpty()
-                .MinimumLength(6)
-                .WithMessage("The Password can not be lesser than 6 characters.");
+                .NotEmpty().WithMessage("Şifre kısmı boş olmamalıdır.")
+                .MinimumLength(6).WithMessage("Şifre kısmı 6 karakterden küçük olmamalıdır.");
 
             RuleFor(x => x.Phone)
-                .MaximumLength(10)
-                .WithMessage("The phone number can not be longer than 11 characters.");
+                .NotEmpty().WithMessage("Telefon Numarası kısmı boş olmamalıdır.")
+                .MaximumLength(10).WithMessage("Telefon Numarası 10 karakterden fazla olmamalıdır.");
 
             RuleFor(x => x.Address)
-                .NotEmpty()
-                .MinimumLength(10)
-                .WithMessage("The address field can not be empty and address can not be lesser than 10 characters.");
+                .NotEmpty().WithMessage("Adres kısmı boş olmamalıdır.")
+                .MinimumLength(10).WithMessage("Adres kımı 10 karakterden küçük olmamalıdır.");
         }
     }
 }

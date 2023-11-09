@@ -10,8 +10,7 @@
         <h3 class="tittle">Hemen Kayıt Ol</h3>
         <div class="inner-sec">
             <div class="login p-5 bg-light mx-auto mw-100">
-                @using (Html.BeginForm("IndexRegister", "Archieves", FormMethod.Post))
-                {
+                <form class="form" asp-action="IndexRegister" asp-controller="Archieves" method="post">
                     <div class="form-group" align="center">
                         <!--/İsim-->
                         <div class="col-md-6 mb-3 text-center">
@@ -77,12 +76,12 @@
                         <!--//Adres-->
                     </div>
                     <div align="center">
-                        <button type="submit" onclick="warning" class="btn btn-primary submit mb-4">Kayıt Ol</button>
+                        <button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
                         <p style="text-align:justify;">
                             <a href="#">Kayıt ol butonuna tıklayarak ya da öncesinde ilgili belgeyi inceleyip, onay vererek e - kütüphane kullanım koşullarını kabul etmiş olursunuz.</a>
                         </p>
                     </div>
-                }
+                </form>
             </div>
         </div>
     </div>

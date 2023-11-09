@@ -15,10 +15,12 @@
                     <div class="form-group">
                         <label for="Email">E - Posta Adresi</label>
                         <input type="email" class="form-control" id="Email" name="Email" placeholder="Buraya giriniz." required="">
+                        <p style="color:red;">@Html.ValidationMessageFor(x => x.Email)</p>
                     </div>
                     <div class="form-group">
                         <label for="Password">Şifre</label>
                         <input type="password" class="form-control" id="Password" name="Password" placeholder="Buraya giriniz." required="">
+                        <p style="color:red;">@Html.ValidationMessageFor(x => x.Password)</p>
                     </div>
                     <div class="form-check mb-2">
                         <input type="checkbox" class="form-check-input" id="Check">

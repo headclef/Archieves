@@ -23,7 +23,7 @@
         <!-- /Navbar -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a asp-controller="Home" asp-action="Index"><img src="~/images/archievesLogo.png" alt="logo" width="70px" /></a>
+                <a asp-controller="Archieves" asp-action="IndexHome"><img src="~/images/archievesLogo.png" alt="logo" width="70px" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -53,11 +53,11 @@
                             </div>
                         </a>
                         <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" asp-controller="User" asp-action="Profile">
+                            <a class="dropdown-item" asp-controller="Archieves" asp-action="Profile">
                                 <img class="mr-2" src="~/images/user.svg" width="15px" /> Profil
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" asp-controller="LogIn" asp-action="LogOut">
+                            <a class="dropdown-item" asp-controller="Archieves" asp-action="IndexLogOut">
                                 <img class="mr-2" src="~/images/logout.svg" width="15px" /> Çıkış Yap
                             </a>
                         </div>
@@ -69,7 +69,7 @@
                     @await Component.InvokeAsync("AdminNotification")
                     <!-- //Notifications -->
                     <li class="nav-item nav-logout d-none d-lg-block">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                        <a class="nav-link" asp-controller="Archieves" asp-action="IndexHome">
                             <img src="~/images/power.svg" height="15px" />
                         </a>
                     </li>
@@ -93,21 +93,21 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="User" asp-action="Index">
+                        <a class="nav-link" asp-controller="Archieves" asp-action="IndexUser">
                             <span class="menu-title">Kullanıcı Paneli</span>
                             <i class="menu-arrow"></i>
                             <img src="~/images/house.svg" width="15px" />
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="User" asp-action="CommentsList">
+                        <a class="nav-link" asp-controller="Archieves" asp-action="CommentList">
                             <span class="menu-title">Yorumlar</span>
                             <i class="menu-arrow"></i>
                             <img src="~/images/comment.svg" width="15px" />
                         </a>
                     </li>
                     <li class="nav-item sidebar-actions">
-                        <a class="btn btn-block btn-lg btn-gradient-primary mt-4" asp-controller="User" asp-action="AddBook">+ Kitap ekle</a>
+                        <a class="btn btn-block btn-lg btn-gradient-primary mt-4" asp-controller="Archieves" asp-action="AddBook">+ Kitap ekle</a>
                     </li>
                 </ul>
             </nav>
