@@ -1,15 +1,13 @@
 ﻿@using Archieves.Kutuphane.Models.Book;
 @using Archieves.Kutuphane.Models.Author;
 @using Archieves.Kutuphane.Services.Abstractions;
-@inject IArchievesService archievesService;
 @model BookViewModel
+@inject IArchievesService archievesService;
 @{
     ViewData["Title"] = "AddBook";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
-
     var authorList = (await archievesService.GetAuthorsAsync()).Value;
 }
-
 <div class="col-10 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -58,7 +56,7 @@
             }
             <p class="text-center" style="color:red;">@ViewBag.IsBookExists</p>
             <p class="text-center" style="color:black;">
-                Eğer aradığınız yazar listede bulunmuyorsa <a asp-controller="Author" asp-action="AddAuthor">buraya</a> tıklayarak yeni bir yazar ekleyebilir,
+                Eğer aradığınız yazar listede bulunmuyorsa <a asp-controller="Archieves" asp-action="AddAuthor">buraya</a> tıklayarak yeni bir yazar ekleyebilir,
                 ardından kitap ekleme işlemlerinize devam edebilirsiniz.
             </p>
         </div>

@@ -38,9 +38,7 @@ namespace Archieves.Kutuphane.Controllers
         [HttpGet]
         public IActionResult IndexLogIn()
         {
-            // LogIn işlemi için boş nesne gönderimi.
-            var user = new UserViewModel();
-            return View(user);
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> IndexLogIn(UserViewModel userViewModel)
@@ -89,9 +87,7 @@ namespace Archieves.Kutuphane.Controllers
         [HttpGet]
         public IActionResult IndexRegister()
         {
-            // Register işlemi için boş nesne gönderimi.
-            var user = new UserViewModel();
-            return View(user);
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> IndexRegister(UserViewModel userViewModel)
@@ -320,11 +316,9 @@ namespace Archieves.Kutuphane.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> AddComment()
+        public IActionResult AddComment()
         {
-            // AddComment işlemi için boş nesne gönderimi.
-            var comment = new CommentViewModel();
-            return View(comment);
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> AddComment(CommentViewModel commentViewModel)
@@ -380,9 +374,7 @@ namespace Archieves.Kutuphane.Controllers
         [HttpGet]
         public IActionResult AddBook()
         {
-            // AddBook işlemi için boş nesne gönderimi.
-            var model = new BookViewModel();
-            return View(model);
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> AddBook(BookViewModel bookViewModel)
@@ -448,8 +440,7 @@ namespace Archieves.Kutuphane.Controllers
         private async Task<UserViewModel> GetAuthenticatedUser()
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var modelAuthenticatedUser = await _archievesService.GetUserAsync(Convert.ToInt32(id));
-            var authenticatedUser = modelAuthenticatedUser.Value;
+            var authenticatedUser = (await _archievesService.GetUserAsync(Convert.ToInt32(id))).Value;
             return authenticatedUser;
         }
         private async Task UploadFile(IFormFile? file)

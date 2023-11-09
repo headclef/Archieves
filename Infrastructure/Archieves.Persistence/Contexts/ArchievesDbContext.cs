@@ -5,13 +5,6 @@ namespace Archieves.Persistence.Contexts
 {
     public class ArchievesDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer(@"Server = FURKANTURAL; Database = ArchievesDb; Integrated Security = True; TrustServerCertificate = True");
-            if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer(@"Server = FURKANTURAL; Database = ArchievesDb; Integrated Security = True; TrustServerCertificate = True");
-        }
-        public ArchievesDbContext() { }   // For migration purposes
         public ArchievesDbContext(DbContextOptions<ArchievesDbContext> options) : base(options) { }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }

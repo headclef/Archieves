@@ -6,9 +6,8 @@
 @model UserViewModel
 @inject IArchievesService archievesService;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "IndexUser";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
-
     var list1 = (await archievesService.GetBooksAsync()).Value;
     var list2 = (await archievesService.GetCommentsAsync()).Value;
 }

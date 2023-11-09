@@ -1,10 +1,13 @@
-﻿<!--/add comments-->
+﻿@{
+    ViewData["Title"] = "PartialAddComment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <div class="comment-top">
     <h4>Yorum Yap</h4>
     <div class="comment-bottom">
         @if (User.Identity.IsAuthenticated)
         {
-            @using (Html.BeginForm("AddCommentPartial", "Archieves", FormMethod.Post, new { @class = "comment-form" } ))
+            @using (Html.BeginForm("AddCommentPartial", "Archieves", FormMethod.Post, new { @class = "comment-form" }))
             {
                 <input class="form-control" id="Rate" name="Rate" list="RateList" placeholder="Puan." />
                 <datalist id="RateList">
@@ -20,4 +23,3 @@
         }
     </div>
 </div>
-<!--//add comments-->

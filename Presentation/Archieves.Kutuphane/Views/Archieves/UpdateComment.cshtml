@@ -6,12 +6,11 @@
     ViewData["Title"] = "UpdateComment";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-
 <div class="container text-center">
     <h1 class="title">YORUM GÜNCELLEME PANELİ</h1>
     <div class="inner-sec" align="center">
         <div class="login p-5 bg-light mx-auto mw-100">
-            @using (Html.BeginForm("UpdateComment", "User", FormMethod.Post))
+            @using (Html.BeginForm("UpdateComment", "Archieves", FormMethod.Post))
             {
                 <h2>@ViewBag.ErrorMessage</h2>
                 <div class="form-group">

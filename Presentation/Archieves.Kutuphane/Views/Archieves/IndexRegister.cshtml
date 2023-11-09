@@ -1,7 +1,7 @@
 ﻿@using Archieves.Kutuphane.Models.User;
 @model UserViewModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "IndexRegister";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
@@ -16,7 +16,7 @@
                         <!--/İsim-->
                         <div class="col-md-6 mb-3 text-center">
                             <label for="Name">İsim</label>
-                            <input type="text" class="form-control" id="name" name="Name" placeholder="Buraya giriniz.">
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Buraya giriniz.">
                             <p style="color:red;">@Html.ValidationMessageFor(x => x.Name)</p>
                         </div>
                         <!--//İsim-->
@@ -25,7 +25,7 @@
                         <!--/Soyisim-->
                         <div class="col-md-6 mb-3 text-center">
                             <label for="Surname">Soyisim</label>
-                            <input type="text" class="form-control" id="surname" name="Surname" placeholder="Buraya giriniz.">
+                            <input type="text" class="form-control" id="Surname" name="Surname" placeholder="Buraya giriniz.">
                             <p style="color:red;">@Html.ValidationMessageFor(x => x.Surname)</p>
                         </div>
                         <!--//Soyisim-->
@@ -34,7 +34,7 @@
                         <!--/Şifre-->
                         <div class="col-md-6 text-center">
                             <label for="Password1">Şifre</label>
-                            <input type="password" class="form-control" id="password1" name="Password" placeholder="Buraya giriniz.">
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Buraya giriniz.">
                             <p style="color:red;">@Html.ValidationMessageFor(x => x.Password)</p>
                         </div>
                         <!--//Şifre-->
@@ -43,7 +43,7 @@
                         <!--/Doğum Tarihi-->
                         <div class="col-md-6 text-center">
                             <label for="Date">Doğum Tarihi</label>
-                            <input type="date" class="form-control" id="birthDate" name="Date" placeholder="Buraya giriniz.">
+                            <input type="date" class="form-control" id="Date" name="Date" placeholder="Buraya giriniz.">
                             <p style="color:red;">@Html.ValidationMessageFor(x => x.Date)</p>
                         </div>
                         <!--//Doğum Tarihi-->
@@ -52,7 +52,7 @@
                         <!--/Telefon Numarası-->
                         <div class="col-md-6 text-center">
                             <label for="Phone">Telefon Numarası</label>
-                            <input type="tel" class="form-control" id="phone" name="Phone" placeholder="Buraya giriniz.">
+                            <input type="tel" class="form-control" id="Phone" name="Phone" placeholder="Buraya giriniz.">
                             <p style="color:red;">@Html.ValidationMessageFor(x => x.Phone)</p>
                         </div>
                         <!--//Telefon Numarası-->
@@ -61,9 +61,8 @@
                         <!--/Email-->
                         <div class="col-md-6 text-center">
                             <label for="Email">E - Posta Adresi</label>
-                            <input type="email" class="form-control" id="email" name="Email" aria-describedby="emailHelp" placeholder="Buraya giriniz.">
+                            <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Buraya giriniz.">
                             <p style="color:red;">@Html.ValidationMessageFor(x => x.Email)</p>
-                            <p style="color:red;">@ViewBag.Message</p>
                         </div>
                         <!--//Email-->
                     </div>
@@ -71,8 +70,9 @@
                         <!--/Adres-->
                         <div class="col-md-6 text-center">
                             <label for="Address">Adres</label>
-                            <input type="text" class="form-control" id="adres" name="Address" placeholder="Buraya giriniz.">
+                            <input type="text" class="form-control" id="Address" name="Address" placeholder="Buraya giriniz.">
                             <p style="color:red;">@Html.ValidationMessageFor(x => x.Address)</p>
+                            <p style="color:red;">@ViewBag.RegisterMessage</p>
                         </div>
                         <!--//Adres-->
                     </div>
@@ -86,15 +86,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function warning() {
-            swal({
-                title: "DİKKAT",
-                text: "Kayıt olarak e - kütüphane kullanım koşullarını kabul ediyorsunuz. Bilgilerinizi kimse ile paylaşmayacağımızı bilmenizi ister ve iyi okumalar dileriz.",
-                confirmButtonText: "Onayla",
-                confirmButtonColor: "#DD6B55",
-                type: "warning"
-            });
-        }
-    </script>
 </section>

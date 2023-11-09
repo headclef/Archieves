@@ -5,55 +5,52 @@
 @model BookViewModel
 @inject IArchievesService archievesService;
 @{
-    ViewData["Title"] = "BookDetails";
+    ViewData["Title"] = "IndexBookDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     var comment = (await archievesService.GetCommentsAsync(Model.Id)).Value;
 }
-<section class="banner-bottom">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
-                <!-- Details -->
-                <div class="blog-grid-top">
-                    <div class="b-grid-top">
-                        <div class="blog_info_left_grid">
-                            <img src="@Model.Image" class="img-fluid" alt="Book Image" height="50px" style="display: block; margin-left: auto; margin-right: auto;" />
-                        </div>
-                        <div class="blog-info-middle">
-                            <ul>
-                                <li>
-                                    <a href="~/Book/BookDetails/@Model.Id">
-                                        <img src="~/images/calendar.svg" height="15px"> @Model.Date.Value.ToString("dd/MM/yyyy")
-                                    </a>
-                                </li>
-                                <li class="mx-2">
-                                    <a href="~/Book/BookDetails/@Model.Id">
-                                        <img src="~/images/feather.svg" height="15px" /> @Model.AuthorName @Model.AuthorSurname
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="~/Book/BookDetails/@Model.Id">
-                                        <!-- Çalışmıyor. -->
-                                        <img src="~/images/comment.svg" height="15px" /> @comment.Count Yorum
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+            <!-- Details -->
+            <div class="blog-grid-top">
+                <div class="b-grid-top">
+                    <div class="blog_info_left_grid">
+                        <img src="@Model.Image" class="img-fluid" alt="Book Image" height="50px" style="display: block; margin-left: auto; margin-right: auto;" />
                     </div>
-                    <h3>
-                        <p>@Model.Name</p> <!-- Çalışmıyor. -->
-                    </h3>
-                    <p style="text-align:justify;">@Model.Description</p> <!-- Çalışmıyor. -->
+                    <div class="blog-info-middle">
+                        <ul>
+                            <li>
+                                <a href="~/Book/BookDetails/@Model.Id">
+                                    <img src="~/images/calendar.svg" height="15px"> @Model.Date.Value.ToString("dd/MM/yyyy")
+                                </a>
+                            </li>
+                            <li class="mx-2">
+                                <a href="~/Book/BookDetails/@Model.Id">
+                                    <img src="~/images/feather.svg" height="15px" /> @Model.AuthorName @Model.AuthorSurname
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Book/BookDetails/@Model.Id">
+                                    <!-- Çalışmıyor. -->
+                                    <img src="~/images/comment.svg" height="15px" /> @comment.Count Yorum
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <!-- View Comments -->
-                @await Component.InvokeAsync("CommentListByBook", new { id = Model.Id })
-                <!-- Add Comments -->
-                @{
-                    ViewBag.BookId = Model.Id;
-                    @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
-                }
+                <h3>
+                    <p>@Model.Name</p> <!-- Çalışmıyor. -->
+                </h3>
+                <p style="text-align:justify;">@Model.Description</p> <!-- Çalışmıyor. -->
             </div>
+            <!-- View Comments -->
+            @await Component.InvokeAsync("CommentListByBook", new { id = Model.Id })
+            <!-- Add Comments -->
+            @{
+                ViewBag.BookId = Model.Id;
+                @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
+            }
         </div>
     </div>
-</section>
+</div>
