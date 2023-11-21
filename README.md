@@ -113,7 +113,7 @@
 				</ul>
 			</td>
 			<td>
-				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png" style="height:400px; width:50px;" />
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png" height="300px" />
 			</td>
 			<td>
 				<ul>
