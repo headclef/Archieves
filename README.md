@@ -56,22 +56,28 @@
 <!-- Güncellemeler -->
 <div align = "justify">
 	<h2 align = "center">🪐 GÜNCELLEMELER 🪐</h2>
-	<ul>
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png"/>
-	</ul>
-	<ul>
-		<li>v1.0  Projenin GitHub 'a yüklenmesi.</li>
-		<li>v1.1  Projenin aktif aşamasında kullanılmayan komutlarım yorumlaştırılması.</li>
-		<li>v1.2  Repository, Service and Interface (Application) katmanına interface 'lerin eklenmesi.</li>
-		<li>v1.3  Repository, Service and Interface (Application) katmanına service 'lerin eklenmesi.</li>
-		<li>v1.4  Domain katmanına güncelleme.</li>
-		<li>v1.5  Repository, Service and Interface (Application) katmanına güncelleme.</li>
-		<li>v1.6  Persistance katmanına context eklenmesi.</li>
-		<li>v1.7  Persistance katmanına güncelleme.</li>
-		<li>v1.8  Persistance katmanına concrete, repository ve efrepository eklenmesi.</li>
-		<li>v1.9	Presentation katmanına güncelleme.</li>
-		<li>v1.10	Tüm projeye genel bir güncelleme ile stabil çalışan proje eldesi.</li>
-	</ul>
+	<table>
+		<tr>
+			<td>
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png"/>
+			</td>
+			<td>
+				<ul>
+					<li>v1.0  Projenin GitHub 'a yüklenmesi.</li>
+					<li>v1.1  Projenin aktif aşamasında kullanılmayan komutlarım yorumlaştırılması.</li>
+					<li>v1.2  Repository, Service and Interface (Application) katmanına interface 'lerin eklenmesi.</li>
+					<li>v1.3  Repository, Service and Interface (Application) katmanına service 'lerin eklenmesi.</li>
+					<li>v1.4  Domain katmanına güncelleme.</li>
+					<li>v1.5  Repository, Service and Interface (Application) katmanına güncelleme.</li>
+					<li>v1.6  Persistance katmanına context eklenmesi.</li>
+					<li>v1.7  Persistance katmanına güncelleme.</li>
+					<li>v1.8  Persistance katmanına concrete, repository ve efrepository eklenmesi.</li>
+					<li>v1.9	Presentation katmanına güncelleme.</li>
+					<li>v1.10	Tüm projeye genel bir güncelleme ile stabil çalışan proje eldesi.</li>
+				</ul>
+			</td>
+		</tr>
+	</table>
 	<br />
 	<ul>
 		<li>v2.0	Presentation katmanına güncelleme.</li>
