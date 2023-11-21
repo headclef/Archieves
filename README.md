@@ -90,6 +90,11 @@
 		<li>v3.2	Presentation katmanına güncelleme (Bütün view 'ler elden geçirildi ve yeni servis katmanına uyarlanarak domain katmanı, presentation katmanından tamamen soyutlandı).</li>
 		<li>v3.3	Infrasctructure katmanına güncelleme (Migrasyon yapıldı ve veri tabanı ihtiyaçlara göre ayarlandı).</li>
 		<li>v3.4	Presentation katmanına güncelleme (Hata fırlatan view 'ler ve controller 'lar düzenlendi. Mapping ayarları tekrar gözden geçirildi ve Program.cs 'e güncelleme uygulandı).</li>
+			<br />
+		<li>v4.0	Tüm projeye genel bir güncelleme (Bütün servisler ve controller 'lar tekli yapılarda toparlandı ve view 'lerdeki _context bağımlılığı azaltıldı).</li>
+		<li>v4.1	Presentation katmanına güncelleme (Bütün view 'ler ArchievesController üzerinden tekrar oluşturuldu ve tek bir view yapılanmasına geçildi).</li>
+		<li>v4.2	Proje tekrar ve problemsiz (muhtemelen) çalışır hale getirildi.</li>
+		<li>v4.3	Temel anlamda bütün view 'lerdeki hatalar giderildi ve düzenlemeler yapıldı.</li>
 	</ul>
 </div>
 
