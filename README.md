@@ -103,7 +103,7 @@
 		<br />
 	<table align = "center">
 		<tr>
-			<td width = "250">
+			<td width = "300">
 				<ul>
 					<li>v3.0	Tüm projeyi sanallaştırma (soyutlama); Servis, repository ve interface 'lere güncelleme. Kimi katmanlar üzerinde köklü değişiklikler.</li>
 					<li>v3.1	Presentation katmanına güncelleme (Controller, model ve mapping katmanlarına üyeler eklenmesi).</li>
@@ -115,7 +115,7 @@
 			<td>
 				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png" />
 			</td>
-			<td width = "250">
+			<td width = "300">
 				<ul>
 					<li>v4.0	Tüm projeye genel bir güncelleme (Bütün servisler ve controller 'lar tekli yapılarda toparlandı ve view 'lerdeki _context bağımlılığı azaltıldı).</li>
 					<li>v4.1	Presentation katmanına güncelleme (Bütün view 'ler ArchievesController üzerinden tekrar oluşturuldu ve tek bir view yapılanmasına geçildi).</li>
