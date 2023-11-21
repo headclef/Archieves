@@ -54,7 +54,7 @@
 	<table>
 		<tr>
 			<td>
-				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png" style="height:200px;" />
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png" style="height:300px;" />
 			</td>
 			<td>
 				<ul>
@@ -96,7 +96,7 @@
 				</ul>
 			</td>
 			<td>
-				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png" style="height:200px;" />
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png" style="height:500px;" />
 			</td>
 		</tr>
 	</table>
@@ -113,7 +113,7 @@
 				</ul>
 			</td>
 			<td>
-				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png" style="height:200px;" />
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png" style="height:400px;" />
 			</td>
 			<td>
 				<ul>
