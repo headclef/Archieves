@@ -12,11 +12,6 @@
 		kitap arama v.b. uygulamalar bulunduracak olup, kullanıcılar tarafından kullanılabilmektedir. Temel ihtiyaçları karşılayacak olan giriş yapma, kayıt olma, şifremi unuttum
 		gibi işlemler de bulunduracaktır.
 	</p>
-	<div align = "center">
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png"/>
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png"/>
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png"/>
-	</div>
 		<br />
 	<p>
 		Yapı içerisinde aktif halde google autho api 'si bulunup, bazı diğer işlemlerinde api 'leştirilmesi planlanmaktadır.
@@ -78,43 +73,58 @@
 			</td>
 		</tr>
 	</table>
-	<br />
-	<ul>
-		<li>v2.0	Presentation katmanına güncelleme.</li>
-		<li>v2.1	Tüm projeye genel bir güncelleme ve kayıt olma eklenmesi.</li>
-		<li>v2.2	Domain katmanına güncelleme.</li>
-		<li>v2.3	Presentation katmanına güncelleme.</li>
-		<li>v2.4	Tüm projeye genel bir güncelleme ve bug / namespace düzenlemeleri.</li>
-		<li>v2.5	Presentation katmanına güncelleme (Abone olma özelliği ile e - posta kaydı yapabilme).</li>
-		<li>v2.6	Presentation katmanına güncelleme (Giriş yap fonksiyonlarına iyileştirme ve kimlik doğrulama işlemleri).</li>
-		<li>v2.7	Presentation katmanına güncelleme (Kullanıcı paneli, yeni kitaplar ve genel bir güncelleme).</li>
-		<li>v2.8	Presentation katmanına güncelleme (Yorum yapma altyapısında köklü değişiklik ve genel bir güncelleme).</li>
-		<li>v2.9	Presentation katmanına güncelleme (Yorum yapma ve kullanıcı paneli altyapısında iyileştirme ve genel bir güncelleme).</li>
-		<li>v2.10	Presentation katmanına güncelleme (Controller 'ların context kullanımını önlemek amacıyla veritabanı işlemleri servis katmanına taşınmıştır).</li>
-		<li>v2.11	Presentation katmanına güncelleme (Kullanıcı paneline yorumlar sayfası eklendi. Mevcut sayfada daha önceden yapılmış olan yorumları görüp, düzenleyip, silme özellikleri eklendi).</li>
-		<li>v2.12	Presentation katmanına güncelleme (Kitap detaylarını içeren sayfadaki yorum yapma paneline fix).</li>
-		<li>v2.13	Tüm projeye genel bir güncelleme.</li>
-		<li>v2.14	Oylama (Rating) sistemi eklendi.</li>
-	</ul>
-	<ul>
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png"/>
-	</ul>
-	<br />
-	<ul>
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png"/>
-	</ul>
-	<ul>
-		<li>v3.0	Tüm projeyi sanallaştırma (soyutlama); Servis, repository ve interface 'lere güncelleme. Kimi katmanlar üzerinde köklü değişiklikler.</li>
-		<li>v3.1	Presentation katmanına güncelleme (Controller, model ve mapping katmanlarına üyeler eklenmesi).</li>
-		<li>v3.2	Presentation katmanına güncelleme (Bütün view 'ler elden geçirildi ve yeni servis katmanına uyarlanarak domain katmanı, presentation katmanından tamamen soyutlandı).</li>
-		<li>v3.3	Infrasctructure katmanına güncelleme (Migrasyon yapıldı ve veri tabanı ihtiyaçlara göre ayarlandı).</li>
-		<li>v3.4	Presentation katmanına güncelleme (Hata fırlatan view 'ler ve controller 'lar düzenlendi. Mapping ayarları tekrar gözden geçirildi ve Program.cs 'e güncelleme uygulandı).</li>
-			<br />
-		<li>v4.0	Tüm projeye genel bir güncelleme (Bütün servisler ve controller 'lar tekli yapılarda toparlandı ve view 'lerdeki _context bağımlılığı azaltıldı).</li>
-		<li>v4.1	Presentation katmanına güncelleme (Bütün view 'ler ArchievesController üzerinden tekrar oluşturuldu ve tek bir view yapılanmasına geçildi).</li>
-		<li>v4.2	Proje tekrar ve problemsiz (muhtemelen) çalışır hale getirildi.</li>
-		<li>v4.3	Temel anlamda bütün view 'lerdeki hatalar giderildi ve düzenlemeler yapıldı.</li>
-	</ul>
+		<br />
+	<table>
+		<tr>
+			<td>
+				<ul>
+					<li>v2.0	Presentation katmanına güncelleme.</li>
+					<li>v2.1	Tüm projeye genel bir güncelleme ve kayıt olma eklenmesi.</li>
+					<li>v2.2	Domain katmanına güncelleme.</li>
+					<li>v2.3	Presentation katmanına güncelleme.</li>
+					<li>v2.4	Tüm projeye genel bir güncelleme ve bug / namespace düzenlemeleri.</li>
+					<li>v2.5	Presentation katmanına güncelleme (Abone olma özelliği ile e - posta kaydı yapabilme).</li>
+					<li>v2.6	Presentation katmanına güncelleme (Giriş yap fonksiyonlarına iyileştirme ve kimlik doğrulama işlemleri).</li>
+					<li>v2.7	Presentation katmanına güncelleme (Kullanıcı paneli, yeni kitaplar ve genel bir güncelleme).</li>
+					<li>v2.8	Presentation katmanına güncelleme (Yorum yapma altyapısında köklü değişiklik ve genel bir güncelleme).</li>
+					<li>v2.9	Presentation katmanına güncelleme (Yorum yapma ve kullanıcı paneli altyapısında iyileştirme ve genel bir güncelleme).</li>
+					<li>v2.10	Presentation katmanına güncelleme (Controller 'ların context kullanımını önlemek amacıyla veritabanı işlemleri servis katmanına taşınmıştır).</li>
+					<li>v2.11	Presentation katmanına güncelleme (Kullanıcı paneline yorumlar sayfası eklendi. Mevcut sayfada daha önceden yapılmış olan yorumları görüp, düzenleyip, silme özellikleri eklendi).</li>
+					<li>v2.12	Presentation katmanına güncelleme (Kitap detaylarını içeren sayfadaki yorum yapma paneline fix).</li>
+					<li>v2.13	Tüm projeye genel bir güncelleme.</li>
+					<li>v2.14	Oylama (Rating) sistemi eklendi.</li>
+				</ul>
+			</td>
+			<td>
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png"/>
+			</td>
+		</tr>
+	</table>
+		<br />
+	<table>
+		<tr>
+			<td>
+				<ul>
+					<li>v3.0	Tüm projeyi sanallaştırma (soyutlama); Servis, repository ve interface 'lere güncelleme. Kimi katmanlar üzerinde köklü değişiklikler.</li>
+					<li>v3.1	Presentation katmanına güncelleme (Controller, model ve mapping katmanlarına üyeler eklenmesi).</li>
+					<li>v3.2	Presentation katmanına güncelleme (Bütün view 'ler elden geçirildi ve yeni servis katmanına uyarlanarak domain katmanı, presentation katmanından tamamen soyutlandı).</li>
+					<li>v3.3	Infrasctructure katmanına güncelleme (Migrasyon yapıldı ve veri tabanı ihtiyaçlara göre ayarlandı).</li>
+					<li>v3.4	Presentation katmanına güncelleme (Hata fırlatan view 'ler ve controller 'lar düzenlendi. Mapping ayarları tekrar gözden geçirildi ve Program.cs 'e güncelleme uygulandı).</li>
+				</ul>
+			</td>
+			<td>
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png"/>
+			</td>
+			<td>
+				<ul>
+					<li>v4.0	Tüm projeye genel bir güncelleme (Bütün servisler ve controller 'lar tekli yapılarda toparlandı ve view 'lerdeki _context bağımlılığı azaltıldı).</li>
+					<li>v4.1	Presentation katmanına güncelleme (Bütün view 'ler ArchievesController üzerinden tekrar oluşturuldu ve tek bir view yapılanmasına geçildi).</li>
+					<li>v4.2	Proje tekrar ve problemsiz (muhtemelen) çalışır hale getirildi.</li>
+					<li>v4.3	Temel anlamda bütün view 'lerdeki hatalar giderildi ve düzenlemeler yapıldı.</li>
+				</ul>
+			</td>
+		</tr>
+	</table>
 </div>
 
 <!-- İkinci Paragraf -->
