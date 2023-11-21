@@ -13,9 +13,9 @@
 		gibi işlemler de bulunduracaktır.
 	</p>
 	<div align = "center">
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreLayer.png"/>
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationLayer.png"/>
-		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureLayer.png"/>
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png"/>
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png"/>
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png"/>
 	</div>
 		<br />
 	<p>
@@ -57,6 +57,9 @@
 <div align = "justify">
 	<h2 align = "center">🪐 GÜNCELLEMELER 🪐</h2>
 	<ul>
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png"/>
+	</ul>
+	<ul>
 		<li>v1.0  Projenin GitHub 'a yüklenmesi.</li>
 		<li>v1.1  Projenin aktif aşamasında kullanılmayan komutlarım yorumlaştırılması.</li>
 		<li>v1.2  Repository, Service and Interface (Application) katmanına interface 'lerin eklenmesi.</li>
@@ -68,7 +71,9 @@
 		<li>v1.8  Persistance katmanına concrete, repository ve efrepository eklenmesi.</li>
 		<li>v1.9	Presentation katmanına güncelleme.</li>
 		<li>v1.10	Tüm projeye genel bir güncelleme ile stabil çalışan proje eldesi.</li>
-			<br />
+	</ul>
+	<br />
+	<ul>
 		<li>v2.0	Presentation katmanına güncelleme.</li>
 		<li>v2.1	Tüm projeye genel bir güncelleme ve kayıt olma eklenmesi.</li>
 		<li>v2.2	Domain katmanına güncelleme.</li>
@@ -84,7 +89,15 @@
 		<li>v2.12	Presentation katmanına güncelleme (Kitap detaylarını içeren sayfadaki yorum yapma paneline fix).</li>
 		<li>v2.13	Tüm projeye genel bir güncelleme.</li>
 		<li>v2.14	Oylama (Rating) sistemi eklendi.</li>
-			<br />
+	</ul>
+	<ul>
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png"/>
+	</ul>
+	<br />
+	<ul>
+		<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png"/>
+	</ul>
+	<ul>
 		<li>v3.0	Tüm projeyi sanallaştırma (soyutlama); Servis, repository ve interface 'lere güncelleme. Kimi katmanlar üzerinde köklü değişiklikler.</li>
 		<li>v3.1	Presentation katmanına güncelleme (Controller, model ve mapping katmanlarına üyeler eklenmesi).</li>
 		<li>v3.2	Presentation katmanına güncelleme (Bütün view 'ler elden geçirildi ve yeni servis katmanına uyarlanarak domain katmanı, presentation katmanından tamamen soyutlandı).</li>
