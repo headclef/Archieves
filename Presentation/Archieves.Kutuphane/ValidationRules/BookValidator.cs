@@ -10,9 +10,6 @@ namespace Archieves.Kutuphane.ValidationRules
             RuleFor(x => x.Name)
                 .NotEmpty();
 
-            RuleFor(x => x.Image)
-                .NotEmpty();
-
             RuleFor(x => x.Description)
                 .NotEmpty();
 

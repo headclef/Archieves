@@ -8,7 +8,6 @@ namespace Archieves.Domain.Entities
         public string? Image { get; set; }
         public string? Description { get; set; }
 
-        // TODO: Add AuthorName property to model.
         public int? AuthorId { get; set; }
     }
 }

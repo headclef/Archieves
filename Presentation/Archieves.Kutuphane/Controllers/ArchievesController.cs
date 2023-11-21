@@ -73,9 +73,11 @@ namespace Archieves.Kutuphane.Controllers
                         ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                         await HttpContext.SignInAsync(principal);
 
-                        // TODO: Google Recaptcha çalışmıyor, çalıştırılacak.
-                        await Post();
-                        return RedirectToAction("IndexHome", "Archieves");
+                        var result = await Post();
+                        if (!result)
+                            return View();
+                        else
+                            return RedirectToAction("IndexHome", "Archieves");
                     }
                     else
                     {
@@ -179,6 +181,7 @@ namespace Archieves.Kutuphane.Controllers
         #region Error
         // TODO: 404, 500 gibi hata kodları alması gerekli ancak her seferinde 0 alıyor, incelenecek!
         [Route("/Archieves/IndexErrorPage")]
+        [AllowAnonymous]
         public IActionResult IndexErrorPage(int errorCode)
         {
             if (errorCode == 404)
@@ -223,6 +226,7 @@ namespace Archieves.Kutuphane.Controllers
                 var model = (await _archievesService.GetAuthorAsync(authorViewModel)).Value;
                 if (model is null)
                 {
+                    authorViewModel.Status = true;
                     var result = await _archievesService.AddAuthorAsync(authorViewModel);
                     if (result.IsSuccess)
                     {
@@ -263,7 +267,7 @@ namespace Archieves.Kutuphane.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCommentPartial(CommentViewModel comment)
         {
-            var control = (await _archievesService.GetRatingsAsync((int)comment.BookId)).Value;
+            var control = (await _archievesService.GetRatingsAsync(Convert.ToInt32(comment.BookId))).Value;
             if (control is not null)
             {
                 var rating = new RatingViewModel();
@@ -428,10 +432,14 @@ namespace Archieves.Kutuphane.Controllers
                 }
                 else
                 {
-                    await UploadFile(HttpContext.Request.Form.Files["ImageFile"]);
-                    bookViewModel.Image = $"/images/{HttpContext.Request.Form.Files["ImageFile"].FileName}";
+                    var author = (await _archievesService.GetAuthorAsync(Convert.ToInt32(bookViewModel.AuthorId))).Value;
+                    bookViewModel.AuthorName = author.Name;
+                    bookViewModel.AuthorSurname = author.Surname;
+                    bookViewModel.Status = true;
+                    var fileName = await UploadFile(HttpContext.Request.Form.Files["Image"]);
+                    bookViewModel.Image = $"/images/{fileName}";
                     await _archievesService.AddBookAsync(bookViewModel);
-                    return RedirectToAction("IndexBookDetails", "Archieves", bookViewModel.Id);
+                    return RedirectToAction("IndexBookDetails", "Archieves", (await _archievesService.GetBooksAsync()).Value.Count);
                 }
             }
         }
@@ -439,28 +447,28 @@ namespace Archieves.Kutuphane.Controllers
 
         #region Methods
         [HttpPost]
-        private async Task<IActionResult> Post()
+        private async Task<bool> Post()
         {
             var captchaImage = HttpContext.Request.Form["g-recaptcha-response"];
             if (string.IsNullOrEmpty(captchaImage))
             {
                 ViewBag.LogInMessage = "ReCaptcha boş hatası aldınız.";
-                return RedirectToAction("IndexLogIn", "Archieves");
+                return false;
             }
-            var verified = await CheckCaptcha();
+            var verified = await CheckCaptcha(captchaImage);
             if (!verified)
             {
                 ViewBag.LogInMessage = "ReCaptcha 'yı işaretlememe hatası aldınız.";
-                return RedirectToAction("IndexLogIn", "Archieves");
+                return false;
             }
-            return View();
+            return true;
         }
-        private async Task<bool> CheckCaptcha()
+        private async Task<bool> CheckCaptcha(string capthcaImage)
         {
             var postData = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("secret", "6LdZ4gwoAAAAAKDbfI6jbyUCp78JEGGWYsIQctMs"),
-                new KeyValuePair<string, string>("response", HttpContext.Request.Form["google-recaptcha-response"])
+                new KeyValuePair<string, string>("response", capthcaImage)
             };
             var client = new HttpClient();
             var response = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(postData));
@@ -473,25 +481,30 @@ namespace Archieves.Kutuphane.Controllers
             var authenticatedUser = (await _archievesService.GetUserAsync(Convert.ToInt32(id))).Value;
             return authenticatedUser;
         }
-        private async Task UploadFile(IFormFile? file)
+        private async Task<string> UploadFile(IFormFile? file)
         {
             if (file is not null && file.Length > 0)
             {
-                var allowedFileTypes = new[] { ".jpg", ".jpeg", ".png", ".pdf" };
-                if (!allowedFileTypes.Contains(file.ContentType))
+                var allowedFileTypes = new[] { ".jpg", ".jpeg", ".png" };
+                if (!allowedFileTypes.Contains(Path.GetExtension(file.FileName)))
                 {
                     ModelState.AddModelError("ImageFile", "Yalnızca .jpg, .jpeg, .png, .pdf uzantılı dosyalar yükleyebilirsiniz.");
+                    return "";
                 }
                 else
                 {
-                    var filePath = "wwwroot/images";
-                    var fileName = Path.Combine(filePath, file.Name);
+                    var filePath = Path.Combine("wwwroot", "images");
+                    var name = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var fileName = Path.Combine(Directory.GetCurrentDirectory(), filePath, name);
                     using (var fileStream = new FileStream(fileName, FileMode.Create))
                     {
                         await file.CopyToAsync(fileStream);
                     }
+                    return name;
                 }
             }
+            else
+                return "";
         }
         #endregion
     }

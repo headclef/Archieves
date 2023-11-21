@@ -1,8 +1,4 @@
-﻿@{
-    ViewData["Title"] = "PartialAddComment";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<div class="comment-top">
+﻿<div class="comment-top">
     <h4>Yorum Yap</h4>
     <div class="comment-bottom">
         @if (User.Identity.IsAuthenticated)
@@ -16,8 +12,8 @@
                         <option value="@i">@i puan</option>
                     }
                 </datalist>
-                <input class="form-control" name="BookId" type="hidden" placeholder="Kitap ismi." value="@ViewBag.BookId" />
                 <textarea class="form-control" name="Content" placeholder="Yorum..." required="" style="color:black;"></textarea>
+                <input class="form-control" type="hidden" id="BookId" name="BookId" value="@ViewBag.BookId" />
                 <button type="submit" class="btn btn-primary submit">Yorum Yap</button>
             }
         }

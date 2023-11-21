@@ -33,6 +33,7 @@ namespace Archieves.Kutuphane.Services.Abstractions
         Task<ModelResponse<CommentViewModel>> GetCommentAsync(int id);
         Task<ModelResponse<List<CommentViewModel>>> GetCommentsAsync();
         Task<ModelResponse<List<CommentViewModel>>> GetCommentsAsync(int id);
+        Task<ModelResponse<List<CommentViewModel>>> GetCommentsAsync(long id);
         #endregion
         #region Rating
         Task<ModelResponse<RatingViewModel>> AddRatingAsync(RatingViewModel rating);
@@ -56,6 +57,9 @@ namespace Archieves.Kutuphane.Services.Abstractions
         Task<ModelResponse<UserViewModel>> GetUserAsync(int id);
         Task<ModelResponse<UserViewModel>> GetUserAsync(UserViewModel user);
         Task<ModelResponse<List<UserViewModel>>> GetUsersAsync();
+        #endregion
+        #region Methods
+        Task<List<BookViewModel>> LatestBooks();
         #endregion
     }
 }

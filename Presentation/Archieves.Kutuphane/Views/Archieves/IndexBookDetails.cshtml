@@ -7,7 +7,7 @@
 @{
     ViewData["Title"] = "IndexBookDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var comment = (await archievesService.GetCommentsAsync(Model.Id)).Value;
+    var comment = (await archievesService.GetCommentsAsync(Model.Id)).Value == null ? null : (await archievesService.GetCommentsAsync(Model.Id)).Value;
 }
 <div class="container">
     <div class="row">
@@ -32,7 +32,6 @@
                             </li>
                             <li>
                                 <a href="~/Book/BookDetails/@Model.Id">
-                                    <!-- Çalışmıyor. -->
                                     <img src="~/images/comment.svg" height="15px" /> @comment.Count Yorum
                                 </a>
                             </li>
@@ -40,16 +39,14 @@
                     </div>
                 </div>
                 <h3>
-                    <p>@Model.Name</p> <!-- Çalışmıyor. -->
+                    <p>@Model.Name</p>
                 </h3>
-                <p style="text-align:justify;">@Model.Description</p> <!-- Çalışmıyor. -->
+                <p style="text-align:justify;">@Model.Description</p>
             </div>
-            <!-- View Comments -->
-            @await Component.InvokeAsync("CommentListByBook", new { id = Model.Id })
-            <!-- Add Comments -->
+            @await Component.InvokeAsync("CommentListByBook", new { id = Convert.ToInt64(Model.Id) })
             @{
                 ViewBag.BookId = Model.Id;
-                @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
+                @await Html.PartialAsync("~/Views/Archieves/PartialAddComment.cshtml")
             }
         </div>
     </div>

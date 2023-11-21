@@ -1,5 +1,4 @@
-﻿using Archieves.Kutuphane.Models.Comment;
-using Archieves.Kutuphane.Services.Abstractions;
+﻿using Archieves.Kutuphane.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Archieves.Kutuphane.ViewComponents.Comment
@@ -11,9 +10,9 @@ namespace Archieves.Kutuphane.ViewComponents.Comment
         {
             _archievesService = archievesService;
         }
-        public IViewComponentResult Invoke(int id)
+        public IViewComponentResult Invoke(long id)
         {
-            var values = _archievesService.GetCommentAsync(id).Result.Value;
+            var values = _archievesService.GetCommentsAsync(id).Result.Value;
             if (values != null)
                 return View(values);
             else

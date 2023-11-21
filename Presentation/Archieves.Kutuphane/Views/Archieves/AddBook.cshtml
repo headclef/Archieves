@@ -22,8 +22,8 @@
                         </div>
                         <div class="form-group">
                             <label for="Image" style="color:black; float:left; margin-top:15px;">Kitap Görseli</label>
-                            <input class="form-control" type="file" id="ImageFile" name="ImageFile" accept=".jpeg .jpg .png" />
-                            <p class="text-center" style="color:red;">@Html.ValidationMessage("ImageFile")</p>
+                            <input class="form-control" type="file" id="Image" name="Image" accept=".jpeg .jpg .png" />
+                            <p class="text-center" style="color:red;">@Html.ValidationMessage("Image")</p>
                         </div>
                         <div class="form-group">
                             <label for="Description" style="color:black; float:left; margin-top:15px;">Açıklama</label>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             <label for="AuthorId" style="color:black; float:left; margin-top:15px;">Yazar</label>
-                            <select>
+                            <select class="form-control" id="AuthorId" name="AuthorId">
                                 <option></option>
                                 @foreach (var item in authorList)
                                 {
@@ -45,11 +45,6 @@
                             <input class="form-control" type="date" id="Date" name="Date" />
                             <p class="text-center" style="color:red;">@Html.ValidationMessageFor(x => x.Date)</p>
                         </div>
-                        <!-- Hidden Informations -->
-                        <div>
-                            <input type="hidden" id="Status" name="Status" value="@true" />
-                        </div>
-                        <!-- Hidden Informations -->
                     </div>
                     <button class="btn-gradient-primary" type="submit" style="height: 50px;">+ Ekle</button>
                 </div>

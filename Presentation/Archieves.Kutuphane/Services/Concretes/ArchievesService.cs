@@ -310,6 +310,21 @@ namespace Archieves.Kutuphane.Services.Concretes
                 return result.Fail($"Bir hata oluştu: {ex.Message}");
             }
         }
+        public async Task<ModelResponse<List<CommentViewModel>>> GetCommentsAsync(long id)
+        {
+            var result = new ModelResponse<List<CommentViewModel>>();
+            try
+            {
+                var commentModels = await GetComments();
+                var comment = commentModels.Where(x => x.BookId == id).ToList();
+                var commentViewModels = _mapper.Map<List<CommentViewModel>>(comment);
+                return result.Success(commentViewModels);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail($"Bir hata oluştu: {ex.Message}");
+            }
+        }
         #endregion
         #region Rating
         public async Task<ModelResponse<RatingViewModel>> AddRatingAsync(RatingViewModel rating)
@@ -599,6 +614,15 @@ namespace Archieves.Kutuphane.Services.Concretes
                              Status = book.Status,
                          };
             return result.ToList();
+        }
+        public async Task<List<BookViewModel>> LatestBooks()
+        {
+            var result = _context.Set<Book>()
+                         .OrderByDescending(x => x.Id)
+                         .Take(4)
+                         .ToList();
+            var books = _mapper.Map<List<BookViewModel>>(result);
+            return books;
         }
         public async Task<List<CommentViewModel>> GetComments()
         {

@@ -30,16 +30,14 @@
                             <input class="form-control" type="date" id="Date" name="Date" />
                             <p class="text-center" style="color:red;">@Html.ValidationMessageFor(x => x.Date)</p>
                         </div>
-                        <!-- Hidden Informations -->
-                        <div>
-                            <input type="hidden" id="Status" name="Status" value="@true" />
-                        </div>
-                        <!-- Hidden Informations -->
                     </div>
                     <button class="btn-gradient-primary" type="submit" style="height: 50px;">+ Ekle</button>
                 </div>
             }
             <p class="text-center" style="color:red;">@ViewBag.Author</p>
+            <p class="text-center" style="color:black;">
+                Kitap ekleme paneline dönmek için <a asp-controller="Archieves" asp-action="AddAuthor">buraya</a> tıklayınız.
+            </p>
         </div>
     </div>
 </div>
