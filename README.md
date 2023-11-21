@@ -54,9 +54,9 @@
 	<table>
 		<tr>
 			<td>
-				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png" style="height:300px;" />
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png" />
 			</td>
-			<td>
+			<td width="400">
 				<ul>
 					<li>v1.0  Projenin GitHub 'a yüklenmesi.</li>
 					<li>v1.1  Projenin aktif aşamasında kullanılmayan komutlarım yorumlaştırılması.</li>
@@ -96,7 +96,7 @@
 				</ul>
 			</td>
 			<td>
-				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png" style="height:500px;" />
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png" />
 			</td>
 		</tr>
 	</table>
@@ -113,7 +113,7 @@
 				</ul>
 			</td>
 			<td>
-				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png" height="300px" />
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png" />
 			</td>
 			<td>
 				<ul>
