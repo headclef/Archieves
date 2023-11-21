@@ -37,7 +37,15 @@
 	</p>
 		<br />
 	<p>
-		...
+		v2.0 açıklaması ... (yakında)
+	</p>
+		<br />
+	<p>
+		v3.0 açıklaması ... (yakında)
+	</p>
+		<br />
+	<p>
+		v4.0 açıklaması ... (yakında)
 	</p>
 		<br />
 	<p>
