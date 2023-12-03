@@ -222,6 +222,19 @@ namespace Archieves.Kutuphane.Services.Concretes
                 return result.Fail($"Bir hata oluştu: {ex.Message}");
             }
         }
+        public async Task<ModelResponse<List<BookViewModel>>> GetBooksAsync(string name)
+        {
+            var result = new ModelResponse<List<BookViewModel>>();
+            try
+            {
+                var bookModels = (await GetBooks()).Where(x => x.Name.Contains(name)).ToList();
+                return result.Success(bookModels);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail($"Bir hata oluştu: {ex.Message}");
+            }
+        }
         #endregion
         #region Comment
         public async Task<ModelResponse<CommentViewModel>> AddCommentAsync(CommentViewModel comment)

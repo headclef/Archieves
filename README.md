@@ -37,15 +37,30 @@
 	</p>
 		<br />
 	<p>
-		v2.0 açıklaması ... (yakında)
+		Öncelikle, güncelleme notlarının yanlarında bulunan görüntülerin kesinlikle o anki yamada bulunan halleri olmadığını
+		ve güncel versiyona ait olduğunu belirtmekte fayda var. V2.0 sürümü ile birlikte projeye <b style="color: #ff0000;"><i>kayıt olma ve giriş yapma</i></b> özellikleri eklendi.
+		Bu özellikler ile birlikte kayıtlı kullanıcılar, giriş sayfasına ve giriş yapma işleminin ardından daha birçok sayfaya erişebilmektedir. Yorum yapma vb.
+		yapılar da bu kısma dahil edilebilir. <b style="color: #ff0000;"><i>Yani kısaca sayfadaki erişimin limitlenmesi amaçlanmıştır.</i></b>
 	</p>
 		<br />
 	<p>
-		v3.0 açıklaması ... (yakında)
+		V3.0 sürümü ile projede <b style="color: #ff0000;"><i>sanallaştırma ve soyutlama</i></b> işlemlerine önem verildi ve yapı Core katmanından neredeyse tam anlamıyla
+		soyutlandı. Bu sayede <b style="color: #ff0000;"><i>projenin Core katmanı üzerindeki bağımlılığını ortadan kaldırmak amaçlandı</i></b> ve proje içerisindeki
+		yapıda bir bağımlılık olacaksa mesela Presentation katmanı için, bu bağımlılığın Core katmanı üzerinden değil de Infrastructure
+		katmanı üzerinden olması sağlandı. Bu sayede projenin entity 'leri ile yapılacak olan işlemler iki ana başlıkta yarar
+		sağlayabilecekti. Bunlar;
+		<ul>
+			<li> Veritabanı işlemleri (CRUD)</li>
+			<li> Presentation katmanında kullanılacak yapıların modelleştirilmesi.</li>
+		</ul>
 	</p>
 		<br />
 	<p>
-		v4.0 açıklaması ... (yakında)
+		V4.0 sürümü ile projede <b style="color: #ff0000;"><i>tekli yapılanmalar toparlandı ve tek bir yapı üzerinden işlemler gerçekleştirildi.</i></b> Bu sayede
+		projeninin özellikle Infrastructure ve Presentation katmanlarındaki <b style="color: #ff0000;"><i>kod kalabalığı azaltıldı.</i></b> Aynı zamanda bu sürümde
+		için kullanılan <b style="color: #ff0000;"><i>controller 'ların context 'lere bağımlılığı azaltıldı.</i></b> Bu sayede controller 'lar
+		üzerindeki kod kalabalığı azaltıldı ve kod tekrarları önlenmiş oldu. <b style="color: #ff0000;"><i>Tüm bu işlemler bütününün sonunda projenin performans
+		artışı göstermesi beklendi ve bu beklenti gerçekleşti.</i></b>
 	</p>
 		<br />
 	<p>
@@ -66,15 +81,15 @@
 			</td>
 			<td width = "500">
 				<ul>
-					<li>v1.0  Projenin GitHub 'a yüklenmesi.</li>
-					<li>v1.1  Projenin aktif aşamasında kullanılmayan komutlarım yorumlaştırılması.</li>
-					<li>v1.2  Repository, Service and Interface (Application) katmanına interface 'lerin eklenmesi.</li>
-					<li>v1.3  Repository, Service and Interface (Application) katmanına service 'lerin eklenmesi.</li>
-					<li>v1.4  Domain katmanına güncelleme.</li>
-					<li>v1.5  Repository, Service and Interface (Application) katmanına güncelleme.</li>
-					<li>v1.6  Persistance katmanına context eklenmesi.</li>
-					<li>v1.7  Persistance katmanına güncelleme.</li>
-					<li>v1.8  Persistance katmanına concrete, repository ve efrepository eklenmesi.</li>
+					<li>v1.0	Projenin GitHub 'a yüklenmesi.</li>
+					<li>v1.1	Projenin aktif aşamasında kullanılmayan komutlarım yorumlaştırılması.</li>
+					<li>v1.2	Repository, Service and Interface (Application) katmanına interface 'lerin eklenmesi.</li>
+					<li>v1.3	Repository, Service and Interface (Application) katmanına service 'lerin eklenmesi.</li>
+					<li>v1.4	Domain katmanına güncelleme.</li>
+					<li>v1.5	Repository, Service and Interface (Application) katmanına güncelleme.</li>
+					<li>v1.6	Persistance katmanına context eklenmesi.</li>
+					<li>v1.7	Persistance katmanına güncelleme.</li>
+					<li>v1.8	Persistance katmanına concrete, repository ve efrepository eklenmesi.</li>
 					<li>v1.9	Presentation katmanına güncelleme.</li>
 					<li>v1.10	Tüm projeye genel bir güncelleme ile stabil çalışan proje eldesi.</li>
 				</ul>
@@ -129,6 +144,7 @@
 					<li>v4.1	Presentation katmanına güncelleme (Bütün view 'ler ArchievesController üzerinden tekrar oluşturuldu ve tek bir view yapılanmasına geçildi).</li>
 					<li>v4.2	Proje tekrar ve problemsiz (muhtemelen) çalışır hale getirildi.</li>
 					<li>v4.3	Temel anlamda bütün view 'lerdeki hatalar giderildi ve düzenlemeler yapıldı.</li>
+					<li>v4.4	Presentation katmanına güncelleme (Arama kutucuğunun fonksiyonu eklendi ve giriş yapan kullanıcıların kitap arama işlemleri yapabilmesi sağlandı).</li>
 				</ul>
 			</td>
 		</tr>

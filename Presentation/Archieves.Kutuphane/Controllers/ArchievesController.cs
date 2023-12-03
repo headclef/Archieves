@@ -506,6 +506,17 @@ namespace Archieves.Kutuphane.Controllers
             else
                 return "";
         }
+        [HttpPost]
+        public async Task<IActionResult> SearchBooks(string name)
+        {
+            if (name is not null)
+            {
+                var books = (await _archievesService.GetBooksAsync(name)).Value;
+                return View("IndexBook", books);
+            }
+            else
+                return RedirectToAction("IndexBook", "Archieves");
+        }
         #endregion
     }
 }

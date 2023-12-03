@@ -25,6 +25,7 @@ namespace Archieves.Kutuphane.Services.Abstractions
         Task<ModelResponse<BookViewModel>> GetBookAsync(int id);
         Task<ModelResponse<BookViewModel>> GetBookAsync(BookViewModel book);
         Task<ModelResponse<List<BookViewModel>>> GetBooksAsync();
+        Task<ModelResponse<List<BookViewModel>>> GetBooksAsync(string name);
         #endregion
         #region Comment
         Task<ModelResponse<CommentViewModel>> AddCommentAsync(CommentViewModel comment);
