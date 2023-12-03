@@ -5,6 +5,7 @@ using Archieves.Kutuphane.Models.Rating;
 using Archieves.Kutuphane.Models.Subscriber;
 using Archieves.Kutuphane.Models.User;
 using Archieves.Kutuphane.Models.Wrappers;
+using NuGet.Common;
 
 namespace Archieves.Kutuphane.Services.Abstractions
 {
@@ -26,6 +27,8 @@ namespace Archieves.Kutuphane.Services.Abstractions
         Task<ModelResponse<BookViewModel>> GetBookAsync(BookViewModel book);
         Task<ModelResponse<List<BookViewModel>>> GetBooksAsync();
         Task<ModelResponse<List<BookViewModel>>> GetBooksAsync(string name);
+        Task<PagedModelResponse<List<BookViewModel>>> GetBookListAsync(BookPagerModel bookPagerModel);
+        Task<PagedModelResponse<List<BookViewModel>>> GetBookListAsync(BookPagerModel bookPagerModel, string name);
         #endregion
         #region Comment
         Task<ModelResponse<CommentViewModel>> AddCommentAsync(CommentViewModel comment);

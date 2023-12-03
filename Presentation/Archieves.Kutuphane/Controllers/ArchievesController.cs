@@ -248,10 +248,11 @@ namespace Archieves.Kutuphane.Controllers
         }
         #endregion
         #region Book
-        public async Task<IActionResult> IndexBook()
+        [HttpGet]
+        public async Task<IActionResult> IndexBook(BookPagerModel bookPagerModel)
         {
-            var model = (await _archievesService.GetBooksAsync()).Value;
-            return View(model);
+            var model = (await _archievesService.GetBookListAsync(bookPagerModel));
+            return View("IndexBook", model);
         }
         public async Task<IActionResult> IndexBookDetails(int id)
         {
@@ -511,8 +512,8 @@ namespace Archieves.Kutuphane.Controllers
         {
             if (name is not null)
             {
-                var books = (await _archievesService.GetBooksAsync(name)).Value;
-                return View("IndexBook", books);
+                var model = await _archievesService.GetBookListAsync(new BookPagerModel { Number = 1, Size = 9 }, name);
+                return View("IndexBook", model);
             }
             else
                 return RedirectToAction("IndexBook", "Archieves");

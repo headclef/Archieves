@@ -1,5 +1,6 @@
 using Archieves.Application.Repositories;
 using Archieves.Domain.Entities;
+using Archieves.Kutuphane.Extensions;
 using Archieves.Kutuphane.Models.Author;
 using Archieves.Kutuphane.Models.Book;
 using Archieves.Kutuphane.Models.Comment;
@@ -10,6 +11,7 @@ using Archieves.Kutuphane.Models.Wrappers;
 using Archieves.Kutuphane.Services.Abstractions;
 using Archieves.Persistence.Contexts;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Archieves.Kutuphane.Services.Concretes
 {
@@ -233,6 +235,56 @@ namespace Archieves.Kutuphane.Services.Concretes
             catch (Exception ex)
             {
                 return result.Fail($"Bir hata oluştu: {ex.Message}");
+            }
+        }
+        public async Task<PagedModelResponse<List<BookViewModel>>> GetBookListAsync(BookPagerModel bookPagerModel)
+        {
+            var result = new PagedModelResponse<List<BookViewModel>>();
+            try
+            {
+                var query = GetBooksQuery();
+                query = query.Where(x => x.Status == true);
+                query = query.OrderBy(x => x.Id);
+                var totalItemCount = query.Count();
+                var size = bookPagerModel.Size == 0 ? 1 : bookPagerModel.Size;
+                var number = (totalItemCount / size) + (totalItemCount % size > 0 ? 1 : 0);
+                var bookEntities = await query.Paginate(bookPagerModel).ToListAsync();
+                var bookViewModels = _mapper.Map<List<BookViewModel>>(bookEntities);
+                return result.Success(
+                    bookViewModels,
+                    bookPagerModel.Number,
+                    bookViewModels.Count,
+                    totalItemCount,
+                    number);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<PagedModelResponse<List<BookViewModel>>> GetBookListAsync(BookPagerModel bookPagerModel, string name)
+        {
+            var result = new PagedModelResponse<List<BookViewModel>>();
+            try
+            {
+                var query = GetBooksQuery(name);
+                query = query.Where(x => x.Status == true);
+                query = query.OrderBy(x => x.Id);
+                var totalItemCount = query.Count();
+                var size = bookPagerModel.Size == 0 ? 1 : bookPagerModel.Size;
+                var number = (totalItemCount / size) + (totalItemCount % size > 0 ? 1 : 0);
+                var bookEntities = await query.Paginate(bookPagerModel).ToListAsync();
+                var bookViewModels = _mapper.Map<List<BookViewModel>>(bookEntities);
+                return result.Success(
+                    bookViewModels,
+                    bookPagerModel.Number,
+                    bookViewModels.Count,
+                    totalItemCount,
+                    number);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
             }
         }
         #endregion
@@ -609,6 +661,45 @@ namespace Archieves.Kutuphane.Services.Concretes
                          };
             return result.ToList();
         }
+        public IQueryable<BookViewModel> GetBooksQuery()
+        {
+            var result = from book in _context.Set<Book>()
+                         join author in _context.Set<Author>() on book.AuthorId equals author.Id into authors
+                         from author in _context.Set<Author>().DefaultIfEmpty()
+                         select new BookViewModel
+                         {
+                             Id = book.Id,
+                             Name = book.Name,
+                             AuthorId = book.AuthorId,
+                             AuthorName = author.Name,
+                             AuthorSurname = author.Surname,
+                             Description = book.Description,
+                             Image = book.Image,
+                             Date = book.Date,
+                             Status = book.Status,
+                         };
+            return result;
+        }
+        public IQueryable<BookViewModel> GetBooksQuery(string name)
+        {
+            var result = from book in _context.Set<Book>()
+                         where book.Name.Contains(name)
+                         join author in _context.Set<Author>() on book.AuthorId equals author.Id into authors
+                         from author in _context.Set<Author>().DefaultIfEmpty()
+                         select new BookViewModel
+                         {
+                             Id = book.Id,
+                             Name = book.Name,
+                             AuthorId = book.AuthorId,
+                             AuthorName = author.Name,
+                             AuthorSurname = author.Surname,
+                             Description = book.Description,
+                             Image = book.Image,
+                             Date = book.Date,
+                             Status = book.Status,
+                         };
+            return result;
+        }
         public async Task<List<BookViewModel>> GetBooks()
         {
             var result = from book in _context.Set<Book>()
@@ -628,7 +719,7 @@ namespace Archieves.Kutuphane.Services.Concretes
                          };
             return result.ToList();
         }
-        public async Task<List<BookViewModel>> LatestBooks()
+    public async Task<List<BookViewModel>> LatestBooks()
         {
             var result = _context.Set<Book>()
                          .OrderByDescending(x => x.Id)

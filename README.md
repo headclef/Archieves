@@ -145,6 +145,7 @@
 					<li>v4.2	Proje tekrar ve problemsiz (muhtemelen) çalışır hale getirildi.</li>
 					<li>v4.3	Temel anlamda bütün view 'lerdeki hatalar giderildi ve düzenlemeler yapıldı.</li>
 					<li>v4.4	Presentation katmanına güncelleme (Arama kutucuğunun fonksiyonu eklendi ve giriş yapan kullanıcıların kitap arama işlemleri yapabilmesi sağlandı).</li>
+					<li>v4.5	Presentation katmanına güncelleme (IndexBook sayfasına pagination eklendi).</li>
 				</ul>
 			</td>
 		</tr>

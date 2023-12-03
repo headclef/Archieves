@@ -1,5 +1,6 @@
 ﻿@using Archieves.Kutuphane.Models.Book;
-@model List<BookViewModel>
+@using Archieves.Kutuphane.Models.Wrappers;
+@model PagedModelResponse<List<BookViewModel>>
 @{
     ViewData["Title"] = "IndexBook";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,7 +11,7 @@
         <!--left-->
         <div class="left-blog-info-w3layouts-agileits text-left">
             <div class="row">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Value)
                 {
                     <div class="col-lg-4 card" name="mizite">
                         <a asp-controller="Archieves" asp-action="IndexBookDetails" asp-route-id="@item.Id">
@@ -36,4 +37,43 @@
             <!--//left-->
         </div>
     </div>
+    <div class="p-2" align="center">
+        @if (Model.PageNumber == 1)
+        {
+            <a class="btn btn-light border" style="height:35px;" disabled>Önceki</a>
+        }
+        else
+        {
+            <a class="btn btn-light border" style="height:35px;" href="@Url.Action("IndexBook", "Archieves", new BookPagerModel { Number = Model.PageNumber - 1, Size = 9 })">Önceki</a>
+        }
+        <select class="text-center border" style="width: 300px; height: 35px;" id="pageNumberDropdown">
+            <option>@Model.PageNumber</option>
+            @for (int i = 1; i <= ((Model.TotalItemCount / 9) + 1); i++)
+            {
+                <option>@i</option>
+            }
+        </select>
+        @if (Model.PageNumber != (Model.TotalItemCount / 9) + 1)
+        {
+            <a class="btn btn-light border" style="height:35px;" href="@Url.Action("IndexBook", "Archieves", new BookPagerModel { Number = Model.PageNumber + 1, Size = 9 })">Sonraki</a>
+        }
+        else
+        {
+            <a class="btn btn-light border" style="height:35px;" disabled>Sonraki</a>
+        }
+    </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    // jQuery kullanarak dropdown değeri değiştiğinde tetiklenecek fonksiyon
+    $(document).ready(function () {
+        $("#pageNumberDropdown").change(function () {
+            // Seçilen değeri al
+            var selectedValue = $(this).val();
+            // Yeni URL'yi oluştur
+            var newUrl = '@Url.Action("IndexBook", "Archieves")' + '?Number=' + selectedValue + '&Size=9';
+            // Yönlendirme
+            window.location.href = newUrl;
+        });
+    });
+</script>
