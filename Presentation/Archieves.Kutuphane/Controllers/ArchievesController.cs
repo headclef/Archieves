@@ -21,6 +21,7 @@ namespace Archieves.Kutuphane.Controllers
     {
         private readonly IArchievesService _archievesService;
         private readonly IMapper _mapper;
+        public static string? _name = null;
         public ArchievesController(IArchievesService archievesService, IMapper mapper)
         {
             _archievesService = archievesService;
@@ -251,14 +252,14 @@ namespace Archieves.Kutuphane.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexBook(BookPagerModel bookPagerModel)
         {
-            if (TempData["name"] is not null)
+            if (_name is not null)
             {
-                var model = (await _archievesService.GetBookListAsync(bookPagerModel, Convert.ToString(TempData["name"])));
+                var model = await _archievesService.GetBookListAsync(bookPagerModel, _name);
                 return View(model);
             }
             else
             {
-                var model = (await _archievesService.GetBookListAsync(bookPagerModel));
+                var model = await _archievesService.GetBookListAsync(bookPagerModel);
                 return View("IndexBook", model);
             }
         }
@@ -520,12 +521,17 @@ namespace Archieves.Kutuphane.Controllers
         {
             if (name is not null)
             {
-                TempData["name"] = name;
+                _name = name;
                 var model = await _archievesService.GetBookListAsync(new BookPagerModel { Number = 1, Size = 9 }, name);
                 return View("IndexBook", model);
             }
             else
                 return RedirectToAction("IndexBook", "Archieves");
+        }
+        public IActionResult Book(BookPagerModel bpm)
+        {
+            _name = null;
+            return RedirectToAction("IndexBook", "Archieves", bpm);
         }
         #endregion
     }

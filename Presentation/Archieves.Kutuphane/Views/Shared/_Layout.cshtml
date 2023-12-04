@@ -73,13 +73,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Archieves" asp-action="IndexBook">Kitaplık</a>
+                            <a class="nav-link" href="@Url.Action("Book", "Archieves", new { Number = 1, Size = 9 })">Kitaplık</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Archieves" asp-action="IndexAbout">Hakkımızda</a>
+                            <a class="nav-link" href="@Url.Action("IndexAbout", "Archieves")">Hakkımızda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Archieves" asp-action="IndexContact">İletişim</a>
+                            <a class="nav-link" href="@Url.Action("IndexContact", "Archieves")">İletişim</a>
                         </li>
 
                     </ul>
