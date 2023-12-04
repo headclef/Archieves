@@ -146,6 +146,7 @@
 					<li>v4.3	Temel anlamda bütün view 'lerdeki hatalar giderildi ve düzenlemeler yapıldı.</li>
 					<li>v4.4	Presentation katmanına güncelleme (Arama kutucuğunun fonksiyonu eklendi ve giriş yapan kullanıcıların kitap arama işlemleri yapabilmesi sağlandı).</li>
 					<li>v4.5	Presentation katmanına güncelleme (IndexBook sayfasına pagination eklendi).</li>
+					<li>v4.6	Presentation katmanına güncelleme (Arama kutucuğu ile pagination birlikte çalışır hale getirildi).</li>
 				</ul>
 			</td>
 		</tr>

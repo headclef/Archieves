@@ -251,8 +251,16 @@ namespace Archieves.Kutuphane.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexBook(BookPagerModel bookPagerModel)
         {
-            var model = (await _archievesService.GetBookListAsync(bookPagerModel));
-            return View("IndexBook", model);
+            if (TempData["name"] is not null)
+            {
+                var model = (await _archievesService.GetBookListAsync(bookPagerModel, Convert.ToString(TempData["name"])));
+                return View(model);
+            }
+            else
+            {
+                var model = (await _archievesService.GetBookListAsync(bookPagerModel));
+                return View("IndexBook", model);
+            }
         }
         public async Task<IActionResult> IndexBookDetails(int id)
         {
@@ -512,6 +520,7 @@ namespace Archieves.Kutuphane.Controllers
         {
             if (name is not null)
             {
+                TempData["name"] = name;
                 var model = await _archievesService.GetBookListAsync(new BookPagerModel { Number = 1, Size = 9 }, name);
                 return View("IndexBook", model);
             }
