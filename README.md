@@ -76,10 +76,10 @@
 	<h2 align = "center">🪐 GÜNCELLEMELER 🪐</h2>
 	<table align = "center">
 		<tr>
-			<td>
+			<td width = "246">
 				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/CoreL.png" />
 			</td>
-			<td width = "500">
+			<td>
 				<ul>
 					<li>v1.0	Projenin GitHub 'a yüklenmesi.</li>
 					<li>v1.1	Projenin aktif aşamasında kullanılmayan komutlarım yorumlaştırılması.</li>
@@ -96,10 +96,9 @@
 			</td>
 		</tr>
 	</table>
-		<br />
 	<table align = "center">
 		<tr>
-			<td width = "500">
+			<td>
 				<ul>
 					<li>v2.0	Presentation katmanına güncelleme.</li>
 					<li>v2.1	Tüm projeye genel bir güncelleme ve kayıt olma eklenmesi.</li>
@@ -118,15 +117,17 @@
 					<li>v2.14	Oylama (Rating) sistemi eklendi.</li>
 				</ul>
 			</td>
-			<td>
+			<td width = "278">
 				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/PresentationL.png" />
 			</td>
 		</tr>
 	</table>
-		<br />
 	<table align = "center">
 		<tr>
-			<td width = "300">
+			<td width = "241">
+				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png" />
+			</td>
+			<td>
 				<ul>
 					<li>v3.0	Tüm projeyi sanallaştırma (soyutlama); Servis, repository ve interface 'lere güncelleme. Kimi katmanlar üzerinde köklü değişiklikler.</li>
 					<li>v3.1	Presentation katmanına güncelleme (Controller, model ve mapping katmanlarına üyeler eklenmesi).</li>
@@ -135,10 +136,11 @@
 					<li>v3.4	Presentation katmanına güncelleme (Hata fırlatan view 'ler ve controller 'lar düzenlendi. Mapping ayarları tekrar gözden geçirildi ve Program.cs 'e güncelleme uygulandı).</li>
 				</ul>
 			</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
 			<td>
-				<img src = "/Presentation/Archieves.Kutuphane/wwwroot/images/InfrastructureL.png" />
-			</td>
-			<td width = "300">
 				<ul>
 					<li>v4.0	Tüm projeye genel bir güncelleme (Bütün servisler ve controller 'lar tekli yapılarda toparlandı ve view 'lerdeki _context bağımlılığı azaltıldı).</li>
 					<li>v4.1	Presentation katmanına güncelleme (Bütün view 'ler ArchievesController üzerinden tekrar oluşturuldu ve tek bir view yapılanmasına geçildi).</li>
