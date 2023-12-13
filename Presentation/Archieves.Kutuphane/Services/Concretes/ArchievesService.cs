@@ -4,6 +4,7 @@ using Archieves.Kutuphane.Extensions;
 using Archieves.Kutuphane.Models.Author;
 using Archieves.Kutuphane.Models.Book;
 using Archieves.Kutuphane.Models.Comment;
+using Archieves.Kutuphane.Models.Notification;
 using Archieves.Kutuphane.Models.Rating;
 using Archieves.Kutuphane.Models.Subscriber;
 using Archieves.Kutuphane.Models.User;
@@ -23,6 +24,7 @@ namespace Archieves.Kutuphane.Services.Concretes
         private readonly IRatingRepository _ratingRepository;
         private readonly ISubscriberRepository _subscriberRepository;
         private readonly IUserRepository _userRepository;
+        private readonly INotificationRepository _notificationRepository;
         private readonly ArchievesDbContext _context;
         private readonly IMapper _mapper;
         public ArchievesService
@@ -33,6 +35,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             IRatingRepository ratingRepository,
             ISubscriberRepository subscriberRepository,
             IUserRepository userRepository,
+            INotificationRepository notificationRepository,
             ArchievesDbContext context,
             IMapper mapper
         )
@@ -43,6 +46,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             _ratingRepository = ratingRepository;
             _subscriberRepository = subscriberRepository;
             _userRepository = userRepository;
+            _notificationRepository = notificationRepository;
             _context = context;
             _mapper = mapper;
         }
@@ -375,21 +379,7 @@ namespace Archieves.Kutuphane.Services.Concretes
                 return result.Fail($"Bir hata oluştu: {ex.Message}");
             }
         }
-        public async Task<ModelResponse<List<CommentViewModel>>> GetCommentsAsync(long id)
-        {
-            var result = new ModelResponse<List<CommentViewModel>>();
-            try
-            {
-                var commentModels = await GetComments();
-                var comment = commentModels.Where(x => x.BookId == id).ToList();
-                var commentViewModels = _mapper.Map<List<CommentViewModel>>(comment);
-                return result.Success(commentViewModels);
-            }
-            catch (Exception ex)
-            {
-                return result.Fail($"Bir hata oluştu: {ex.Message}");
-            }
-        }
+        
         #endregion
         #region Rating
         public async Task<ModelResponse<RatingViewModel>> AddRatingAsync(RatingViewModel rating)
@@ -412,8 +402,10 @@ namespace Archieves.Kutuphane.Services.Concretes
             var result = new ModelResponse<RatingViewModel>();
             try
             {
-                var ratingEntity = _mapper.Map<Rating>(rating);
-                ratingEntity.Count = _ratingRepository.GetAllAsync().Result.Where(x => x.BookId == rating.BookId).FirstOrDefault().Count + 1;
+                rating.Id = (await _ratingRepository.GetByBookIdAsync(rating.BookId)).Id;
+                var ratingEntity = await _ratingRepository.GetByIdAsync(rating.Id);
+                ratingEntity.Rate += rating.Rate;
+                ratingEntity.Count += 1;
                 var updatedRating = await _ratingRepository.UpdateAsync(ratingEntity);
                 var updatedRatingViewModel = _mapper.Map<RatingViewModel>(updatedRating);
                 return result.Success(updatedRatingViewModel);
@@ -464,7 +456,7 @@ namespace Archieves.Kutuphane.Services.Concretes
                 return result.Fail($"Bir hata oluştu: {ex.Message}");
             }
         }
-        public async Task<ModelResponse<List<RatingViewModel>>> GetRatingsAsync(int id)
+        public async Task<ModelResponse<List<RatingViewModel>>> GetRatingsAsync(int? id)
         {
             var result = new ModelResponse<List<RatingViewModel>>();
             try
@@ -644,10 +636,84 @@ namespace Archieves.Kutuphane.Services.Concretes
             }
         }
         #endregion
+        #region Notification
+        public async Task<ModelResponse<NotificationViewModel>> AddNotificationAsync(NotificationViewModel notification)
+        {
+            var result = new ModelResponse<NotificationViewModel>();
+            try
+            {
+                var notificationEntity = _mapper.Map<Notification>(notification);
+                var addedNotification = await _notificationRepository.AddAsync(notificationEntity);
+                var addedNotificationViewModel = _mapper.Map<NotificationViewModel>(addedNotification);
+                return result.Success(addedNotificationViewModel);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<NotificationViewModel>> UpdateNotificationAsync(NotificationViewModel notification)
+        {
+            var result = new ModelResponse<NotificationViewModel>();
+            try
+            {
+                var notificationEntity = _mapper.Map<Notification>(notification);
+                var updatedNotification = await _notificationRepository.UpdateAsync(notificationEntity);
+                var updatedNotificationViewModel = _mapper.Map<NotificationViewModel>(updatedNotification);
+                return result.Success(updatedNotificationViewModel);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<NotificationViewModel>> DeleteNotificationAsync(int id)
+        {
+            var result = new ModelResponse<NotificationViewModel>();
+            try
+            {
+                var notification = await _notificationRepository.GetByIdAsync(id);
+                var deletedNotification = await _notificationRepository.DeleteAsync(notification);
+                return result.Success();
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<NotificationViewModel>> GetNotificationAsync(int id)
+        {
+            var result = new ModelResponse<NotificationViewModel>();
+            try
+            {
+                var notification = await _notificationRepository.GetByIdAsync(id);
+                var notificationViewModel = _mapper.Map<NotificationViewModel>(notification);
+                return result.Success(notificationViewModel);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<List<NotificationViewModel>>> GetNotificationsAsync()
+        {
+            var result = new ModelResponse<List<NotificationViewModel>>();
+            try
+            {
+                var notificationModels = await _notificationRepository.GetAllAsync();
+                var notificationViewModels = _mapper.Map<List<NotificationViewModel>>(notificationModels);
+                return result.Success(notificationViewModels);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        #endregion
         #region Methods
         public async Task<List<AuthorViewModel>> GetAuthors()
         {
-            var result = from author in _context.Set<Author>()
+            var result = (from author in _context.Set<Author>()
                          join book in _context.Set<Book>() on author.Id equals book.AuthorId into books
                          from book in _context.Set<Book>().DefaultIfEmpty()
                          select new AuthorViewModel
@@ -658,7 +724,7 @@ namespace Archieves.Kutuphane.Services.Concretes
                              Description = author.Description,
                              Date = author.Date,
                              Status = author.Status,
-                         };
+                         }).Distinct();
             return result.ToList();
         }
         public IQueryable<BookViewModel> GetBooksQuery()

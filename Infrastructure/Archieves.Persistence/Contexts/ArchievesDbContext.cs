@@ -12,6 +12,7 @@ namespace Archieves.Persistence.Contexts
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Author>().ToTable("Author");
@@ -20,6 +21,7 @@ namespace Archieves.Persistence.Contexts
             modelBuilder.Entity<Rating>().ToTable("Rating");
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Subscriber>().ToTable("Subscriber");
+            modelBuilder.Entity<Notification>().ToTable("Notification");
         }
     }
 }

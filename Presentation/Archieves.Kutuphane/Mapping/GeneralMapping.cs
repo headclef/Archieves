@@ -2,6 +2,7 @@
 using Archieves.Kutuphane.Models.Author;
 using Archieves.Kutuphane.Models.Book;
 using Archieves.Kutuphane.Models.Comment;
+using Archieves.Kutuphane.Models.Notification;
 using Archieves.Kutuphane.Models.Rating;
 using Archieves.Kutuphane.Models.Subscriber;
 using Archieves.Kutuphane.Models.User;
@@ -19,6 +20,7 @@ namespace Archieves.Kutuphane.Mapping
             CreateMap<Rating, RatingViewModel>().ReverseMap();
             CreateMap<Subscriber, SubscriberViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<Notification, NotificationViewModel>().ReverseMap();
         }
     }
 }

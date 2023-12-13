@@ -37,6 +37,7 @@ builder.Services.AddTransient<ICommentRepository, CommentRepository>();
 builder.Services.AddTransient<IRatingRepository, RatingRepository>();
 builder.Services.AddTransient<ISubscriberRepository, SubscriberRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<INotificationRepository, NotificationRepository>();
 builder.Services.AddTransient<IArchievesService, ArchievesService>();
 
 // AutoMapper

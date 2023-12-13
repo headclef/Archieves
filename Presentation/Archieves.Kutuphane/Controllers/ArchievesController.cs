@@ -14,6 +14,7 @@ using Archieves.Kutuphane.Models.Author;
 using Archieves.Kutuphane.Models.Comment;
 using Archieves.Kutuphane.Models.Rating;
 using Archieves.Kutuphane.Models.Book;
+using Archieves.Kutuphane.Models.Notification;
 
 namespace Archieves.Kutuphane.Controllers
 {
@@ -277,25 +278,34 @@ namespace Archieves.Kutuphane.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCommentPartial(CommentViewModel comment)
         {
-            var control = (await _archievesService.GetRatingsAsync(Convert.ToInt32(comment.BookId))).Value;
-            if (control is not null)
+            var control = (await _archievesService.GetRatingsAsync(comment.BookId)).Value.Count > 0 ? true : false;
+            if (control)
             {
                 var rating = new RatingViewModel();
                 rating.Rate = comment.Rate;
+                rating.BookId = comment.BookId;
+                rating.BookName = comment.BookName;
+                rating.Status = true;
+                rating.Date = DateTime.Now;
                 await _archievesService.UpdateRatingAsync(rating);
             }
             else
             {
-                var rating = new RatingViewModel();
-                rating.BookId = comment.BookId;
-                rating.Rate = comment.Rate;
-                rating.Count = 1;
-                rating.Date = DateTime.Now;
-                rating.Status = true;
+                var rating = new RatingViewModel()
+                {
+                    BookId = comment.BookId,
+                    BookName = comment.BookName,
+                    Rate = comment.Rate,
+                    Count = 1,
+                    Date = DateTime.Now,
+                    Status = true
+                };
                 await _archievesService.AddRatingAsync(rating);
             }
             UserViewModel authenticatedUser = await GetAuthenticatedUser();
             comment.UserId = authenticatedUser.Id;
+            comment.UserName = authenticatedUser.Name;
+            comment.UserSurname = authenticatedUser.Surname;
             comment.Date = DateTime.Now;
             comment.Status = true;
             await _archievesService.AddCommentAsync(comment);
@@ -448,10 +458,24 @@ namespace Archieves.Kutuphane.Controllers
                     bookViewModel.Status = true;
                     var fileName = await UploadFile(HttpContext.Request.Form.Files["Image"]);
                     bookViewModel.Image = $"/images/{fileName}";
-                    await _archievesService.AddBookAsync(bookViewModel);
-                    return RedirectToAction("IndexBookDetails", "Archieves", (await _archievesService.GetBooksAsync()).Value.Count);
+                    var addedBook = (await _archievesService.AddBookAsync(bookViewModel)).Value;
+                    _ = await _archievesService.AddNotificationAsync(new NotificationViewModel
+                    {
+                        Id = 0,
+                        Message = addedBook.Name + " adlı kitap sitemize eklendi.",
+                        Icon = "/images/book.svg",
+                        Type = "Kitap",
+                        Date = DateTime.Now,
+                        Status = true
+                    });
+                    return View("IndexBookDetails", addedBook);
                 }
             }
+        }
+        public async Task<IActionResult> IndexNotification()
+        {
+            var notifications = (await _archievesService.GetNotificationsAsync()).Value;
+            return View(notifications);
         }
         #endregion
 

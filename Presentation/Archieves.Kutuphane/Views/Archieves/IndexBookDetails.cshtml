@@ -7,7 +7,12 @@
 @{
     ViewData["Title"] = "IndexBookDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var comment = (await archievesService.GetCommentsAsync(Model.Id)).Value == null ? null : (await archievesService.GetCommentsAsync(Model.Id)).Value;
+    var control = (await archievesService.GetCommentsAsync()) == null ? false : true;
+    List<CommentViewModel> comment;
+    if (!control)
+        comment = (await archievesService.GetCommentsAsync()).Value;
+    else
+        comment = new List<CommentViewModel>();
 }
 <div class="container">
     <div class="row">
@@ -32,7 +37,7 @@
                             </li>
                             <li>
                                 <a href="~/Book/BookDetails/@Model.Id">
-                                    <img src="~/images/comment.svg" height="15px" /> @comment.Count Yorum
+                                    <img src="~/images/comment.svg" height="15px" /> @(comment != null ? comment.Count : 0) Yorum
                                 </a>
                             </li>
                         </ul>
@@ -43,7 +48,7 @@
                 </h3>
                 <p style="text-align:justify;">@Model.Description</p>
             </div>
-            @await Component.InvokeAsync("CommentListByBook", new { id = Convert.ToInt64(Model.Id) })
+            @await Component.InvokeAsync("CommentListByBook", new { id = Model.Id })
             @{
                 ViewBag.BookId = Model.Id;
                 @await Html.PartialAsync("~/Views/Archieves/PartialAddComment.cshtml")

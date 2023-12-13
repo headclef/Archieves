@@ -3,8 +3,5 @@ using Archieves.Domain.Entities;
 
 namespace Archieves.Application.Repositories
 {
-    public interface IRatingRepository : IGenericRepository<Rating>
-    {
-        Task<Rating> GetByBookIdAsync(int? id);
-    }
+    public interface INotificationRepository : IGenericRepository<Notification> { }
 }

@@ -1,11 +1,11 @@
 using Archieves.Kutuphane.Models.Author;
 using Archieves.Kutuphane.Models.Book;
 using Archieves.Kutuphane.Models.Comment;
+using Archieves.Kutuphane.Models.Notification;
 using Archieves.Kutuphane.Models.Rating;
 using Archieves.Kutuphane.Models.Subscriber;
 using Archieves.Kutuphane.Models.User;
 using Archieves.Kutuphane.Models.Wrappers;
-using NuGet.Common;
 
 namespace Archieves.Kutuphane.Services.Abstractions
 {
@@ -37,7 +37,6 @@ namespace Archieves.Kutuphane.Services.Abstractions
         Task<ModelResponse<CommentViewModel>> GetCommentAsync(int id);
         Task<ModelResponse<List<CommentViewModel>>> GetCommentsAsync();
         Task<ModelResponse<List<CommentViewModel>>> GetCommentsAsync(int id);
-        Task<ModelResponse<List<CommentViewModel>>> GetCommentsAsync(long id);
         #endregion
         #region Rating
         Task<ModelResponse<RatingViewModel>> AddRatingAsync(RatingViewModel rating);
@@ -45,7 +44,7 @@ namespace Archieves.Kutuphane.Services.Abstractions
         Task<ModelResponse<RatingViewModel>> DeleteRatingAsync(int id);
         Task<ModelResponse<RatingViewModel>> GetRatingAsync(int id);
         Task<ModelResponse<List<RatingViewModel>>> GetRatingsAsync();
-        Task<ModelResponse<List<RatingViewModel>>> GetRatingsAsync(int id);
+        Task<ModelResponse<List<RatingViewModel>>> GetRatingsAsync(int? id);
         #endregion
         #region Subscriber
         Task<ModelResponse<SubscriberViewModel>> AddSubscriberAsync(SubscriberViewModel subscriber);
@@ -61,6 +60,13 @@ namespace Archieves.Kutuphane.Services.Abstractions
         Task<ModelResponse<UserViewModel>> GetUserAsync(int id);
         Task<ModelResponse<UserViewModel>> GetUserAsync(UserViewModel user);
         Task<ModelResponse<List<UserViewModel>>> GetUsersAsync();
+        #endregion
+        #region Notification
+        Task<ModelResponse<NotificationViewModel>> AddNotificationAsync(NotificationViewModel notification);
+        Task<ModelResponse<NotificationViewModel>> UpdateNotificationAsync(NotificationViewModel notification);
+        Task<ModelResponse<NotificationViewModel>> DeleteNotificationAsync(int id);
+        Task<ModelResponse<NotificationViewModel>> GetNotificationAsync(int id);
+        Task<ModelResponse<List<NotificationViewModel>>> GetNotificationsAsync();
         #endregion
         #region Methods
         Task<List<BookViewModel>> LatestBooks();

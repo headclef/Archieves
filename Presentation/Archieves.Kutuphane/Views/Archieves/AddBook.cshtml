@@ -45,6 +45,7 @@
                             <input class="form-control" type="date" id="Date" name="Date" />
                             <p class="text-center" style="color:red;">@Html.ValidationMessageFor(x => x.Date)</p>
                         </div>
+                        <p style="color:red;">@ViewBag.AddBookMessage</p>
                     </div>
                     <button class="btn-gradient-primary" type="submit" style="height: 50px;">+ Ekle</button>
                 </div>

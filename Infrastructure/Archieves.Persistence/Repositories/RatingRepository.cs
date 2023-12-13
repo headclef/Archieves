@@ -2,6 +2,7 @@
 using Archieves.Domain.Entities;
 using Archieves.Persistence.Contexts;
 using Archieves.Persistence.Repositories.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Archieves.Persistence.Repositories
 {
@@ -13,7 +14,8 @@ namespace Archieves.Persistence.Repositories
             _context = archievesDbContext;
         }
         #region Methods
-        // Metodlar Buraya
+        // Metodlar buraya.
+        public async Task<Rating> GetByBookIdAsync(int? id) => await _context.Ratings.FirstOrDefaultAsync(x => x.BookId == id);
         #endregion
     }
 }
