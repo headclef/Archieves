@@ -1,6 +1,7 @@
 using Archieves.Kutuphane.Models.Author;
 using Archieves.Kutuphane.Models.Book;
 using Archieves.Kutuphane.Models.Comment;
+using Archieves.Kutuphane.Models.Message;
 using Archieves.Kutuphane.Models.Notification;
 using Archieves.Kutuphane.Models.Rating;
 using Archieves.Kutuphane.Models.Subscriber;
@@ -67,6 +68,15 @@ namespace Archieves.Kutuphane.Services.Abstractions
         Task<ModelResponse<NotificationViewModel>> DeleteNotificationAsync(int id);
         Task<ModelResponse<NotificationViewModel>> GetNotificationAsync(int id);
         Task<ModelResponse<List<NotificationViewModel>>> GetNotificationsAsync();
+        #endregion
+        #region Message
+        Task<ModelResponse<MessageViewModel>> AddMessageAsync(MessageViewModel messageViewModel);
+        Task<ModelResponse<MessageViewModel>> UpdateMessageAsync(MessageViewModel messageViewModel);
+        Task<ModelResponse<MessageViewModel>> DeleteMessageAsync(int id);
+        Task<ModelResponse<MessageViewModel>> GetMessageAsync(int id);
+        Task<ModelResponse<List<MessageViewModel>>> GetMessagesAsync();
+        Task<ModelResponse<List<MessageViewModel>>> GetMessagesAsync(int? recieverId);
+        Task<ModelResponse<List<MessageViewModel>>> GetMessagesAsync(int? recieverId, int? senderId);
         #endregion
         #region Methods
         Task<List<BookViewModel>> LatestBooks();

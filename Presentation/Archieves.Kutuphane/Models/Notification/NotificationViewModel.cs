@@ -9,7 +9,7 @@ namespace Archieves.Kutuphane.Models.Notification
         public string? Message { get; set; }
         public string? Icon { get; set; }
         public string? Type { get; set; }
-        public DateTime Date { get; set; }
-        public bool Status { get; set; }
+        public DateTime? Date { get; set; }
+        public bool? Status { get; set; }
     }
 }

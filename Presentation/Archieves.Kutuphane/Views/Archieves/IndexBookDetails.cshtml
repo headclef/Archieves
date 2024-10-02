@@ -21,7 +21,7 @@
             <div class="blog-grid-top">
                 <div class="b-grid-top">
                     <div class="blog_info_left_grid">
-                        <img src="@Model.Image" class="img-fluid" alt="Book Image" height="50px" style="display: block; margin-left: auto; margin-right: auto;" />
+                        <img src="@Model.Image" class="img-fluid" alt="Book Image" height="50" style="display: block; margin-left: auto; margin-right: auto;" />
                     </div>
                     <div class="blog-info-middle">
                         <ul>
@@ -43,9 +43,7 @@
                         </ul>
                     </div>
                 </div>
-                <h3>
-                    <p>@Model.Name</p>
-                </h3>
+                <h3>@Model.Name</h3>
                 <p style="text-align:justify;">@Model.Description</p>
             </div>
             @await Component.InvokeAsync("CommentListByBook", new { id = Model.Id })

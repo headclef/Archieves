@@ -1,0 +1,68 @@
+﻿@using Archieves.Kutuphane.Models.User
+@using System.Security.Claims
+@model List<UserViewModel>
+@{
+    int receiverId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+}
+<style>
+    #users {
+        min-height: 200px;
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+
+    #hoverTitle h6 {
+        color: black;
+        transition: color 0.3s;
+    }
+
+    #hoverTitle:hover h6 {
+        color: blue;
+    }
+
+    #hoverTitle p {
+        color: gray;
+        transition: color 0.3s;
+    }
+
+    #hoverTitle:hover p {
+        color: blue;
+    }
+
+    #noHoverLink {
+        color: gray;
+    }
+
+        #noHoverLink:hover {
+            color: gray;
+            text-decoration: none;
+        }
+</style>
+<li class="nav-item dropdown">
+    <a class="nav-link count-indicator dropdown-toggle" id="userDropdown" href="" data-toggle="dropdown" aria-expanded="false">
+        <img src="~/images/user.svg" height="15px" />
+        <span class="count-symbol bg-warning"></span> <!-- Bildirim olup olmamasına göre sembolün varlığı ve yokluğu sorgulanacak. -->
+    </a>
+    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" id="users" style="min-width:270px;" aria-labelledby="userDropdown">
+        <h6 class="p-3 mb-0">Kullanıcılar</h6>
+        <div class="dropdown-divider"></div>
+        @foreach (var item in Model)
+        {
+            if (item.Id == receiverId)
+            {
+                continue;
+            }
+            <a class="dropdown-item preview-item" asp-controller="Archieves" asp-action="IndexMessage" asp-route-recieverId="@receiverId" asp-route-senderId="@item.Id">
+                <div class="preview-thumbnail">
+                    <img src="@item.Image" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center text-wrap" id="hoverTitle">
+                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal text-justify">@item.Name @item.Surname</h6>
+                </div>
+            </a>
+        }
+        <div class="text-center">
+            <a class="p-3 mb-0 text-center" id="noHoverLink">@Model.Count adet mevcut.</a>
+        </div>
+    </div>
+</li>

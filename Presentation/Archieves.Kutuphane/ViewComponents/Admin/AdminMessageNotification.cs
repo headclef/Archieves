@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Archieves.Kutuphane.Models.Message;
+using Archieves.Kutuphane.Services.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Archieves.Kutuphane.ViewComponents.Admin
 {
     public class AdminMessageNotification : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly IArchievesService _archievesService;
+        public AdminMessageNotification(IArchievesService archievesService)
         {
-            return View();
+            _archievesService = archievesService;
+        }
+        public async Task<IViewComponentResult> InvokeAsync(int id)
+        {
+            var messages = (await _archievesService.GetMessagesAsync(id)).Value;
+            return View(messages);
         }
     }
 }

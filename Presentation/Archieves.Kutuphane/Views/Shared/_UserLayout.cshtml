@@ -63,11 +63,14 @@
                         </div>
                     </li>
                     <!-- /Messages -->
-                    @await Component.InvokeAsync("AdminMessageNotification")
+                    @await Component.InvokeAsync("AdminMessageNotification", user.Id)
                     <!-- //Messages -->
                     <!-- /Notifications -->
                     @await Component.InvokeAsync("AdminNotification")
                     <!-- //Notifications -->
+                    <!-- /Users -->
+                    @await Component.InvokeAsync("AdminUsers")
+                    <!-- //Users -->
                     <li class="nav-item nav-logout d-none d-lg-block">
                         <a class="nav-link" asp-controller="Archieves" asp-action="IndexHome">
                             <img src="~/images/power.svg" height="15px" />

@@ -15,6 +15,7 @@ using Archieves.Kutuphane.Models.Comment;
 using Archieves.Kutuphane.Models.Rating;
 using Archieves.Kutuphane.Models.Book;
 using Archieves.Kutuphane.Models.Notification;
+using Archieves.Kutuphane.Models.Message;
 
 namespace Archieves.Kutuphane.Controllers
 {
@@ -65,12 +66,12 @@ namespace Archieves.Kutuphane.Controllers
                     if (model.Status is not false or null)
                     {
                         var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.NameIdentifier, model.Id.ToString()),
-                        new Claim(ClaimTypes.Name, model.Name != null ? model.Name : ""),
-                        new Claim(ClaimTypes.Surname, model.Surname != null ? model.Surname : ""),
-                        new Claim(ClaimTypes.Email, model.Email != null ? model.Email : "")
-                    };
+                        {
+                            new Claim(ClaimTypes.NameIdentifier, model.Id.ToString()),
+                            new Claim(ClaimTypes.Name, model.Name != null ? model.Name : ""),
+                            new Claim(ClaimTypes.Surname, model.Surname != null ? model.Surname : ""),
+                            new Claim(ClaimTypes.Email, model.Email != null ? model.Email : "")
+                        };
                         var userIdentity = new ClaimsIdentity(claims, "login");
                         ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                         await HttpContext.SignInAsync(principal);
@@ -476,6 +477,40 @@ namespace Archieves.Kutuphane.Controllers
         {
             var notifications = (await _archievesService.GetNotificationsAsync()).Value;
             return View(notifications);
+        }
+        public async Task<IActionResult> IndexMessage(int recieverId, int senderId)
+        {
+            var notifications = (await _archievesService.GetMessagesAsync(recieverId, senderId)).Value;
+            if (notifications is null || notifications.Count == 0)
+            {
+                return View(new List<MessageViewModel>()
+                {
+                    new MessageViewModel
+                    {
+                        Id = 0,
+                        Sender = senderId,
+                        SenderName = (await _archievesService.GetUserAsync(senderId)).Value.Name,
+                        SenderSurname = (await _archievesService.GetUserAsync(senderId)).Value.Surname,
+                        Receiver = recieverId,
+                        ReceiverName = (await _archievesService.GetUserAsync(recieverId)).Value.Name,
+                        ReceiverSurname = (await _archievesService.GetUserAsync(recieverId)).Value.Surname,
+                        Details = "Henüz hiçbir mesajınız bulunmamaktadır.",
+                        Date = DateTime.Now,
+                        Status = true
+                    }
+                });
+            }
+            return View(notifications);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SendMessage(MessageViewModel messageViewModel)
+        {
+            messageViewModel.Status = true;
+            _ = await _archievesService.AddMessageAsync(messageViewModel);
+            var messages = (await _archievesService.GetMessagesAsync(messageViewModel.Receiver, messageViewModel.Sender)).Value;
+            string recieverId = messageViewModel.Receiver.ToString();
+            string senderId = messageViewModel.Sender.ToString();
+            return RedirectToAction("Archieves", "IndexMessage", new { recieverId, senderId });
         }
         #endregion
 

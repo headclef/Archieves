@@ -4,6 +4,7 @@ using Archieves.Kutuphane.Extensions;
 using Archieves.Kutuphane.Models.Author;
 using Archieves.Kutuphane.Models.Book;
 using Archieves.Kutuphane.Models.Comment;
+using Archieves.Kutuphane.Models.Message;
 using Archieves.Kutuphane.Models.Notification;
 using Archieves.Kutuphane.Models.Rating;
 using Archieves.Kutuphane.Models.Subscriber;
@@ -25,6 +26,7 @@ namespace Archieves.Kutuphane.Services.Concretes
         private readonly ISubscriberRepository _subscriberRepository;
         private readonly IUserRepository _userRepository;
         private readonly INotificationRepository _notificationRepository;
+        private readonly IMessageRepository _messageRepository;
         private readonly ArchievesDbContext _context;
         private readonly IMapper _mapper;
         public ArchievesService
@@ -36,6 +38,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             ISubscriberRepository subscriberRepository,
             IUserRepository userRepository,
             INotificationRepository notificationRepository,
+            IMessageRepository messageRepository,
             ArchievesDbContext context,
             IMapper mapper
         )
@@ -47,6 +50,7 @@ namespace Archieves.Kutuphane.Services.Concretes
             _subscriberRepository = subscriberRepository;
             _userRepository = userRepository;
             _notificationRepository = notificationRepository;
+            _messageRepository = messageRepository;
             _context = context;
             _mapper = mapper;
         }
@@ -379,7 +383,6 @@ namespace Archieves.Kutuphane.Services.Concretes
                 return result.Fail($"Bir hata oluştu: {ex.Message}");
             }
         }
-        
         #endregion
         #region Rating
         public async Task<ModelResponse<RatingViewModel>> AddRatingAsync(RatingViewModel rating)
@@ -710,21 +713,120 @@ namespace Archieves.Kutuphane.Services.Concretes
             }
         }
         #endregion
+        #region Message
+        public async Task<ModelResponse<MessageViewModel>> AddMessageAsync(MessageViewModel messageViewModel)
+        {
+            var result= new ModelResponse<MessageViewModel>();
+            try
+            {
+                var messageEntity = _mapper.Map<Message>(messageViewModel);
+                var addedMessage = await _messageRepository.AddAsync(messageEntity);
+                var addedMessageViewModel = _mapper.Map<MessageViewModel>(addedMessage);
+                return result.Success(addedMessageViewModel);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<MessageViewModel>> UpdateMessageAsync(MessageViewModel messageViewModel)
+        {
+            var result = new ModelResponse<MessageViewModel>();
+            try
+            {
+                var messageEntity = _mapper.Map<Message>(messageViewModel);
+                var updatedMessage = await _messageRepository.UpdateAsync(messageEntity);
+                var updatedMessageViewModel = _mapper.Map<MessageViewModel>(updatedMessage);
+                return result.Success(updatedMessageViewModel);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<MessageViewModel>> DeleteMessageAsync(int id)
+        {
+            var result = new ModelResponse<MessageViewModel>();
+            try
+            {
+                var message = await _messageRepository.GetByIdAsync(id);
+                var deletedMessage = await _messageRepository.DeleteAsync(message);
+                return result.Success();
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<MessageViewModel>> GetMessageAsync(int id)
+        {
+            var result = new ModelResponse<MessageViewModel>();
+            try
+            {
+                var message = await _messageRepository.GetByIdAsync(id);
+                var messageViewModel = _mapper.Map<MessageViewModel>(message);
+                return result.Success(messageViewModel);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<List<MessageViewModel>>> GetMessagesAsync()
+        {
+            var result = new ModelResponse<List<MessageViewModel>>();
+            try
+            {
+                var messageModels = await GetMessages();
+                return result.Success(messageModels);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<List<MessageViewModel>>> GetMessagesAsync(int? recieverId)
+        {
+            var result = new ModelResponse<List<MessageViewModel>>();
+            try
+            {
+                var messageModels = (await GetMessages()).Where(x => x.Receiver == recieverId).ToList();
+                return result.Success(messageModels);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        public async Task<ModelResponse<List<MessageViewModel>>> GetMessagesAsync(int? recieverId, int? senderId)
+        {
+            var result = new ModelResponse<List<MessageViewModel>>();
+            try
+            {
+                var messageModels = await GetMessages(recieverId, senderId);
+                return result.Success(messageModels);
+            }
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+        }
+        #endregion
         #region Methods
         public async Task<List<AuthorViewModel>> GetAuthors()
         {
             var result = (from author in _context.Set<Author>()
-                         join book in _context.Set<Book>() on author.Id equals book.AuthorId into books
-                         from book in _context.Set<Book>().DefaultIfEmpty()
-                         select new AuthorViewModel
-                         {
-                             Id = author.Id,
-                             Name = author.Name,
-                             Surname = author.Surname,
-                             Description = author.Description,
-                             Date = author.Date,
-                             Status = author.Status,
-                         }).Distinct();
+                          join book in _context.Set<Book>() on author.Id equals book.AuthorId into books
+                          from book in _context.Set<Book>().DefaultIfEmpty()
+                          select new AuthorViewModel
+                          {
+                              Id = author.Id,
+                              Name = author.Name,
+                              Surname = author.Surname,
+                              Description = author.Description,
+                              Date = author.Date,
+                              Status = author.Status,
+                          }).Distinct();
             return result.ToList();
         }
         public IQueryable<BookViewModel> GetBooksQuery()
@@ -785,7 +887,7 @@ namespace Archieves.Kutuphane.Services.Concretes
                          };
             return result.ToList();
         }
-    public async Task<List<BookViewModel>> LatestBooks()
+        public async Task<List<BookViewModel>> LatestBooks()
         {
             var result = _context.Set<Book>()
                          .OrderByDescending(x => x.Id)
@@ -862,6 +964,57 @@ namespace Archieves.Kutuphane.Services.Concretes
                              Status = user.Status,
                          };
             return result.ToList();
+        }
+        public async Task<List<MessageViewModel>> GetMessages()
+        {
+            var result = from messages in _context.Set<Message>()
+                         join sender in _context.Set<User>() on messages.Sender equals sender.Id into senders
+                         from sender in _context.Set<User>().DefaultIfEmpty()
+                         join receiver in _context.Set<User>() on messages.Receiver equals receiver.Id into receivers
+                         from receiver in _context.Set<User>().DefaultIfEmpty()
+                         select new MessageViewModel
+                         {
+                             Id = messages.Id,
+                             Sender = messages.Sender,
+                             SenderName = sender.Name,
+                             SenderSurname = sender.Surname,
+                             Receiver = messages.Receiver,
+                             ReceiverName = receiver.Name,
+                             ReceiverSurname = receiver.Surname,
+                             Subject = messages.Subject,
+                             Details = messages.Details,
+                             Date = messages.Date,
+                             Status = messages.Status,
+                         };
+            return result.ToList();
+        }
+        public async Task<List<MessageViewModel>> GetMessages(int? receiverId, int? senderId)
+        {
+            var messages = await _context.Messages
+                .Where(m => (m.Sender == senderId && m.Receiver == receiverId) || (m.Sender == receiverId && m.Receiver == senderId))
+                .ToListAsync();
+
+            var senderUserIds = messages.Select(m => m.Sender).Distinct().ToList();
+            var receiverUserIds = messages.Select(m => m.Receiver).Distinct().ToList();
+
+            var users = await _context.Users
+                .Where(u => senderUserIds.Contains(u.Id) || receiverUserIds.Contains(u.Id))
+                .ToListAsync();
+
+            return messages.Select(m => new MessageViewModel
+            {
+                Id = m.Id,
+                Sender = m.Sender,
+                SenderName = users.First(u => u.Id == m.Sender).Name,
+                SenderSurname = users.First(u => u.Id == m.Sender).Surname,
+                Receiver = m.Receiver,
+                ReceiverName = users.First(u => u.Id == m.Receiver).Name,
+                ReceiverSurname = users.First(u => u.Id == m.Receiver).Surname,
+                Subject = m.Subject,
+                Details = m.Details,
+                Date = m.Date,
+                Status = m.Status,
+            }).ToList();
         }
         #endregion
     }

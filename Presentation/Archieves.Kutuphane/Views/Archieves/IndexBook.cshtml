@@ -5,6 +5,7 @@
     ViewData["Title"] = "IndexBook";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="~/css/pagination.css" type="text/css" />
 <div class="container">
     <h3 class="tittle">Kitaplar</h3>
     <div class="inner-sec">
@@ -37,7 +38,7 @@
             <!--//left-->
         </div>
     </div>
-    <div class="p-2" align="center">
+    <div class="p-2" align="center" id="pagination">
         @if (Model.PageNumber == 1)
         {
             <a class="btn btn-light border" style="height:35px;" disabled>Önceki</a>
