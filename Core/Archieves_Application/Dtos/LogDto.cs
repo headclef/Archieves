@@ -1,10 +1,9 @@
-﻿namespace Archieves_Application.Dtos
+﻿using Archieves_Application.Dtos.Common;
+
+namespace Archieves_Application.Dtos
 {
-    public class LogDto
+    public class LogDto : ArchievesDto
     {
-        #region Primary Key
-        public int Id { get; set; }
-        #endregion
         #region Properties
         public string? Type { get; set; }
         public string? Message { get; set; }

@@ -1,10 +1,9 @@
-﻿namespace Archieves_Application.Dtos
+﻿using Archieves_Application.Dtos.Common;
+
+namespace Archieves_Application.Dtos
 {
-    public class PublisherDto
+    public class PublisherDto : ArchievesDto
     {
-        #region Primary Key
-        public int Id { get; set; }
-        #endregion
         #region Properties
         public string? Title { get; set; }
         public string? Address { get; set; }

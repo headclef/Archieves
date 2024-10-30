@@ -5,10 +5,30 @@
 	</h1>
 </div>
 
-<!-- İlk Paragraf -->
+<!-- Tanıtım -->
 <div align = "justify">
+	<h4>
+		E - Kütüphane Uygulaması Neye Hizmet Eder?
+	</h4>
+	<br />
 	<p>
-		Proje şu anda yapısal bir güncellemeye gitmektedir. Dolayısıyla web app yapısı tamamen kaldırılmıştır ve yeniden düzenlenecektir. İlgili düzenlemeler yapılıp sonuca ulaşıldığında tüm detaylar paylaşılacaktır.
+		E - kütüphane uygulaması kütüphane işlemlerini dijital ortama taşıyarak, ziyaretçi ve üye yetkisindeki kullanıcıların kütüphane işlemlerini (kitap alma, kitap kiralama, kitap iade etme vb.) kendilerinin gerçekleştirebilmelerine olanak tanımaktadır. 
+		Aynı zamanda çalışan yetkisindeki kullanıcıların yeni kullanıcılar ekleyebilmelerini, kitap ekleyebilmelerini, kitap silmelerini, kitap güncellemelerini yapabilmelerine olanak tanımaktadır. 
+		Bu sayede dilenirse kullanıcılar kütüphane işlemlerini kendi başlarına gerçekleştirebilirken, dilenirse çalışanlar bu işlemleri kullanıcılar yerine gerçekleştirebilmektedir.
+	</p>
+</div>
+
+<!-- Tanıtım -->
+<div align = "justify">
+	<h4>
+		Güncellemeler
+	</h4>
+	<p>
+		📌 1.4.7 - Bir noktaya kadar getirilmiş eksik ve yetersiz proje (HATALI versiyon). <br />
+		📌 2.0.0 - Tüm katmanlar temizlendi. <br />
+		📌 2.0.1 - İlk katman (DOMAIN) yapıları oluşturuldu. <br />
+		📌 2.0.2 - İkinci katman (APPLICATION) yapıları oluşturuldu ve diğer katmanlar güncellendi. <br />
+		📌 2.0.3 - Üçüncü katman (PERSISTENCE) yapıları oluşturuldu ve diğer katmanlar güncellendi. <br />
 	</p>
 </div>
 

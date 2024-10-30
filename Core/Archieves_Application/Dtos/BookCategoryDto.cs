@@ -1,10 +1,9 @@
-﻿namespace Archieves_Application.Dtos
+﻿using Archieves_Application.Dtos.Common;
+
+namespace Archieves_Application.Dtos
 {
-    public class BookCategoryDto
+    public class BookCategoryDto : ArchievesDto
     {
-        #region Primary Key
-        public int Id { get; set; }
-        #endregion
         #region Properties
         public int? BookId { get; set; }
         public int? CategoryId { get; set; }

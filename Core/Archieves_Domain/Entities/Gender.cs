@@ -1,13 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Archieves_Domain.Entities.Common;
 
 namespace Archieves_Domain.Entities
 {
-    public class Gender
+    public class Gender : ArchievesEntity
     {
-        #region Primary Key
-        [Key]
-        public int Id { get; set; }
-        #endregion
         #region Properties
         public string? Name { get; set; }
         #endregion

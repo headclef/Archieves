@@ -1,13 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Archieves_Domain.Entities.Common;
 
 namespace Archieves_Domain.Entities
 {
-    public class Author
+    public class Author : ArchievesEntity
     {
-        #region Primary Key
-        [Key]
-        public int Id { get; set; }
-        #endregion
         #region Properties
         public int? PersonId { get; set; }
         public string? Description { get; set; }

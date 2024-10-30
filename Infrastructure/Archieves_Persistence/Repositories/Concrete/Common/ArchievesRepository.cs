@@ -1,10 +1,11 @@
 ﻿using Archieves_Application.Interfaces.Repositories.Abstract.Common;
+using Archieves_Domain.Entities.Common;
 using Archieves_Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Archieves_Persistence.Repositories.Concrete.Common
 {
-    public class ArchievesRepository<T> : IArchievesRepository<T> where T : class
+    public class ArchievesRepository<T> : IArchievesRepository<T> where T : ArchievesEntity
     {
         #region Properties
         private readonly ArchievesDbContext _context;
@@ -18,7 +19,7 @@ namespace Archieves_Persistence.Repositories.Concrete.Common
         }
         #endregion
         #region Methods
-        public async Task<bool> AddAsync(T entity)
+        public async Task<T?> AddAsync(T entity)
         {
             try
             {
@@ -26,35 +27,39 @@ namespace Archieves_Persistence.Repositories.Concrete.Common
                 await _context.Set<T>().AddAsync(entity);
                 // Save changes
                 await _context.SaveChangesAsync();
-                // Return true if success
-                return true;
+                // Return entity if success
+                return entity;
             }
             catch (Exception exception)
             {
                 // Log exception
                 // TO DO: LOGGING
-                // Return false if exception
-                return false;
+                // Return null if exception
+                return null;
             }
         }
 
-        public async Task<bool> UpdateAsync(T entity)
+        public async Task<T?> UpdateAsync(T entity)
         {
             try
             {
-                // Update entity in database
-                _context.Set<T>().Update(entity);
+                // Untrack entity if tracking
+                TrackControl(entity);
+                // Track entity
+                _context.Attach(entity);
+                // Set entity state to modified
+                _context.Entry(entity).State = EntityState.Modified;
                 // Save changes
                 await _context.SaveChangesAsync();
-                // Return true if success
-                return true;
+                // Return entity if success
+                return entity;
             }
             catch (Exception exception)
             {
                 // Log exception
                 // TO DO: LOGGING
-                // Return false if exception
-                return false;
+                // Return null if exception
+                return null;
             }
         }
 
@@ -62,12 +67,13 @@ namespace Archieves_Persistence.Repositories.Concrete.Common
         {
             try
             {
+                // Check if entity is null
+                if (entity is null)
+                    return false;
                 // Remove entity from database
                 _context.Set<T>().Remove(entity);
-                // Save changes
-                await _context.SaveChangesAsync();
-                // Return true if success
-                return true;
+                // Save changes and return true if success
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception exception)
             {
@@ -84,12 +90,13 @@ namespace Archieves_Persistence.Repositories.Concrete.Common
             {
                 // Find entity by id
                 var entity = await GetByIdAsync(id);
+                // Check if entity is null
+                if (entity is null)
+                    return false;
                 // Remove entity from database
                 _context.Set<T>().Remove(entity);
-                // Save changes
-                await _context.SaveChangesAsync();
-                // Return true if success
-                return true;
+                // Save changes and return true if success
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception exception)
             {
@@ -116,12 +123,12 @@ namespace Archieves_Persistence.Repositories.Concrete.Common
             }
         }
 
-        public async Task<List<T>?> GetAllAsync()
+        public async Task<IQueryable<T>?> GetAllAsync()
         {
             try
             {
                 // Get all entities from database
-                return await _context.Set<T>().ToListAsync();
+                return _context.Set<T>().AsQueryable().AsNoTracking();
             }
             catch (Exception exception)
             {
@@ -130,6 +137,14 @@ namespace Archieves_Persistence.Repositories.Concrete.Common
                 // Return null if exception
                 return null;
             }
+        }
+        private void TrackControl(T entity)
+        {
+            // Check if entity is tracking
+            bool tracking = _context.ChangeTracker.Entries<T>().Any(x => x.Entity.Id == entity.Id);
+            // Detach entity if tracking
+            if (tracking)
+                _context.ChangeTracker.Entries<T>().FirstOrDefault(x => x.Entity.Id == entity.Id).State = EntityState.Detached;
         }
         #endregion
     }
