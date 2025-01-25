@@ -1,7 +1,7 @@
 <!-- Başlık -->
 <div align = "center">
 	<h1>
-		🪐 E - KÜTÜPHANE OTOMASYONU 🪐
+		E - KÜTÜPHANE OTOMASYONU
 	</h1>
 </div>
 
